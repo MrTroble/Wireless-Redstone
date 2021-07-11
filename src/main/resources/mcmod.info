@@ -1,0 +1,16 @@
+[
+{
+  "modid": "gircredstone",
+  "name": "GIRC Redstone",
+  "description": "Example placeholder mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["MrTroble"],
+  "credits": "MrTroble",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
