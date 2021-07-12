@@ -8,7 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 public class BlockBasic extends Block {
 
 	public BlockBasic(final String name) {
-		super(Material.ROCK);
+		super(Material.CIRCUITS);
 		this.setRegistryName(GIRCRedstoneMain.MODID, name);
 		this.setCreativeTab(CreativeTabs.REDSTONE);
 	}
