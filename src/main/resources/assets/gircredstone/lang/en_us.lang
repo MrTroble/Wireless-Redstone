@@ -1,0 +1,6 @@
+item.linker.name=WLR Linker
+tile.acceptor.name=WLR Acceptor
+tile.emitter.name=WLR Emitter
+lt.added=Added acceptor to linker
+lt.linked=Linked to emitter
+lt.notusable=Not usable on this block!

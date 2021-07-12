@@ -11,6 +11,7 @@ public class BlockBasic extends Block {
 		super(Material.CIRCUITS);
 		this.setRegistryName(GIRCRedstoneMain.MODID, name);
 		this.setCreativeTab(CreativeTabs.REDSTONE);
+		this.setUnlocalizedName(name);
 	}
 
 }
