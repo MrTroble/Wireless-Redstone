@@ -31,7 +31,6 @@ public class TileRedstoneEmitter extends TileEntity {
 
 	public void redstoneUpdate(final boolean enabled) {
 		if (linkedpos != null) {
-			System.out.println("RSUP: " + enabled);
 			final boolean flag = !world.isBlockLoaded(linkedpos);
 			Chunk lchunk = null;
 			if(flag) {
