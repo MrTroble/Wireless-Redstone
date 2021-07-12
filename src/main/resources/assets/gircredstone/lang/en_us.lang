@@ -1,5 +1,10 @@
 #Items
+item.linker.name=WLR Linker
 
 #Blocks
-tile.emitter.name=Wireless Redstone Emitter
-tile.acceptor.name=Wireless Redstone Acceptor
+tile.emitter.name=WLR Emitter
+tile.acceptor.name=WLR Acceptor
+
+lt.added=Added acceptor to linker
+lt.linked=Linked acceptor to emitter
+lt.notusable=Not usable on this block!
