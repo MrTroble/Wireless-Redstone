@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "power=false": {
+            "model": "gircredstone:acceptor"
+        },
+        "power=true": {
+            "model": "gircredstone:acceptor"			
+        }
+    }
+}
