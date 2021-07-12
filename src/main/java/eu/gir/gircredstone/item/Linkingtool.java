@@ -21,6 +21,7 @@ public class Linkingtool extends Item {
 	public Linkingtool() {
 		this.setCreativeTab(CreativeTabs.REDSTONE);
 		this.setRegistryName(GIRCRedstoneMain.MODID, "linker");
+		this.setUnlocalizedName(this.getRegistryName().getResourcePath());
 	}
 	
 	private static final String ID_X = "xLinkedPos";
