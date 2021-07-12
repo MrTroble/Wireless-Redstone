@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "gircredstone:blocks/emitter"
+        "all": "gircredstone:blocks/acceptor_on"
     }
 }

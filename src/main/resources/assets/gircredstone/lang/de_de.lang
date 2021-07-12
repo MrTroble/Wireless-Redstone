@@ -1,0 +1,10 @@
+#Items
+item.linker.name=WLR Verlinker
+
+#Blocks
+tile.emitter.name=WLR Sender
+tile.acceptor.name=WLR Akzeptor
+
+lt.added=Akzeptor zum Linker hinzugefügt
+lt.linked=Verknüpfung von Akzeptor und Sender
+lt.notusable=An diesem Block nicht verwendbar!
