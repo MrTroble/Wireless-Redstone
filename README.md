@@ -1,18 +1,18 @@
 # GIRC-Redstone
 
 [
-![Curseforge Downloads](https://cf.way2muchnoise.eu/gir-signal-mod.svg)
-![Curseforge Versions](http://cf.way2muchnoise.eu/versions/gir-signal-mod.svg)
-](https://www.curseforge.com/minecraft/mc-mods/gir-signal-mod)
+![Curseforge Downloads](https://cf.way2muchnoise.eu/girc-wireless-redstone.svg)
+![Curseforge Versions](http://cf.way2muchnoise.eu/versions/girc-wireless-redstone.svg)
+](https://www.curseforge.com/minecraft/mc-mods/girc-wireless-redstone)
 [
 ![Discord](https://img.shields.io/discord/690967067855421470)
 ](https://discord.gg/UdxeFgG)
 
 ## This mod adds performant wireless redstone
 
-- Download on [curseforge](https://www.curseforge.com/minecraft/mc-mods/gir-signal-mod).  
+- Download on [curseforge](https://www.curseforge.com/minecraft/mc-mods/girc-wireless-redstone).  
 - Find more information on our [website](https://girc.eu/wordpress/).
-- Updates can be found in the [changelog](changelog.txt).
+- Updates can be found in the [changelog](changelog.md).
 
 ## How to build this mod
 
