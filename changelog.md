@@ -7,6 +7,8 @@
 * Linkingtools can now be unlinked via sneaking and right clicking
 * Additional information has been added
 * Positions are now shown when the linking tool is used
+* Added crafting recipes
+* Updated EN, DE language
 
 ## 1.0
 
