@@ -2,9 +2,12 @@
 item.linker.name=WLR Verlinker
 
 #Blocks
-tile.emitter.name=WLR Sender
-tile.acceptor.name=WLR Akzeptor
+tile.emitter.name=WLR Signal-Sender
+tile.acceptor.name=WLR Signal-Akzeptor
 
-lt.added=Akzeptor zum Linker hinzugefügt
-lt.linked=Verknüpfung von Akzeptor und Sender
-lt.notusable=An diesem Block nicht verwendbar!
+lt.linkedpos=§2Verlinkt mit: {%d, %d, %d}§r
+lt.setpos=§2Gesetzt auf: {%d, %d, %d}§r%n§l§9Bitte klicke auf einen Signal-Sender um zu verknüpfen.§r
+lt.notlinked=§cNicht verlinkt!§r%n§l§9Bitte klicke auf einen Signal-Akzeptor  um zu verknüpfen.§r
+lt.reset=§cDer Verlinker ist zurückgesetzt.§r
+em.notlinked=§cDer Signal-Sender ist nicht verlinkt!§r
+em.unlink=§cNicht mehr verlinkt.§r
