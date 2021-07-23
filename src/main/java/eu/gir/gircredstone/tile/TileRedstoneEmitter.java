@@ -25,8 +25,22 @@ public class TileRedstoneEmitter extends TileEntity {
 		this.linkedpos = Linkingtool.readBlockPosFromNBT(compound);
 	}
 
-	public void link(final BlockPos pos) {
+	public boolean link(final BlockPos pos) {
+		if(pos == null)
+			return false;
 		this.linkedpos = pos;
+		return true;
+	}
+	
+	public boolean unlink() {
+		if(this.linkedpos == null)
+			return false;
+		this.linkedpos = null;
+		return true;
+	}
+	
+	public BlockPos getLinkedPos() {
+		return this.linkedpos;
 	}
 
 	public void redstoneUpdate(final boolean enabled) {
