@@ -4,9 +4,8 @@ import org.apache.logging.log4j.Logger;
 
 import eu.gir.gircredstone.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = GIRCRedstoneMain.MODID)
@@ -26,8 +25,4 @@ public class GIRCRedstoneMain
         PROXY.preinit();
     }
 
-    @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-    }
 }
