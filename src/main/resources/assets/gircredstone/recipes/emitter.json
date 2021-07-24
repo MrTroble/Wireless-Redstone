@@ -1,5 +1,5 @@
 {
-  "type": "crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "pattern": [
     "IiI",
     "XYX",
@@ -13,7 +13,8 @@
       "item": "minecraft:redstone"
     },
     "X": {
-      "item": "minecraft:concrete"
+      "item": "minecraft:concrete",
+      "data": 0
     },
     "Y": {
       "item": "minecraft:obsidian"
