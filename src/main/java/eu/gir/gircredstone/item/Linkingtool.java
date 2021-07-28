@@ -20,7 +20,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 public class Linkingtool extends Item {
@@ -60,7 +60,7 @@ public class Linkingtool extends Item {
 			final ItemStack stack = player.getHeldItem(hand);
 			if (Linkingtool.readBlockPosFromNBT(stack.getTagCompound()) != null) {
 				stack.setTagCompound(null);
-				player.sendMessage(new TextComponentString(I18n.format("lt.reset")));
+				player.sendMessage(new TextComponentTranslation("lt.reset"));
 				return EnumActionResult.SUCCESS;
 			}
 		}
@@ -71,8 +71,8 @@ public class Linkingtool extends Item {
 				return EnumActionResult.FAIL;
 			writeBlockPosToNBT(pos, comp);
 			player.getHeldItem(hand).setTagCompound(comp);
-			player.sendMessage(new TextComponentString(I18n.format("lt.setpos", pos.getX(), pos.getY(), pos.getZ())
-					.replaceAll(String.valueOf((char) 13), "").trim()));
+			player.sendMessage(new TextComponentTranslation("lt.setpos", pos.getX(), pos.getY(), pos.getZ()));
+			player.sendMessage(new TextComponentTranslation("lt.setpos.msg"));
 			return EnumActionResult.SUCCESS;
 		}
 		if (block instanceof BlockRedstoneEmitter) {
@@ -81,14 +81,13 @@ public class Linkingtool extends Item {
 			final NBTTagCompound comp = stack.getTagCompound();
 			final BlockPos linkpos = Linkingtool.readBlockPosFromNBT(comp);
 			if (emitter.link(linkpos)) {
-				player.sendMessage(new TextComponentString(
-						I18n.format("lt.linkedpos", linkpos.getX(), linkpos.getY(), linkpos.getZ())));
+				player.sendMessage(new TextComponentTranslation("lt.linkedpos", linkpos.getX(), linkpos.getY(), linkpos.getZ()));
 				stack.setTagCompound(null);
-				player.sendMessage(new TextComponentString(I18n.format("lt.reset")));
+				player.sendMessage(new TextComponentTranslation("lt.reset"));
 				return EnumActionResult.SUCCESS;
 			}
-			player.sendMessage(new TextComponentString(
-					I18n.format("lt.notlinked").replaceAll(String.valueOf((char) 13), "").trim()));
+			player.sendMessage(new TextComponentTranslation("lt.notlinked"));
+			player.sendMessage(new TextComponentTranslation("lt.notlinked.msg"));
 			return EnumActionResult.FAIL;
 		}
 		return EnumActionResult.FAIL;
