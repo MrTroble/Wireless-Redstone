@@ -5,13 +5,12 @@ import eu.gir.gircredstone.tile.TileRedstoneEmitter;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 public class BlockRedstoneEmitter extends BlockBasic implements ITileEntityProvider {
@@ -37,15 +36,13 @@ public class BlockRedstoneEmitter extends BlockBasic implements ITileEntityProvi
 			final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
 			final BlockPos linkedpos = emitter.getLinkedPos();
 			if (linkedpos == null) {
-				player.sendMessage(new TextComponentString(I18n.format("em.notlinked")));
+				player.sendMessage(new TextComponentTranslation("em.notlinked"));
 			} else {
 				if (player.isSneaking()) {
 					emitter.unlink();
-					player.sendMessage(new TextComponentString(
-							I18n.format("em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ())));
+					player.sendMessage(new TextComponentTranslation("em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ()));
 				} else {
-					player.sendMessage(new TextComponentString(
-							I18n.format("lt.linkedpos", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ())));
+					player.sendMessage(new TextComponentTranslation("lt.linkedpos", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ()));
 				}
 			}
 			return true;
