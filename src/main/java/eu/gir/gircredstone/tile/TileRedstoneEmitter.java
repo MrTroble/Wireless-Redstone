@@ -1,16 +1,16 @@
 package eu.gir.gircredstone.tile;
 
-import com.google.common.collect.Lists;
+import java.util.concurrent.ExecutionException;
 
 import eu.gir.gircredstone.block.BlockRedstoneAcceptor;
 import eu.gir.gircredstone.init.GIRCInit;
 import eu.gir.gircredstone.item.Linkingtool;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.ChunkProviderServer;
+import net.minecraft.world.server.ServerChunkProvider;
 
 public class TileRedstoneEmitter extends TileEntity {
 
@@ -21,13 +21,13 @@ public class TileRedstoneEmitter extends TileEntity {
 	private BlockPos linkedpos = null;
 	
 	@Override
-	public NBTTagCompound write(NBTTagCompound compound) {
+	public CompoundNBT write(CompoundNBT compound) {
 		Linkingtool.writeBlockPosToNBT(linkedpos, compound);
 		return super.write(compound);
 	}
 
 	@Override
-	public void read(NBTTagCompound compound) {
+	public void read(CompoundNBT compound) {
 		super.read(compound);
 		this.linkedpos = Linkingtool.readBlockPosFromNBT(compound);
 	}
@@ -51,22 +51,33 @@ public class TileRedstoneEmitter extends TileEntity {
 	}
 	
 	public void accept(final boolean enabled) {
-		final IBlockState state = world.getBlockState(linkedpos);
+		final BlockState state = world.getBlockState(linkedpos);
 		if (state.getBlock() instanceof BlockRedstoneAcceptor) {
 			world.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, enabled));
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void redstoneUpdate(final boolean enabled) {
 		if (linkedpos != null) {
 			final boolean flag = !world.isBlockLoaded(linkedpos);
 			if(flag) {
-				final Chunk chunk = world.getChunk(linkedpos);
-				final ChunkProviderServer provider = (ChunkProviderServer) world.getChunkProvider();
-				provider.loadChunks(Lists.newArrayList(chunk.getPos()), ch -> {
-					accept(enabled);
-					provider.queueUnload(ch);
-				});
+				final Chunk chunk = world.getChunkAt(linkedpos);
+				final ServerChunkProvider provider = (ServerChunkProvider) world.getChunkProvider();
+				try {
+					provider.chunkManager.func_219188_b(chunk.getPos()).get().ifLeft(ch -> {
+						accept(enabled);
+						try {
+							provider.chunkManager.func_222973_a(chunk).get();
+						} catch (InterruptedException | ExecutionException e) {
+							e.printStackTrace();
+						}
+					});
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}
 				return;
 			}
 			accept(enabled);
