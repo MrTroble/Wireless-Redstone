@@ -11,8 +11,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+@SuppressWarnings("deprecation")
 public class BlockRedstoneEmitter extends BlockBasic implements ITileEntityProvider {
 
 	public BlockRedstoneEmitter() {
@@ -20,16 +22,16 @@ public class BlockRedstoneEmitter extends BlockBasic implements ITileEntityProvi
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileRedstoneEmitter();
+	public TileEntity createTileEntity(IBlockState state, IBlockReader world) {
+		return createNewTileEntity(world);
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-			EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand,
+			EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (world.isRemote)
 			return true;
-		if(player.getHeldItem(hand).getItem().equals(GIRCInit.RS_LINKER))
+		if (player.getHeldItem(hand).getItem().equals(GIRCInit.RS_LINKER))
 			return false;
 		final TileEntity entity = world.getTileEntity(pos);
 		if (entity instanceof TileRedstoneEmitter) {
@@ -40,9 +42,11 @@ public class BlockRedstoneEmitter extends BlockBasic implements ITileEntityProvi
 			} else {
 				if (player.isSneaking()) {
 					emitter.unlink();
-					player.sendMessage(new TextComponentTranslation("em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ()));
+					player.sendMessage(new TextComponentTranslation("em.unlink", linkedpos.getX(), linkedpos.getY(),
+							linkedpos.getZ()));
 				} else {
-					player.sendMessage(new TextComponentTranslation("lt.linkedpos", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ()));
+					player.sendMessage(new TextComponentTranslation("lt.linkedpos", linkedpos.getX(), linkedpos.getY(),
+							linkedpos.getZ()));
 				}
 			}
 			return true;
@@ -59,5 +63,10 @@ public class BlockRedstoneEmitter extends BlockBasic implements ITileEntityProvi
 			final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
 			emitter.redstoneUpdate(world.isBlockPowered(pos));
 		}
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+		return new TileRedstoneEmitter();
 	}
 }

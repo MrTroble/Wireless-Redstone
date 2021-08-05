@@ -39,7 +39,7 @@ archivesBaseName = 'GIRC-Redstone'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20171003-1.12'
+    mappings channel: 'snapshot', version: '20180921-1.13'
 
     runs {
         client {
@@ -56,7 +56,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
+    minecraft 'net.minecraftforge:forge:1.13.2-25.0.219'
 }
 
 jar {
@@ -70,16 +70,6 @@ jar {
             "Implementation-Vendor" :"GIRC",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
-    }
-}
-
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        include "mcmod.info"               
-        expand "version":System.getenv("APPVEYOR_BUILD_VERSION")
-    }
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "mcmod.info"
     }
 }
 

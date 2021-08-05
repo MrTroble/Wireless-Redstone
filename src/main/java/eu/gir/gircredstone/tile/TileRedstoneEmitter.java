@@ -1,6 +1,9 @@
 package eu.gir.gircredstone.tile;
 
+import com.google.common.collect.Lists;
+
 import eu.gir.gircredstone.block.BlockRedstoneAcceptor;
+import eu.gir.gircredstone.init.GIRCInit;
 import eu.gir.gircredstone.item.Linkingtool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,17 +14,21 @@ import net.minecraft.world.gen.ChunkProviderServer;
 
 public class TileRedstoneEmitter extends TileEntity {
 
-	private BlockPos linkedpos = null;
+	public TileRedstoneEmitter() {
+		super(GIRCInit.EMITER_TILE);
+	}
 
+	private BlockPos linkedpos = null;
+	
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+	public NBTTagCompound write(NBTTagCompound compound) {
 		Linkingtool.writeBlockPosToNBT(linkedpos, compound);
-		return super.writeToNBT(compound);
+		return super.write(compound);
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound) {
-		super.readFromNBT(compound);
+	public void read(NBTTagCompound compound) {
+		super.read(compound);
 		this.linkedpos = Linkingtool.readBlockPosFromNBT(compound);
 	}
 
@@ -42,26 +49,27 @@ public class TileRedstoneEmitter extends TileEntity {
 	public BlockPos getLinkedPos() {
 		return this.linkedpos;
 	}
+	
+	public void accept(final boolean enabled) {
+		final IBlockState state = world.getBlockState(linkedpos);
+		if (state.getBlock() instanceof BlockRedstoneAcceptor) {
+			world.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, enabled));
+		}
+	}
 
 	public void redstoneUpdate(final boolean enabled) {
 		if (linkedpos != null) {
 			final boolean flag = !world.isBlockLoaded(linkedpos);
-			Chunk lchunk = null;
 			if(flag) {
-				final Chunk chunk = world.getChunkFromBlockCoords(linkedpos);
+				final Chunk chunk = world.getChunk(linkedpos);
 				final ChunkProviderServer provider = (ChunkProviderServer) world.getChunkProvider();
-				lchunk = provider.loadChunk(chunk.x, chunk.z);
-				if(lchunk == null)
-					return;
+				provider.loadChunks(Lists.newArrayList(chunk.getPos()), ch -> {
+					accept(enabled);
+					provider.queueUnload(ch);
+				});
+				return;
 			}
-			final IBlockState state = world.getBlockState(linkedpos);
-			if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-				world.setBlockState(linkedpos, state.withProperty(BlockRedstoneAcceptor.POWER, enabled));
-			}
-			if(lchunk != null) {
-				final ChunkProviderServer provider = (ChunkProviderServer) world.getChunkProvider();
-				provider.queueUnload(lchunk);
-			}
+			accept(enabled);
 		}
 	}
 

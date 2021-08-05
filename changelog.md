@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.13.2 release
+
 ## [Fix] 07.28.2021 - 1
 * Fixed issues with server sided translation keys
 
