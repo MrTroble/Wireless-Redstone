@@ -1,0 +1,13 @@
+{
+    "item.gircredstone.linker": "WLR Verlinker",
+    "block.gircredstone.emitter": "WLR Signal-Sender",
+    "block.gircredstone.acceptor": "WLR Signal-Akzeptor",
+    "lt.linkedpos": "§2Verlinkt mit: {%d, %d, %d§2}§r",
+    "lt.setpos": "§2Gesetzt auf: {%d, %d, %d§2}§r",
+    "lt.setpos.msg": "§l§9Bitte klicke auf einen Signal-Sender um die Verknüpfung herzustellen.§r",
+    "lt.notlinked": "§cNicht verlinkt!§r",
+    "lt.notlinked.msg": "§l§9Bitte klicke auf einen Signal-Akzeptor um zu verknüpfen.§r",
+    "lt.reset": "§cDer Verlinker ist zurückgesetzt.§r",
+    "em.notlinked": "§cDer Signal-Sender ist nicht verlinkt!§r",
+    "em.unlink": "§cNicht mehr verlinkt.§r"
+}

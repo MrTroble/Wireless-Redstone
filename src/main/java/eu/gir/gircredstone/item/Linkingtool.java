@@ -106,6 +106,7 @@ public class Linkingtool extends Item {
 			}
 		}
 		tooltip.add(new TextComponentTranslation("lt.notlinked"));
+		tooltip.add(new TextComponentTranslation("lt.notlinked.msg"));
 	}
 
 }

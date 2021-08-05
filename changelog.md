@@ -1,5 +1,8 @@
 # Changelog
 
+## [Fix] 1.13.2 - 08.05.2021 - 2
+* Fixed issue with language keys not working
+
 ## 1.13.2 release
 
 ## [Fix] 07.28.2021 - 1
