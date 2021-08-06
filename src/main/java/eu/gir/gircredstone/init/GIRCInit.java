@@ -30,7 +30,6 @@ public class GIRCInit {
 		IForgeRegistry<Block> registry = event.getRegistry();
 		registry.register(RS_ACCEPTOR);
 		registry.register(RS_EMITTER);
-		GIRCRedstoneMain.LOGGER.info("Hello!000000000000=========================================000000");
 	}
 
 	@SubscribeEvent
