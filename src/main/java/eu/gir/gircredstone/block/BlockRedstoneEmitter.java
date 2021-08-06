@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -24,15 +25,15 @@ public class BlockRedstoneEmitter extends BlockBasic implements ITileEntityProvi
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
 		return createNewTileEntity(world);
-	}
+	}	
 	
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
 			BlockRayTraceResult hit) {
 		if (world.isRemote)
-			return true;
+			return ActionResultType.PASS;
 		if (player.getHeldItem(hand).getItem().equals(GIRCInit.RS_LINKER))
-			return false;
+			return ActionResultType.PASS;
 		final TileEntity entity = world.getTileEntity(pos);
 		if (entity instanceof TileRedstoneEmitter) {
 			final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
@@ -49,9 +50,9 @@ public class BlockRedstoneEmitter extends BlockBasic implements ITileEntityProvi
 							linkedpos.getZ()));
 				}
 			}
-			return true;
+			return ActionResultType.SUCCESS;
 		}
-		return false;
+		return ActionResultType.FAIL;
 	}
 
 	@Override
