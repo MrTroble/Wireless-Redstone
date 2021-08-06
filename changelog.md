@@ -1,5 +1,8 @@
 # Changelog
 
+## [Fix] 1.14.4 - 08.06.2021 - 1
+* Fixed issue with unneeded chunkloading
+
 ## [Fix] 1.13.2 - 08.05.2021 - 2
 * Fixed issue with language keys not working
 
