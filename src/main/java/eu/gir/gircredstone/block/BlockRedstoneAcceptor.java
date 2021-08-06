@@ -1,12 +1,12 @@
 package eu.gir.gircredstone.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer.Builder;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public class BlockRedstoneAcceptor extends BlockBasic {
 	
@@ -23,17 +23,17 @@ public class BlockRedstoneAcceptor extends BlockBasic {
 	}
 	
 	@Override
-	public int getSignal(BlockState p_180656_1_, IBlockReader p_180656_2_, BlockPos p_180656_3_,
+	public int getSignal(BlockState p_180656_1_, BlockGetter p_180656_2_, BlockPos p_180656_3_,
 			Direction p_180656_4_) {
 		return this.getDirectSignal(p_180656_1_, p_180656_2_, p_180656_3_, p_180656_4_);
 	}
 	
 	@Override
-	public int getDirectSignal(BlockState blockState, IBlockReader p_176211_2_, BlockPos p_176211_3_,
+	public int getDirectSignal(BlockState blockState, BlockGetter p_176211_2_, BlockPos p_176211_3_,
 			Direction p_176211_4_) {
         return blockState.getValue(POWER) ? 15:0;
 	}
-	
+		
     @Override
     protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
     	builder.add(POWER);

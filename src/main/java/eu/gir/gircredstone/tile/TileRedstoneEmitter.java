@@ -3,30 +3,30 @@ package eu.gir.gircredstone.tile;
 import eu.gir.gircredstone.block.BlockRedstoneAcceptor;
 import eu.gir.gircredstone.init.GIRCInit;
 import eu.gir.gircredstone.item.Linkingtool;
-import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class TileRedstoneEmitter extends TileEntity {
+public class TileRedstoneEmitter extends BlockEntity {
 
-	public TileRedstoneEmitter() {
-		super(GIRCInit.EMITER_TILE);
+	public TileRedstoneEmitter(BlockPos pos, BlockState state) {
+		super(GIRCInit.EMITER_TILE, pos, state);
 	}
 
 	private BlockPos linkedpos = null;
 
 	@Override
-	public void deserializeNBT(CompoundNBT nbt) {
+	public void deserializeNBT(CompoundTag nbt) {
 		super.deserializeNBT(nbt);
 		this.linkedpos = Linkingtool.readBlockPosFromNBT(nbt);
 	}
-	
+
 	@Override
-	public CompoundNBT serializeNBT() {
+	public CompoundTag serializeNBT() {
 		return Linkingtool.writeBlockPosToNBT(linkedpos, super.serializeNBT());
 	}
-	
+
 	public boolean link(final BlockPos pos) {
 		if (pos == null)
 			return false;
