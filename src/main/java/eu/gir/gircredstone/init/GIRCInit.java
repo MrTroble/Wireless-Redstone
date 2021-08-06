@@ -35,14 +35,14 @@ public class GIRCInit {
 	@SubscribeEvent
 	public static void registerItem(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
-		registry.register(new BlockItem(RS_ACCEPTOR, new Properties().group(ItemGroup.REDSTONE))
+		registry.register(new BlockItem(RS_ACCEPTOR, new Properties().tab(ItemGroup.TAB_REDSTONE))
 				.setRegistryName(RS_ACCEPTOR.getRegistryName()));
 		registry.register(RS_LINKER);
-		registry.register(new BlockItem(RS_EMITTER, new Properties().group(ItemGroup.REDSTONE))
+		registry.register(new BlockItem(RS_EMITTER, new Properties().tab(ItemGroup.TAB_REDSTONE))
 				.setRegistryName(RS_EMITTER.getRegistryName()));
 	}
 
-	public static final TileEntityType<?> EMITER_TILE = TileEntityType.Builder.create(TileRedstoneEmitter::new).build(null);
+	public static final TileEntityType<?> EMITER_TILE = TileEntityType.Builder.of(TileRedstoneEmitter::new).build(null);
 
 	@SubscribeEvent
 	public static void registerTE(RegistryEvent.Register<TileEntityType<?>> evt) {

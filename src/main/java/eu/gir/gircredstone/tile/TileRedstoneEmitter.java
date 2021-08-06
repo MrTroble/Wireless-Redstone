@@ -17,17 +17,16 @@ public class TileRedstoneEmitter extends TileEntity {
 	private BlockPos linkedpos = null;
 
 	@Override
-	public CompoundNBT write(CompoundNBT compound) {
-		Linkingtool.writeBlockPosToNBT(linkedpos, compound);
-		return super.write(compound);
+	public void deserializeNBT(CompoundNBT nbt) {
+		super.deserializeNBT(nbt);
+		this.linkedpos = Linkingtool.readBlockPosFromNBT(nbt);
 	}
-
+	
 	@Override
-	public void read(CompoundNBT compound) {
-		super.read(compound);
-		this.linkedpos = Linkingtool.readBlockPosFromNBT(compound);
+	public CompoundNBT serializeNBT() {
+		return Linkingtool.writeBlockPosToNBT(linkedpos, super.serializeNBT());
 	}
-
+	
 	public boolean link(final BlockPos pos) {
 		if (pos == null)
 			return false;
@@ -48,9 +47,9 @@ public class TileRedstoneEmitter extends TileEntity {
 
 	public void redstoneUpdate(final boolean enabled) {
 		if (linkedpos != null) {
-			final BlockState state = world.getBlockState(linkedpos);
+			final BlockState state = level.getBlockState(linkedpos);
 			if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-				world.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, enabled));
+				level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, enabled), 3);
 			}
 		}
 	}

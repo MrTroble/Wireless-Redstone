@@ -1,6 +1,7 @@
 modLoader="javafml"
-loaderVersion="[25,)"
+loaderVersion="[36,)"
 issueTrackerURL="https://github.com/German-Immersive-Railroading-Community/GIRC-Redstone/issues"
+license="Apache License Version 2.0"
 
 [[mods]]
 modId="gircredstone"
@@ -24,6 +25,6 @@ Works in unloaded Chunks TM.
 [[dependencies.gircredstone]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.2]"
+    versionRange="[1.16.5]"
     ordering="NONE"
     side="BOTH"

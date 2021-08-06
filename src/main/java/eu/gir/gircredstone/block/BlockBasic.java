@@ -7,7 +7,7 @@ import net.minecraft.block.material.Material;
 public class BlockBasic extends Block {
 
 	public BlockBasic(final String name) {
-		super(Properties.create(Material.MISCELLANEOUS));
+		super(Properties.of(Material.METAL));
 		this.setRegistryName(GIRCRedstoneMain.MODID, name);
 	}
 

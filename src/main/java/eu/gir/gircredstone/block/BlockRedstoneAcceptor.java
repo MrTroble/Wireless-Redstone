@@ -14,26 +14,28 @@ public class BlockRedstoneAcceptor extends BlockBasic {
 
 	public BlockRedstoneAcceptor() {
 		super("acceptor");
-		this.setDefaultState(getDefaultState().with(POWER, false));
+		this.registerDefaultState(this.defaultBlockState().setValue(POWER, false));
 	}
-		
+	
 	@Override
-	public boolean canProvidePower(BlockState state) {
+	public boolean isSignalSource(BlockState p_149744_1_) {
 		return true;
 	}
 	
 	@Override
-	public int getWeakPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
-        return this.getStrongPower(blockState, blockAccess, pos, side);
+	public int getSignal(BlockState p_180656_1_, IBlockReader p_180656_2_, BlockPos p_180656_3_,
+			Direction p_180656_4_) {
+		return this.getDirectSignal(p_180656_1_, p_180656_2_, p_180656_3_, p_180656_4_);
 	}
-
+	
+	@Override
+	public int getDirectSignal(BlockState blockState, IBlockReader p_176211_2_, BlockPos p_176211_3_,
+			Direction p_176211_4_) {
+        return blockState.getValue(POWER) ? 15:0;
+	}
+	
     @Override
-    public int getStrongPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
-        return blockState.get(POWER) ? 15:0;
-    }
-
-    @Override
-    protected void fillStateContainer(Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
     	builder.add(POWER);
     }
     

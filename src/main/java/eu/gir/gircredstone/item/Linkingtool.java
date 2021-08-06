@@ -1,6 +1,7 @@
 package eu.gir.gircredstone.item;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -27,7 +28,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class Linkingtool extends Item {
 
 	public Linkingtool() {
-		super(new Properties().group(ItemGroup.REDSTONE));
+		super(new Properties().tab(ItemGroup.TAB_REDSTONE));
 		this.setRegistryName(GIRCRedstoneMain.MODID, "linker");
 	}
 
@@ -35,12 +36,13 @@ public class Linkingtool extends Item {
 	private static final String ID_Y = "yLinkedPos";
 	private static final String ID_Z = "zLinkedPos";
 
-	public static void writeBlockPosToNBT(BlockPos pos, CompoundNBT compound) {
+	public static CompoundNBT writeBlockPosToNBT(BlockPos pos, CompoundNBT compound) {
 		if (pos != null && compound != null) {
 			compound.putInt(ID_X, pos.getX());
 			compound.putInt(ID_Y, pos.getY());
 			compound.putInt(ID_Z, pos.getZ());
 		}
+		return compound;
 	}
 
 	public static BlockPos readBlockPosFromNBT(CompoundNBT compound) {
@@ -52,16 +54,17 @@ public class Linkingtool extends Item {
 	
 	@Override
 	public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext ctx) {
-		final World worldIn = ctx.getWorld();
+		final World worldIn = ctx.getLevel();
 		final PlayerEntity player = ctx.getPlayer();
-		final BlockPos pos = ctx.getPos();
-		if (worldIn.isRemote)
+		final BlockPos pos = ctx.getClickedPos();
+		if (worldIn.isClientSide)
 			return ActionResultType.PASS;
 		final Block block = worldIn.getBlockState(pos).getBlock();
-		if (player.isSneaking()) {
+		final UUID uuid = player.getUUID();
+		if (player.isCrouching()) {
 			if (Linkingtool.readBlockPosFromNBT(stack.getTag()) != null) {
 				stack.setTag(null);
-				player.sendMessage(new TranslationTextComponent("lt.reset"));
+				player.sendMessage(new TranslationTextComponent("lt.reset"), uuid);
 				return ActionResultType.SUCCESS;
 			}
 		}
@@ -71,23 +74,23 @@ public class Linkingtool extends Item {
 				return ActionResultType.FAIL;
 			writeBlockPosToNBT(pos, comp);
 			stack.setTag(comp);
-			player.sendMessage(new TranslationTextComponent("lt.setpos", pos.getX(), pos.getY(), pos.getZ()));
-			player.sendMessage(new TranslationTextComponent("lt.setpos.msg"));
+			player.sendMessage(new TranslationTextComponent("lt.setpos", pos.getX(), pos.getY(), pos.getZ()), uuid);
+			player.sendMessage(new TranslationTextComponent("lt.setpos.msg"), uuid);
 			return ActionResultType.SUCCESS;
 		}
 		if (block instanceof BlockRedstoneEmitter) {
-			final TileRedstoneEmitter emitter = (TileRedstoneEmitter) worldIn.getTileEntity(pos);
+			final TileRedstoneEmitter emitter = (TileRedstoneEmitter) worldIn.getBlockEntity(pos);
 			final CompoundNBT comp = stack.getTag();
 			final BlockPos linkpos = Linkingtool.readBlockPosFromNBT(comp);
 			if (emitter.link(linkpos)) {
 				player.sendMessage(
-						new TranslationTextComponent("lt.linkedpos", linkpos.getX(), linkpos.getY(), linkpos.getZ()));
+						new TranslationTextComponent("lt.linkedpos", linkpos.getX(), linkpos.getY(), linkpos.getZ()), uuid);
 				stack.setTag(null);
-				player.sendMessage(new TranslationTextComponent("lt.reset"));
+				player.sendMessage(new TranslationTextComponent("lt.reset"), uuid);
 				return ActionResultType.SUCCESS;
 			}
-			player.sendMessage(new TranslationTextComponent("lt.notlinked"));
-			player.sendMessage(new TranslationTextComponent("lt.notlinked.msg"));
+			player.sendMessage(new TranslationTextComponent("lt.notlinked"), uuid);
+			player.sendMessage(new TranslationTextComponent("lt.notlinked.msg"), uuid);
 			return ActionResultType.FAIL;
 		}
 		return ActionResultType.FAIL;
@@ -95,7 +98,7 @@ public class Linkingtool extends Item {
 		
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		final CompoundNBT nbt = stack.getTag();
 		if (nbt != null) {
 			final BlockPos pos = Linkingtool.readBlockPosFromNBT(nbt);

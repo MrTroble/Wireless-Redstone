@@ -1,5 +1,7 @@
 package eu.gir.gircredstone.block;
 
+import java.util.UUID;
+
 import eu.gir.gircredstone.init.GIRCInit;
 import eu.gir.gircredstone.tile.TileRedstoneEmitter;
 import net.minecraft.block.Block;
@@ -24,30 +26,31 @@ public class BlockRedstoneEmitter extends BlockBasic implements ITileEntityProvi
 
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return createNewTileEntity(world);
+		return newBlockEntity(world);
 	}	
-	
+		
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
+	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
 			BlockRayTraceResult hit) {
-		if (world.isRemote)
+		if (world.isClientSide)
 			return ActionResultType.PASS;
-		if (player.getHeldItem(hand).getItem().equals(GIRCInit.RS_LINKER))
+		if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER))
 			return ActionResultType.PASS;
-		final TileEntity entity = world.getTileEntity(pos);
+		final TileEntity entity = world.getBlockEntity(pos);
+		final UUID uuid = player.getUUID();
 		if (entity instanceof TileRedstoneEmitter) {
 			final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
 			final BlockPos linkedpos = emitter.getLinkedPos();
 			if (linkedpos == null) {
-				player.sendMessage(new TranslationTextComponent("em.notlinked"));
+				player.sendMessage(new TranslationTextComponent("em.notlinked"), uuid);
 			} else {
-				if (player.isSneaking()) {
+				if (player.isCrouching()) {
 					emitter.unlink();
 					player.sendMessage(new TranslationTextComponent("em.unlink", linkedpos.getX(), linkedpos.getY(),
-							linkedpos.getZ()));
+							linkedpos.getZ()), uuid);
 				} else {
 					player.sendMessage(new TranslationTextComponent("lt.linkedpos", linkedpos.getX(), linkedpos.getY(),
-							linkedpos.getZ()));
+							linkedpos.getZ()), uuid);
 				}
 			}
 			return ActionResultType.SUCCESS;
@@ -58,17 +61,17 @@ public class BlockRedstoneEmitter extends BlockBasic implements ITileEntityProvi
 	@Override
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos,
 			boolean isMoving) {
-		if (world.isRemote)
+		if (world.isClientSide)
 			return;
-		final TileEntity entity = world.getTileEntity(pos);
+		final TileEntity entity = world.getBlockEntity(pos);
 		if (entity instanceof TileRedstoneEmitter) {
 			final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
-			emitter.redstoneUpdate(world.isBlockPowered(pos));
+			emitter.redstoneUpdate(world.hasNeighborSignal(pos));
 		}
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public TileEntity newBlockEntity(IBlockReader p_196283_1_) {
 		return new TileRedstoneEmitter();
 	}
 }
