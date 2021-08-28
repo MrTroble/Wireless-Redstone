@@ -1,7 +1,1 @@
-{
-    "variants": {
-        "": {
-            "model": "gircredstone:block/emitter"
-        }
-    }
-}
+{"variants": {"normal": {"model": "gircredstone:emitter"}}}
