@@ -1,10 +1,1 @@
-{
-    "variants": {
-        "power=false": {
-            "model": "gircredstone:acceptor_off"
-        },
-        "power=true": {
-            "model": "gircredstone:acceptor_on"			
-        }
-    }
-}
+{"variants": {"power=false": {"model": "gircredstone:acceptor_off"}, "power=true": {"model": "gircredstone:acceptor_on"}}}
