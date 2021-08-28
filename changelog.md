@@ -1,5 +1,10 @@
 # Changelog
 
+## [Update] 08.28.2021 - 1/2
+
+* Updated compression
+* Compacted json
+
 ## [Fix] 07.28.2021 - 1
 * Fixed issues with server sided translation keys
 
