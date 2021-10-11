@@ -1,5 +1,8 @@
 # Changelog
 
+## [Release] 10.11.2021 - 1
+Change release type from beta to release
+
 ## [Fix] 1.14.4 - 08.06.2021 - 1
 * Fixed issue with unneeded chunkloading
 
