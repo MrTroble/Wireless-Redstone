@@ -11,7 +11,7 @@
 ## This mod adds performant wireless redstone
 
 - Download on [curseforge](https://www.curseforge.com/minecraft/mc-mods/girc-wireless-redstone).  
-- Find more information on our [website](https://girc.eu/wordpress/).
+- Find more information on our [website](https://girc.eu/).
 - Updates can be found in the [changelog](changelog.md).
 
 ## How to build this mod
