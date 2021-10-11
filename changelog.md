@@ -1,5 +1,8 @@
 # Changelog
 
+## [Release] 10.11.2021 - 1
+Change release type from beta to release
+
 ## [Fix] 1.13.2 - 08.05.2021 - 2
 * Fixed issue with language keys not working
 
