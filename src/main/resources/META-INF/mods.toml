@@ -9,11 +9,7 @@ version="${file.jarVersion}"
 displayName="GIRC Redstone"
 displayURL="https://girc.eu/"
 authors="MrTroble, Jeronimo"
-description='''
-The official Wireless Redstone Mod for GIR.
-
-Works in unloaded Chunks TM.
-'''
+description="The official Wireless Redstone Mod for GIR.\nWorks in unloaded Chunks TM."
 
 [[dependencies.gircredstone]]
     modId="forge" 
