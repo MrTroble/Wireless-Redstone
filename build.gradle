@@ -26,7 +26,7 @@ curseforge {
     changelog = file('changelog.md')
     changelogType = 'markdown'
     releaseType = 'release'
-    addGameVersion 'Java 16'
+    addGameVersion 'Java 17'
   }
 }
 
@@ -38,10 +38,10 @@ version = ver
 group = 'eu.gir'
 archivesBaseName = 'GIRC-Redstone'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    mappings channel: 'official', version: '1.17.1'
+    mappings channel: 'official', version: '1.18'
 
     runs {
         client {
@@ -75,7 +75,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.17.1-37.0.84'
+    minecraft 'net.minecraftforge:forge:1.18-38.0.14'
 }
 
 jar {

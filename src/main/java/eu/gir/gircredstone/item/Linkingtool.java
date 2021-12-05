@@ -22,8 +22,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class Linkingtool extends Item {
 
@@ -96,7 +94,6 @@ public class Linkingtool extends Item {
 		return InteractionResult.FAIL;
 	}
 		
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level LevelIn, List<Component> tooltip, TooltipFlag flagIn) {
 		final CompoundTag nbt = stack.getTag();
