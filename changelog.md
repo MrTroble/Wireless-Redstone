@@ -1,5 +1,9 @@
 # Changelog
 
+## [Update] 01.31.2022 - 1
+
+* Update readme
+
 ## [Release] 10.11.2021 - 1
 Change release type from beta to release
 
