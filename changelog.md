@@ -1,5 +1,9 @@
 # Changelog
 
+## [Update] 01.31.2022 - 1
+
+* Update readme
+
 ## [Update] 08.28.2021 - 1/2
 
 * Updated compression
