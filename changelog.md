@@ -1,5 +1,9 @@
 # Changelog
 
+## [Fix] 1.15.2 - 03.09.2022 - 1
+
+* Fixed wrong textures
+
 ## [Update] 01.31.2022 - 1
 
 * Update readme
