@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["IiI", "XYX", "IZI"], "key": {"I": {"item": "minecraft:redstone_block"}, "i": {"item": "minecraft:redstone_torch"}, "X": {"item": "minecraft:concrete", "data": 0}, "Y": {"item": "minecraft:obsidian"}, "Z": {"item": "minecraft:diamond"}}, "result": {"item": "gircredstone:acceptor"}}
