@@ -1,5 +1,9 @@
 # Changelog
 
+## [Fix] 03.09.2022 - 1
+
+* Fixed wrong ressource files
+* Fixed loading bug
 
 ## [Update] 01.31.2022 - 1
 
