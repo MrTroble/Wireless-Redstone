@@ -16,7 +16,7 @@ updates:
       - "MrTroble"
     ignore:
       - dependency-name: "net.minecraftforge:forge"
-        versions: ["[,1.18]"]
+        versions: ["[1.18,]"]
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -26,7 +26,7 @@ updates:
       - "MrTroble"
     ignore:
       - dependency-name: "net.minecraftforge:forge"
-        versions: ["[,1.17]"]
+        versions: ["[1.17,]"]
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -37,7 +37,7 @@ updates:
     ignore:
       - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
       - dependency-name: "net.minecraftforge:forge"
-        versions: ["[,1.16]"]
+        versions: ["[1.16,]"]
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -48,7 +48,7 @@ updates:
     ignore:
       - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
       - dependency-name: "net.minecraftforge:forge"
-        versions: ["[,1.15]"]
+        versions: ["[1.15,]"]
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -59,7 +59,7 @@ updates:
     ignore:
       - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
       - dependency-name: "net.minecraftforge:forge"
-        versions: ["[,1.14]"]
+        versions: ["[1.14,]"]
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -70,4 +70,4 @@ updates:
     ignore:
       - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
       - dependency-name: "net.minecraftforge:forge"
-        versions: ["[,1.13]"]
+        versions: ["[1.13,]"]
