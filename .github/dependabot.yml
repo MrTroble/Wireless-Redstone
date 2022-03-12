@@ -15,7 +15,7 @@ updates:
     assignees:
       - "MrTroble"
     ignore:
-      - dependency-name: "forge"
+      - dependency-name: "net.minecraftforge:forge"
         versions: ["1.18.x"]
   - package-ecosystem: "gradle"
     directory: "/"
@@ -25,7 +25,7 @@ updates:
     assignees:
       - "MrTroble"
     ignore:
-      - dependency-name: "forge"
+      - dependency-name: "net.minecraftforge:forge"
         versions: ["(,1.16.0]"]
   - package-ecosystem: "gradle"
     directory: "/"
@@ -35,8 +35,8 @@ updates:
     assignees:
       - "MrTroble"
     ignore:
-      - dependency-name: "ForgeGradle"
-      - dependency-name: "forge"
+      - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
+      - dependency-name: "net.minecraftforge:forge"
         versions: ["(,1.15.0]"]
   - package-ecosystem: "gradle"
     directory: "/"
@@ -46,8 +46,8 @@ updates:
     assignees:
       - "MrTroble"
     ignore:
-      - dependency-name: "ForgeGradle"
-      - dependency-name: "forge"
+      - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
+      - dependency-name: "net.minecraftforge:forge"
         versions: ["(,1.14.0]"]
   - package-ecosystem: "gradle"
     directory: "/"
@@ -57,8 +57,8 @@ updates:
     assignees:
       - "MrTroble"
     ignore:
-      - dependency-name: "ForgeGradle"
-      - dependency-name: "forge"
+      - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
+      - dependency-name: "net.minecraftforge:forge"
         versions: ["(,1.13.0]"]
   - package-ecosystem: "gradle"
     directory: "/"
@@ -68,6 +68,6 @@ updates:
     assignees:
       - "MrTroble"
     ignore:
-      - dependency-name: "ForgeGradle"
-      - dependency-name: "forge"
+      - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
+      - dependency-name: "net.minecraftforge:forge"
         versions: ["(,1.12.0]"]
