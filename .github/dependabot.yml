@@ -1,0 +1,72 @@
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.18-master"
+    assignees:
+      - "MrTroble"
+    allow:
+      - dependency-name: "forge"
+        versions: ["1.18.x"]
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.17.1-master"
+    assignees:
+      - "MrTroble"
+    allow:
+      - dependency-name: "forge"
+        versions: ["1.17.x"]
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.16.5-master"
+    assignees:
+      - "MrTroble"
+    allow:
+      - dependency-name: "forge"
+        versions: ["1.16.x"]
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.15.2-master"
+    assignees:
+      - "MrTroble"
+    allow:
+      - dependency-name: "forge"
+        versions: ["1.15.x"]
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.14.4-master"
+    assignees:
+      - "MrTroble"
+    allow:
+      - dependency-name: "forge"
+        versions: ["1.14.x"]
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.13.3-master"
+    assignees:
+      - "MrTroble"
+    allow:
+      - dependency-name: "forge"
+        versions: ["1.13.x"]
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.12.2-master"
+    assignees:
+      - "MrTroble"
+    allow:
+      - dependency-name: "forge"
+        versions: ["1.12.x"]
