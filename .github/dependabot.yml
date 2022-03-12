@@ -53,7 +53,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    target-branch: "1.13.3-master"
+    target-branch: "1.13.2-master"
     assignees:
       - "MrTroble"
     ignore:
