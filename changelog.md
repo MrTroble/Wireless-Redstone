@@ -1,5 +1,10 @@
 # Changelog
 
+## [Internal]
+
+* ref: Added final modifier
+* deps: Updatet dependencies
+
 ## [Internal] 04.13.2022 - 1
 
 * Internal forge update

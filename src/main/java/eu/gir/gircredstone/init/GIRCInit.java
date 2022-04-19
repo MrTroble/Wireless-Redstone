@@ -31,16 +31,16 @@ public class GIRCInit {
 	private static final List<Block> blocks = new ArrayList<>();
 	
 	@SubscribeEvent
-	public static void registerBlock(RegistryEvent.Register<Block> event) {
-		IForgeRegistry<Block> registry = event.getRegistry();
+	public static void registerBlock(final RegistryEvent.Register<Block> event) {
+		final IForgeRegistry<Block> registry = event.getRegistry();
 		blocks.add(RS_ACCEPTOR = new BlockRedstoneAcceptor());
 		blocks.add(RS_EMITTER = new BlockRedstoneEmitter());
 		blocks.forEach(registry::register);
 	}
 	
 	@SubscribeEvent
-	public static void registerItem(RegistryEvent.Register<Item> event) {
-		IForgeRegistry<Item> registry = event.getRegistry();
+	public static void registerItem(final RegistryEvent.Register<Item> event) {
+		final IForgeRegistry<Item> registry = event.getRegistry();
 		blocks.forEach(block -> registry.register(new BlockItem(block, new Properties().tab(CreativeModeTab.TAB_REDSTONE)).setRegistryName(block.getRegistryName())));
 		registry.register(RS_LINKER = new Linkingtool());
 	}
@@ -48,7 +48,7 @@ public class GIRCInit {
 	public static BlockEntityType<?> EMITER_TILE;
 	
 	@SubscribeEvent
-	public static void registerTE(RegistryEvent.Register<BlockEntityType<?>> evt) {
+	public static void registerTE(final RegistryEvent.Register<BlockEntityType<?>> evt) {
 		EMITER_TILE = BlockEntityType.Builder.of(TileRedstoneEmitter::new, RS_EMITTER).build(null);
 		EMITER_TILE.setRegistryName(GIRCRedstoneMain.MODID, "emitter");
 		evt.getRegistry().register(EMITER_TILE);

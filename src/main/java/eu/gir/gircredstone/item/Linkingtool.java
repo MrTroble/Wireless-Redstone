@@ -24,17 +24,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 public class Linkingtool extends Item {
-
+	
 	public Linkingtool() {
 		super(new Properties().tab(CreativeModeTab.TAB_REDSTONE));
 		this.setRegistryName(GIRCRedstoneMain.MODID, "linker");
 	}
-
+	
 	private static final String ID_X = "xLinkedPos";
 	private static final String ID_Y = "yLinkedPos";
 	private static final String ID_Z = "zLinkedPos";
-
-	public static CompoundTag writeBlockPosToNBT(BlockPos pos, CompoundTag compound) {
+	
+	public static CompoundTag writeBlockPosToNBT(final BlockPos pos, final CompoundTag compound) {
 		if (pos != null && compound != null) {
 			compound.putInt(ID_X, pos.getX());
 			compound.putInt(ID_Y, pos.getY());
@@ -42,16 +42,16 @@ public class Linkingtool extends Item {
 		}
 		return compound;
 	}
-
-	public static BlockPos readBlockPosFromNBT(CompoundTag compound) {
+	
+	public static BlockPos readBlockPosFromNBT(final CompoundTag compound) {
 		if (compound != null && compound.contains(ID_X) && compound.contains(ID_Y) && compound.contains(ID_Z)) {
 			return new BlockPos(compound.getInt(ID_X), compound.getInt(ID_Y), compound.getInt(ID_Z));
 		}
 		return null;
-	}	
+	}
 	
 	@Override
-	public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext ctx) {
+	public InteractionResult onItemUseFirst(final ItemStack stack, final UseOnContext ctx) {
 		final Level LevelIn = ctx.getLevel();
 		final Player player = ctx.getPlayer();
 		final BlockPos pos = ctx.getClickedPos();
@@ -81,8 +81,7 @@ public class Linkingtool extends Item {
 			final CompoundTag comp = stack.getTag();
 			final BlockPos linkpos = Linkingtool.readBlockPosFromNBT(comp);
 			if (emitter.link(linkpos)) {
-				player.sendMessage(
-						new TranslatableComponent("lt.linkedpos", linkpos.getX(), linkpos.getY(), linkpos.getZ()), uuid);
+				player.sendMessage(new TranslatableComponent("lt.linkedpos", linkpos.getX(), linkpos.getY(), linkpos.getZ()), uuid);
 				stack.setTag(null);
 				player.sendMessage(new TranslatableComponent("lt.reset"), uuid);
 				return InteractionResult.SUCCESS;
@@ -93,9 +92,9 @@ public class Linkingtool extends Item {
 		}
 		return InteractionResult.FAIL;
 	}
-		
+	
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level LevelIn, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(final ItemStack stack, @Nullable final Level LevelIn, final List<Component> tooltip, final TooltipFlag flagIn) {
 		final CompoundTag nbt = stack.getTag();
 		if (nbt != null) {
 			final BlockPos pos = Linkingtool.readBlockPosFromNBT(nbt);
@@ -107,5 +106,5 @@ public class Linkingtool extends Item {
 		tooltip.add(new TranslatableComponent("lt.notlinked"));
 		tooltip.add(new TranslatableComponent("lt.notlinked.msg"));
 	}
-
+	
 }

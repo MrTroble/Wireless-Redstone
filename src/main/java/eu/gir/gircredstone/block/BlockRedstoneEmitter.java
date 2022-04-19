@@ -17,14 +17,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class BlockRedstoneEmitter extends BlockBasic implements EntityBlock {
-
+	
 	public BlockRedstoneEmitter() {
 		super("emitter");
 	}
-		
+	
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand,
-			BlockHitResult hit) {
+	public InteractionResult use(final BlockState state, final Level world, final BlockPos pos, final Player player, final InteractionHand hand, final BlockHitResult hit) {
 		if (world.isClientSide)
 			return InteractionResult.PASS;
 		if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER))
@@ -39,21 +38,18 @@ public class BlockRedstoneEmitter extends BlockBasic implements EntityBlock {
 			} else {
 				if (player.isCrouching()) {
 					emitter.unlink();
-					player.sendMessage(new TranslatableComponent("em.unlink", linkedpos.getX(), linkedpos.getY(),
-							linkedpos.getZ()), uuid);
+					player.sendMessage(new TranslatableComponent("em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ()), uuid);
 				} else {
-					player.sendMessage(new TranslatableComponent("lt.linkedpos", linkedpos.getX(), linkedpos.getY(),
-							linkedpos.getZ()), uuid);
+					player.sendMessage(new TranslatableComponent("lt.linkedpos", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ()), uuid);
 				}
 			}
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.FAIL;
 	}
-
+	
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockIn, BlockPos fromPos,
-			boolean isMoving) {
+	public void neighborChanged(final BlockState state, final Level world, final BlockPos pos, final Block blockIn, final BlockPos fromPos, final boolean isMoving) {
 		if (world.isClientSide)
 			return;
 		final BlockEntity entity = world.getBlockEntity(pos);
@@ -62,9 +58,9 @@ public class BlockRedstoneEmitter extends BlockBasic implements EntityBlock {
 			emitter.redstoneUpdate(world.hasNeighborSignal(pos));
 		}
 	}
-
+	
 	@Override
-	public BlockEntity newBlockEntity(BlockPos arg0, BlockState arg1) {
+	public BlockEntity newBlockEntity(final BlockPos arg0, final BlockState arg1) {
 		return new TileRedstoneEmitter(arg0, arg1);
 	}
 }
