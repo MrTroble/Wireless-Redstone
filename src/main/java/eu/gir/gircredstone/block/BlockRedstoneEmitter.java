@@ -16,17 +16,17 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class BlockRedstoneEmitter extends BlockBasic implements EntityBlock {
+public class BlockRedstoneEmitter extends Block implements EntityBlock {
 	
-	public BlockRedstoneEmitter() {
-		super("emitter");
+	public BlockRedstoneEmitter(final Properties p_49795_) {
+		super(p_49795_);
 	}
 	
 	@Override
 	public InteractionResult use(final BlockState state, final Level world, final BlockPos pos, final Player player, final InteractionHand hand, final BlockHitResult hit) {
 		if (world.isClientSide)
 			return InteractionResult.PASS;
-		if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER))
+		if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER.get()))
 			return InteractionResult.PASS;
 		final BlockEntity entity = world.getBlockEntity(pos);
 		final UUID uuid = player.getUUID();
