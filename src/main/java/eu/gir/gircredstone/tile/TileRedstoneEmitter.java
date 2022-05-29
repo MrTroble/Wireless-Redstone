@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class TileRedstoneEmitter extends BlockEntity {
 	
 	public TileRedstoneEmitter(final BlockPos pos, final BlockState state) {
-		super(GIRCInit.EMITER_TILE, pos, state);
+		super(GIRCInit.EMITER_TILE.get(), pos, state);
 	}
 	
 	private BlockPos linkedpos = null;

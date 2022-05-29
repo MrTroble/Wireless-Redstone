@@ -8,12 +8,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-public class BlockRedstoneAcceptor extends BlockBasic {
+public class BlockRedstoneAcceptor extends Block {
 	
 	public static final BooleanProperty POWER = BooleanProperty.create("power");
 	
-	public BlockRedstoneAcceptor() {
-		super("acceptor");
+	public BlockRedstoneAcceptor(final Properties p_49795_) {
+		super(p_49795_);
 		this.registerDefaultState(this.defaultBlockState().setValue(POWER, false));
 	}
 	

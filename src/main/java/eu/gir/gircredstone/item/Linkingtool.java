@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import eu.gir.gircredstone.GIRCRedstoneMain;
 import eu.gir.gircredstone.block.BlockRedstoneAcceptor;
 import eu.gir.gircredstone.block.BlockRedstoneEmitter;
 import eu.gir.gircredstone.tile.TileRedstoneEmitter;
@@ -15,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -25,9 +23,8 @@ import net.minecraft.world.level.block.Block;
 
 public class Linkingtool extends Item {
 	
-	public Linkingtool() {
-		super(new Properties().tab(CreativeModeTab.TAB_REDSTONE));
-		this.setRegistryName(GIRCRedstoneMain.MODID, "linker");
+	public Linkingtool(final Properties p_41383_) {
+		super(p_41383_);
 	}
 	
 	private static final String ID_X = "xLinkedPos";
