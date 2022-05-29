@@ -63,4 +63,5 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock {
 	public BlockEntity newBlockEntity(final BlockPos arg0, final BlockState arg1) {
 		return new TileRedstoneEmitter(arg0, arg1);
 	}
+	
 }
