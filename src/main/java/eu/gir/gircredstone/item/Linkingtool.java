@@ -1,7 +1,6 @@
 package eu.gir.gircredstone.item;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -11,7 +10,8 @@ import eu.gir.gircredstone.tile.TileRedstoneEmitter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -55,11 +55,10 @@ public class Linkingtool extends Item {
 		if (LevelIn.isClientSide)
 			return InteractionResult.PASS;
 		final Block block = LevelIn.getBlockState(pos).getBlock();
-		final UUID uuid = player.getUUID();
 		if (player.isCrouching()) {
 			if (Linkingtool.readBlockPosFromNBT(stack.getTag()) != null) {
 				stack.setTag(null);
-				player.sendMessage(new TranslatableComponent("lt.reset"), uuid);
+				player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.reset")));
 				return InteractionResult.SUCCESS;
 			}
 		}
@@ -69,8 +68,8 @@ public class Linkingtool extends Item {
 				return InteractionResult.FAIL;
 			writeBlockPosToNBT(pos, comp);
 			stack.setTag(comp);
-			player.sendMessage(new TranslatableComponent("lt.setpos", pos.getX(), pos.getY(), pos.getZ()), uuid);
-			player.sendMessage(new TranslatableComponent("lt.setpos.msg"), uuid);
+			player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.setpos", pos.getX(), pos.getY(), pos.getZ())));
+			player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.setpos.msg")));
 			return InteractionResult.SUCCESS;
 		}
 		if (block instanceof BlockRedstoneEmitter) {
@@ -78,13 +77,13 @@ public class Linkingtool extends Item {
 			final CompoundTag comp = stack.getTag();
 			final BlockPos linkpos = Linkingtool.readBlockPosFromNBT(comp);
 			if (emitter.link(linkpos)) {
-				player.sendMessage(new TranslatableComponent("lt.linkedpos", linkpos.getX(), linkpos.getY(), linkpos.getZ()), uuid);
+				player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.linkedpos", linkpos.getX(), linkpos.getY(), linkpos.getZ())));
 				stack.setTag(null);
-				player.sendMessage(new TranslatableComponent("lt.reset"), uuid);
+				player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.reset")));
 				return InteractionResult.SUCCESS;
 			}
-			player.sendMessage(new TranslatableComponent("lt.notlinked"), uuid);
-			player.sendMessage(new TranslatableComponent("lt.notlinked.msg"), uuid);
+			player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.notlinked")));
+			player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.notlinked.msg")));
 			return InteractionResult.FAIL;
 		}
 		return InteractionResult.FAIL;
@@ -96,12 +95,12 @@ public class Linkingtool extends Item {
 		if (nbt != null) {
 			final BlockPos pos = Linkingtool.readBlockPosFromNBT(nbt);
 			if (pos != null) {
-				tooltip.add(new TranslatableComponent("lt.linkedpos", pos.getX(), pos.getY(), pos.getZ()));
+				tooltip.add(MutableComponent.create(new TranslatableContents("lt.linkedpos", pos.getX(), pos.getY(), pos.getZ())));
 				return;
 			}
 		}
-		tooltip.add(new TranslatableComponent("lt.notlinked"));
-		tooltip.add(new TranslatableComponent("lt.notlinked.msg"));
+		tooltip.add(MutableComponent.create(new TranslatableContents("lt.notlinked")));
+		tooltip.add(MutableComponent.create(new TranslatableContents("lt.notlinked.msg")));
 	}
 	
 }
