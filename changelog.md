@@ -1,8 +1,13 @@
 # Changelog
 
+## [Internal]
+
+* Internal forge update
+
 ## [Update/Fix]
 
 * feat: Added block tags and loot tables (blocks drop items when they are broken)
+
 ## [Internal]
 
 * Internal forge update
