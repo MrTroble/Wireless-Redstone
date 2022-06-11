@@ -1,5 +1,9 @@
 # Changelog
 
+## [Internal]
+
+* Internal forge update
+
 ## [1.19]
 
 * deps: Updatet to 1.19
