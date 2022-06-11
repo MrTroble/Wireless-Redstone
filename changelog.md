@@ -1,6 +1,10 @@
 # Changelog
 
 
+## [Update/Fix] 1.17.1 - 06.11.2022 - 1
+
+* feat: Blocks are now breakable with an iron pickaxe
+
 ## [Update] 01.31.2022 - 1
 
 * Update readme
