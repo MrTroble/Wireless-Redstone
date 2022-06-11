@@ -1,5 +1,9 @@
 # Changelog
 
+## [Fix] 1.16.5 - 06.11.2022 - 1
+
+* fix: Fixed link not being saved correctly
+
 ## [Fix] 1.16.5 - 03.09.2022 - 1
 
 * Fixed wrong ressources
