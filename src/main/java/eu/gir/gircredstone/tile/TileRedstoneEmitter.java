@@ -17,14 +17,16 @@ public class TileRedstoneEmitter extends TileEntity {
 	private BlockPos linkedpos = null;
 
 	@Override
-	public void deserializeNBT(CompoundNBT nbt) {
-		super.deserializeNBT(nbt);
+	public void load(final CompoundTag nbt) {
+		super.load(nbt);
 		this.linkedpos = Linkingtool.readBlockPosFromNBT(nbt);
 	}
 	
 	@Override
-	public CompoundNBT serializeNBT() {
-		return Linkingtool.writeBlockPosToNBT(linkedpos, super.serializeNBT());
+	public CompoundTag save(final CompoundTag nbt) {
+		super.save(nbt);
+		Linkingtool.writeBlockPosToNBT(linkedpos, nbt);
+		return nbt;
 	}
 	
 	public boolean link(final BlockPos pos) {
