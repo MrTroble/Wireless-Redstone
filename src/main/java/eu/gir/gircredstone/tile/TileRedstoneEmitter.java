@@ -9,42 +9,43 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class TileRedstoneEmitter extends BlockEntity {
-
-	public TileRedstoneEmitter(BlockPos pos, BlockState state) {
+	
+	public TileRedstoneEmitter(final BlockPos pos, final BlockState state) {
 		super(GIRCInit.EMITER_TILE, pos, state);
 	}
-
+	
 	private BlockPos linkedpos = null;
-
+	
 	@Override
-	public void deserializeNBT(CompoundTag nbt) {
-		super.deserializeNBT(nbt);
+	public void load(final CompoundTag nbt) {
 		this.linkedpos = Linkingtool.readBlockPosFromNBT(nbt);
 	}
-
+	
 	@Override
-	public CompoundTag serializeNBT() {
-		return Linkingtool.writeBlockPosToNBT(linkedpos, super.serializeNBT());
+	public CompoundTag save(final CompoundTag nbt) {
+		super.save(nbt);
+		Linkingtool.writeBlockPosToNBT(linkedpos, nbt);
+		return nbt;
 	}
-
+	
 	public boolean link(final BlockPos pos) {
 		if (pos == null)
 			return false;
 		this.linkedpos = pos;
 		return true;
 	}
-
+	
 	public boolean unlink() {
 		if (this.linkedpos == null)
 			return false;
 		this.linkedpos = null;
 		return true;
 	}
-
+	
 	public BlockPos getLinkedPos() {
 		return this.linkedpos;
 	}
-
+	
 	public void redstoneUpdate(final boolean enabled) {
 		if (linkedpos != null) {
 			final BlockState state = level.getBlockState(linkedpos);
@@ -53,5 +54,5 @@ public class TileRedstoneEmitter extends BlockEntity {
 			}
 		}
 	}
-
+	
 }
