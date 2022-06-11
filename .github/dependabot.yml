@@ -4,9 +4,22 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    target-branch: "1.19-master"
+    assignees:
+      - "MrTroble"
+    ignore:
+      - dependency-name: "net.minecraftforge:forge"
+        versions: ["[1.20,]"]
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
     target-branch: "1.18-master"
     assignees:
       - "MrTroble"
+    ignore:
+      - dependency-name: "net.minecraftforge:forge"
+        versions: ["[1.19,]"]
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
