@@ -1,8 +1,13 @@
 # Changelog
 
+## [1.19]
+
+* deps: Updatet to 1.19
+
 ## [Update/Fix]
 
 * feat: Added block tags and loot tables (blocks drop items when they are broken)
+
 ## [Internal]
 
 * Internal forge update
