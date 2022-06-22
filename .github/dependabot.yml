@@ -10,6 +10,9 @@ updates:
     ignore:
       - dependency-name: "net.minecraftforge:forge"
         versions: ["[1.20,]"]
+    lables: 
+      - "Skip-Changelog"
+      - "dependencies"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -20,6 +23,9 @@ updates:
     ignore:
       - dependency-name: "net.minecraftforge:forge"
         versions: ["[1.19,]"]
+    lables: 
+      - "Skip-Changelog"
+      - "dependencies"        
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -30,6 +36,9 @@ updates:
     ignore:
       - dependency-name: "net.minecraftforge:forge"
         versions: ["[1.18,]"]
+    lables: 
+      - "Skip-Changelog"
+      - "dependencies"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -40,6 +49,9 @@ updates:
     ignore:
       - dependency-name: "net.minecraftforge:forge"
         versions: ["[1.17,]"]
+    lables: 
+      - "Skip-Changelog"
+      - "dependencies"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -51,6 +63,9 @@ updates:
       - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
       - dependency-name: "net.minecraftforge:forge"
         versions: ["[1.16,]"]
+    lables: 
+      - "Skip-Changelog"
+      - "dependencies"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -62,6 +77,9 @@ updates:
       - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
       - dependency-name: "net.minecraftforge:forge"
         versions: ["[1.15,]"]
+    lables: 
+      - "Skip-Changelog"
+      - "dependencies"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -73,6 +91,9 @@ updates:
       - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
       - dependency-name: "net.minecraftforge:forge"
         versions: ["[1.14,]"]
+    lables: 
+      - "Skip-Changelog"
+      - "dependencies"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -80,6 +101,9 @@ updates:
     target-branch: "1.12.2-master"
     assignees:
       - "MrTroble"
+    lables: 
+      - "Skip-Changelog"
+      - "dependencies"
     ignore:
       - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
       - dependency-name: "net.minecraftforge:forge"
