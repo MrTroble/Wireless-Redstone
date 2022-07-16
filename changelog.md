@@ -4,6 +4,8 @@
 
 * Fixed startup crash for newer forge versions
 
+***This version is only for 1.19-41.0.98. Please use older versions for older forge versions*** 
+
 ## [Internal]
 
 * Internal forge update

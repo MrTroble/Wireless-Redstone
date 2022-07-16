@@ -14,7 +14,7 @@ description="The official Wireless Redstone Mod for GIR.\nWorks in unloaded Chun
 [[dependencies.gircredstone]]
     modId="forge" 
     mandatory=true 
-    versionRange="[38,)" 
+    versionRange="[41.0.98,)" 
     ordering="NONE"
     side="BOTH"
 
