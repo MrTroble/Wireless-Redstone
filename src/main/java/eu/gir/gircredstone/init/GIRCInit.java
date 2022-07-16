@@ -25,7 +25,7 @@ public class GIRCInit {
 	
 	public static final DeferredRegister<Item> ITEM_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, GIRCRedstoneMain.MODID);
 	public static final DeferredRegister<Block> BLOCK_REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, GIRCRedstoneMain.MODID);
-	public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, GIRCRedstoneMain.MODID);
+	public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, GIRCRedstoneMain.MODID);
 	
 	public static RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor", () -> new BlockRedstoneAcceptor(BlockBehaviour.Properties.of(Material.METAL).strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
 	public static RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter", () -> new BlockRedstoneEmitter(BlockBehaviour.Properties.of(Material.METAL).strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
