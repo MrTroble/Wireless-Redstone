@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.19-Forge]
+
+* Fixed startup crash for newer forge versions
+
 ## [Internal]
 
 * Internal forge update
