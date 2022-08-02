@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.19.1-Forge]
+
+* Updated to Forge version 1.19.1-42.0.1
+
+***This version is only for 1.19.1-42.0.1 and higher. Please use older versions for older forge versions.***
+
 ## [1.19-Forge]
 
 * Fixed startup crash for newer forge versions
