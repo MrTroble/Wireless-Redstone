@@ -6,6 +6,7 @@ import eu.gir.gircredstone.GIRCRedstoneMain;
 import eu.gir.gircredstone.block.BlockRedstoneAcceptor;
 import eu.gir.gircredstone.block.BlockRedstoneEmitter;
 import eu.gir.gircredstone.item.Linkingtool;
+import eu.gir.gircredstone.item.RemoteActivator;
 import eu.gir.gircredstone.tile.TileRedstoneEmitter;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -31,6 +32,7 @@ public class GIRCInit {
 	public static RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter", () -> new BlockRedstoneEmitter(BlockBehaviour.Properties.of(Material.METAL).strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
 	
 	public static RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker", () -> new Linkingtool(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
+	public static RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator", () -> new RemoteActivator(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 	
 	public static RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY.register("emitter", () -> BlockEntityType.Builder.of(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
 	
