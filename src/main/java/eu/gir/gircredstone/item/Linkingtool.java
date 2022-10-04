@@ -125,6 +125,6 @@ public class Linkingtool extends Item {
     }
 
     public MutableComponent getComponent(final String text, final Object... obj) {
-        return MutableComponent.create(new TranslatableContents(text));
+        return MutableComponent.create(new TranslatableContents(text, obj));
     }
 }
