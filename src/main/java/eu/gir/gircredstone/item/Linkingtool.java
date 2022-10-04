@@ -23,8 +23,15 @@ import net.minecraft.world.level.block.Block;
 
 public class Linkingtool extends Item {
 	
-	public Linkingtool(final Properties p_41383_) {
-		super(p_41383_);
+	private final boolean canLink;
+	
+	public Linkingtool(final Properties properties, final boolean canLink) {
+		super(properties);
+		this.canLink = canLink;
+	}
+	
+	public Linkingtool(final Properties properties) {
+		this(properties, true);
 	}
 	
 	private static final String ID_X = "xLinkedPos";
@@ -58,7 +65,7 @@ public class Linkingtool extends Item {
 		if (player.isCrouching()) {
 			if (Linkingtool.readBlockPosFromNBT(stack.getTag()) != null) {
 				stack.setTag(null);
-				player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.reset")));
+				message(player, "lt.reset");
 				return InteractionResult.SUCCESS;
 			}
 		}
@@ -68,25 +75,25 @@ public class Linkingtool extends Item {
 				return InteractionResult.FAIL;
 			writeBlockPosToNBT(pos, comp);
 			stack.setTag(comp);
-			player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.setpos", pos.getX(), pos.getY(), pos.getZ())));
-			player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.setpos.msg")));
+			message(player, "lt.setpos", pos.getX(), pos.getY(), pos.getZ());
+			message(player, "lt.setpos.msg");
 			return InteractionResult.SUCCESS;
 		}
-		if (block instanceof BlockRedstoneEmitter) {
+		if ((block instanceof BlockRedstoneEmitter) && this.canLink) {
 			final TileRedstoneEmitter emitter = (TileRedstoneEmitter) LevelIn.getBlockEntity(pos);
 			final CompoundTag comp = stack.getTag();
 			final BlockPos linkpos = Linkingtool.readBlockPosFromNBT(comp);
 			if (emitter.link(linkpos)) {
-				player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.linkedpos", linkpos.getX(), linkpos.getY(), linkpos.getZ())));
+				message(player, "lt.linkedpos", linkpos.getX(), linkpos.getY(), linkpos.getZ());
 				stack.setTag(null);
-				player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.reset")));
+				message(player, "lt.reset");
 				return InteractionResult.SUCCESS;
 			}
-			player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.notlinked")));
-			player.sendSystemMessage(MutableComponent.create(new TranslatableContents("lt.notlinked.msg")));
+			message(player, "lt.notlinked");
+			message(player, "lt.notlinked.msg");
 			return InteractionResult.FAIL;
 		}
-		return InteractionResult.FAIL;
+		return InteractionResult.PASS;
 	}
 	
 	@Override
@@ -95,12 +102,24 @@ public class Linkingtool extends Item {
 		if (nbt != null) {
 			final BlockPos pos = Linkingtool.readBlockPosFromNBT(nbt);
 			if (pos != null) {
-				tooltip.add(MutableComponent.create(new TranslatableContents("lt.linkedpos", pos.getX(), pos.getY(), pos.getZ())));
+				tooltip(tooltip, "lt.linkedpos", pos.getX(), pos.getY(), pos.getZ());
 				return;
 			}
 		}
-		tooltip.add(MutableComponent.create(new TranslatableContents("lt.notlinked")));
-		tooltip.add(MutableComponent.create(new TranslatableContents("lt.notlinked.msg")));
+		tooltip(tooltip, "lt.notlinked");
+		tooltip(tooltip, "lt.notlinked.msg");
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void tooltip(final List list, final String text, final Object... obj) {
+		list.add(getComponent(text, obj));
+	}
+	
+	public void message(final Player player, final String text, final Object... obj) {
+		player.sendSystemMessage(getComponent(text, obj));
+	}
+	
+	public MutableComponent getComponent(final String text, final Object... obj) {
+		return MutableComponent.create(new TranslatableContents(text));
+	}
 }
