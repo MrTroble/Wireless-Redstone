@@ -10,21 +10,22 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class RemoteActivator extends Linkingtool {
-	
-	public RemoteActivator(final Properties properties) {
-		super(properties, false);
-	}
-	
-	@Override
-	public InteractionResultHolder<ItemStack> use(final Level level, final Player player, final InteractionHand hand) {
-		final ItemStack itemstack = player.getItemInHand(hand);
-		if (!hand.equals(InteractionHand.MAIN_HAND) || level.isClientSide)
-			return InteractionResultHolder.pass(itemstack);
-		final CompoundTag comp = itemstack.getTag();
-		final BlockPos linkpos = Linkingtool.readBlockPosFromNBT(comp);
-		final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos, level);
-		message(player, "ra.state", state);
-		return InteractionResultHolder.success(itemstack);
-	}
-	
+
+    public RemoteActivator(final Properties properties) {
+        super(properties, false);
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(final Level level, final Player player,
+            final InteractionHand hand) {
+        final ItemStack itemstack = player.getItemInHand(hand);
+        if (!hand.equals(InteractionHand.MAIN_HAND) || level.isClientSide)
+            return InteractionResultHolder.pass(itemstack);
+        final CompoundTag comp = itemstack.getTag();
+        final BlockPos linkpos = Linkingtool.readBlockPosFromNBT(comp);
+        final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos, level);
+        message(player, "ra.state", state);
+        return InteractionResultHolder.success(itemstack);
+    }
+
 }
