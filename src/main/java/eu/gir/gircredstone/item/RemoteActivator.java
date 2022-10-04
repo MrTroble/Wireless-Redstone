@@ -24,7 +24,7 @@ public class RemoteActivator extends Linkingtool {
         final CompoundTag comp = itemstack.getTag();
         final BlockPos linkpos = Linkingtool.readBlockPosFromNBT(comp);
         final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos, level);
-        message(player, "ra.state", state);
+        message(player, "ra.state", String.valueOf(state));
         return InteractionResultHolder.success(itemstack);
     }
 
