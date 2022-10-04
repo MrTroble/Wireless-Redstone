@@ -58,12 +58,12 @@ public class Linkingtool extends Item {
 
     @Override
     public InteractionResult onItemUseFirst(final ItemStack stack, final UseOnContext ctx) {
-        final Level LevelIn = ctx.getLevel();
+        final Level levelIn = ctx.getLevel();
         final Player player = ctx.getPlayer();
         final BlockPos pos = ctx.getClickedPos();
-        if (LevelIn.isClientSide)
+        if (levelIn.isClientSide)
             return InteractionResult.PASS;
-        final Block block = LevelIn.getBlockState(pos).getBlock();
+        final Block block = levelIn.getBlockState(pos).getBlock();
         if (player.isCrouching()) {
             if (Linkingtool.readBlockPosFromNBT(stack.getTag()) != null) {
                 stack.setTag(null);
@@ -82,7 +82,7 @@ public class Linkingtool extends Item {
             return InteractionResult.SUCCESS;
         }
         if ((block instanceof BlockRedstoneEmitter) && this.canLink) {
-            final TileRedstoneEmitter emitter = (TileRedstoneEmitter) LevelIn.getBlockEntity(pos);
+            final TileRedstoneEmitter emitter = (TileRedstoneEmitter) levelIn.getBlockEntity(pos);
             final CompoundTag comp = stack.getTag();
             final BlockPos linkpos = Linkingtool.readBlockPosFromNBT(comp);
             if (emitter.link(linkpos)) {

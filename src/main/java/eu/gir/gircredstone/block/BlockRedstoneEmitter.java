@@ -17,8 +17,8 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class BlockRedstoneEmitter extends Block implements EntityBlock {
 
-    public BlockRedstoneEmitter(final Properties p_49795_) {
-        super(p_49795_);
+    public BlockRedstoneEmitter(final Properties properties) {
+        super(properties);
     }
 
     @Override
@@ -63,8 +63,8 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock {
     }
 
     @Override
-    public BlockEntity newBlockEntity(final BlockPos arg0, final BlockState arg1) {
-        return new TileRedstoneEmitter(arg0, arg1);
+    public BlockEntity newBlockEntity(final BlockPos pos, final BlockState state) {
+        return new TileRedstoneEmitter(pos, state);
     }
 
 }

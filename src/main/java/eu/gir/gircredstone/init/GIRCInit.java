@@ -31,23 +31,23 @@ public class GIRCInit {
     public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY = DeferredRegister
             .create(ForgeRegistries.BLOCK_ENTITY_TYPES, GIRCRedstoneMain.MODID);
 
-    public static RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
+    public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
             () -> new BlockRedstoneAcceptor(BlockBehaviour.Properties.of(Material.METAL)
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
-    public static RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
+    public static final RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
             () -> new BlockRedstoneEmitter(BlockBehaviour.Properties.of(Material.METAL)
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
 
-    public static RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
+    public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
             () -> new Linkingtool(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
-    public static RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
+    public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
             () -> new RemoteActivator(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
-    public static RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
+    public static final RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
             .register("emitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
 
-    private static RegistryObject<Block> internalRegisterBlock(final String name,
+    private static final RegistryObject<Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
         final RegistryObject<Block> registerObject = BLOCK_REGISTRY.register(name, sup);
         ITEM_REGISTRY.register(name, () -> new BlockItem(registerObject.get(),
