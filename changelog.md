@@ -1,5 +1,9 @@
 # Changelog
 
+## [Update]
+
+* feat: Added remote activator
+
 ## [1.19.1-Forge]
 
 * Updated to Forge version 1.19.1-42.0.1

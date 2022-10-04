@@ -8,13 +8,13 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod(GIRCRedstoneMain.MODID)
 public class GIRCRedstoneMain {
-	
-	public GIRCRedstoneMain() {
-		GIRCInit.init();
-	}
-	
-	public static final Logger LOGGER = LogManager.getLogger();
-	
-	public static final String MODID = "gircredstone";
-	
+
+    public GIRCRedstoneMain() {
+        GIRCInit.init();
+    }
+
+    public static final Logger LOGGER = LogManager.getLogger();
+
+    public static final String MODID = "gircredstone";
+
 }
