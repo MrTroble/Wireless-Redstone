@@ -99,7 +99,7 @@ public class Linkingtool extends Item {
     }
 
     @Override
-    public void appendHoverText(final ItemStack stack, @Nullable final Level LevelIn,
+    public void appendHoverText(final ItemStack stack, @Nullable final Level levelIn,
             final List<Component> tooltip, final TooltipFlag flagIn) {
         final CompoundTag nbt = stack.getTag();
         if (nbt != null) {
