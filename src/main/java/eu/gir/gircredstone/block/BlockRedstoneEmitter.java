@@ -17,51 +17,55 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class BlockRedstoneEmitter extends Block implements EntityBlock {
-	
-	public BlockRedstoneEmitter(final Properties p_49795_) {
-		super(p_49795_);
-	}
-	
-	@Override
-	public InteractionResult use(final BlockState state, final Level world, final BlockPos pos, final Player player, final InteractionHand hand, final BlockHitResult hit) {
-		if (world.isClientSide)
-			return InteractionResult.PASS;
-		if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER.get()))
-			return InteractionResult.PASS;
-		final BlockEntity entity = world.getBlockEntity(pos);
-		final UUID uuid = player.getUUID();
-		if (entity instanceof TileRedstoneEmitter) {
-			final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
-			final BlockPos linkedpos = emitter.getLinkedPos();
-			if (linkedpos == null) {
-				player.sendMessage(new TranslatableComponent("em.notlinked"), uuid);
-			} else {
-				if (player.isCrouching()) {
-					emitter.unlink();
-					player.sendMessage(new TranslatableComponent("em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ()), uuid);
-				} else {
-					player.sendMessage(new TranslatableComponent("lt.linkedpos", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ()), uuid);
-				}
-			}
-			return InteractionResult.SUCCESS;
-		}
-		return InteractionResult.FAIL;
-	}
-	
-	@Override
-	public void neighborChanged(final BlockState state, final Level world, final BlockPos pos, final Block blockIn, final BlockPos fromPos, final boolean isMoving) {
-		if (world.isClientSide)
-			return;
-		final BlockEntity entity = world.getBlockEntity(pos);
-		if (entity instanceof TileRedstoneEmitter) {
-			final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
-			emitter.redstoneUpdate(world.hasNeighborSignal(pos));
-		}
-	}
-	
-	@Override
-	public BlockEntity newBlockEntity(final BlockPos arg0, final BlockState arg1) {
-		return new TileRedstoneEmitter(arg0, arg1);
-	}
-	
+
+    public BlockRedstoneEmitter(final Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public InteractionResult use(final BlockState state, final Level world, final BlockPos pos,
+            final Player player, final InteractionHand hand, final BlockHitResult hit) {
+        if (world.isClientSide)
+            return InteractionResult.PASS;
+        if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER.get()))
+            return InteractionResult.PASS;
+        final BlockEntity entity = world.getBlockEntity(pos);
+        final UUID uuid = player.getUUID();
+        if (entity instanceof TileRedstoneEmitter) {
+            final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
+            final BlockPos linkedpos = emitter.getLinkedPos();
+            if (linkedpos == null) {
+                player.sendMessage(new TranslatableComponent("em.notlinked"), uuid);
+            } else {
+                if (player.isCrouching()) {
+                    emitter.unlink();
+                    player.sendMessage(new TranslatableComponent("em.unlink", linkedpos.getX(),
+                            linkedpos.getY(), linkedpos.getZ()), uuid);
+                } else {
+                    player.sendMessage(new TranslatableComponent("lt.linkedpos", linkedpos.getX(),
+                            linkedpos.getY(), linkedpos.getZ()), uuid);
+                }
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.FAIL;
+    }
+
+    @Override
+    public void neighborChanged(final BlockState state, final Level world, final BlockPos pos,
+            final Block blockIn, final BlockPos fromPos, final boolean isMoving) {
+        if (world.isClientSide)
+            return;
+        final BlockEntity entity = world.getBlockEntity(pos);
+        if (entity instanceof TileRedstoneEmitter) {
+            final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
+            emitter.redstoneUpdate(world.hasNeighborSignal(pos));
+        }
+    }
+
+    @Override
+    public BlockEntity newBlockEntity(final BlockPos pos, final BlockState state) {
+        return new TileRedstoneEmitter(pos, state);
+    }
+
 }
