@@ -1,13 +1,15 @@
 {
     "item.gircredstone.linker": "WLR Verlinker",
+    "item.gircredstone.activator": "WLR Fernaktivator",
     "block.gircredstone.emitter": "WLR Signal-Sender",
     "block.gircredstone.acceptor": "WLR Signal-Akzeptor",
-    "lt.linkedpos": "Â§2Verlinkt mit: {%d, %d, %dÂ§2}Â§r",
-    "lt.setpos": "Â§2Gesetzt auf: {%d, %d, %dÂ§2}Â§r",
-    "lt.setpos.msg": "Â§lÂ§9Bitte klicke auf einen Signal-Sender um die VerknÃ¼pfung herzustellen.Â§r",
-    "lt.notlinked": "Â§cNicht verlinkt!Â§r",
-    "lt.notlinked.msg": "Â§lÂ§9Bitte klicke auf einen Signal-Akzeptor um zu verknÃ¼pfen.Â§r",
-    "lt.reset": "Â§cDer Verlinker ist zurÃ¼ckgesetzt.Â§r",
-    "em.notlinked": "Â§cDer Signal-Sender ist nicht verlinkt!Â§r",
-    "em.unlink": "Â§cNicht mehr verlinkt.Â§r"
+    "lt.linkedpos": "§2Verlinkt mit: {%d, %d, %d§2}§r",
+    "lt.setpos": "§2Gesetzt auf: {%d, %d, %d§2}§r",
+    "lt.setpos.msg": "§l§9Bitte klicke auf einen Signal-Sender um die Verknüpfung herzustellen.§r",
+    "lt.notlinked": "§cNicht verlinkt!§r",
+    "lt.notlinked.msg": "§l§9Bitte klicke auf einen Signal-Akzeptor um zu verknüpfen.§r",
+    "lt.reset": "§cDer Verlinker ist zurückgesetzt.§r",
+    "em.notlinked": "§cDer Signal-Sender ist nicht verlinkt!§r",
+    "em.unlink": "§cNicht mehr verlinkt.§r",
+    "ra.state": "Activated: %s"
 }
