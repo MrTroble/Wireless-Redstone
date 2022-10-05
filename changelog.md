@@ -1,5 +1,9 @@
 # Changelog
 
+## [Update]
+
+* feat: Added remote activator
+
 ## [Internal]
 
 * Internal forge update
