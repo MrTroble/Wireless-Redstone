@@ -12,25 +12,25 @@ public class BlockRedstoneAcceptor extends Block {
 
     public static final BooleanProperty POWER = BooleanProperty.create("power");
 
-    public BlockRedstoneAcceptor(final Properties p_49795_) {
-        super(p_49795_);
+    public BlockRedstoneAcceptor(final Properties properties) {
+        super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(POWER, false));
     }
 
     @Override
-    public boolean isSignalSource(final BlockState p_149744_1_) {
+    public boolean isSignalSource(final BlockState state) {
         return true;
     }
 
     @Override
-    public int getSignal(final BlockState p_180656_1_, final BlockGetter p_180656_2_,
-            final BlockPos p_180656_3_, final Direction p_180656_4_) {
-        return this.getDirectSignal(p_180656_1_, p_180656_2_, p_180656_3_, p_180656_4_);
+    public int getSignal(final BlockState state, final BlockGetter level, final BlockPos pos,
+            final Direction direction) {
+        return this.getDirectSignal(state, level, pos, direction);
     }
 
     @Override
-    public int getDirectSignal(final BlockState blockState, final BlockGetter p_176211_2_,
-            final BlockPos p_176211_3_, final Direction p_176211_4_) {
+    public int getDirectSignal(final BlockState blockState, final BlockGetter level,
+            final BlockPos pos, final Direction direction) {
         return blockState.getValue(POWER) ? 15 : 0;
     }
 

@@ -31,19 +31,19 @@ public class GIRCInit {
     public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY = DeferredRegister
             .create(ForgeRegistries.BLOCK_ENTITIES, GIRCRedstoneMain.MODID);
 
-    public static RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
+    public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
             () -> new BlockRedstoneAcceptor(BlockBehaviour.Properties.of(Material.METAL)
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
-    public static RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
+    public static final RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
             () -> new BlockRedstoneEmitter(BlockBehaviour.Properties.of(Material.METAL)
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
 
-    public static RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
+    public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
             () -> new Linkingtool(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
             () -> new RemoteActivator(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
-    public static RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
+    public static final RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
             .register("emitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
 
