@@ -1,0 +1,3 @@
+[submodule "linkableapi"]
+	path = linkableapi
+	url = https://github.com/German-Immersive-Railroading-Community/linkableapi

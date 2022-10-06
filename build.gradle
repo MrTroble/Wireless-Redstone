@@ -16,6 +16,14 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "com.matthewprenger.cursegradle"
 
+sourceSets{
+    main {
+        java {
+            srcDirs("linkableapi/src/")
+        }
+    }
+}
+
 def key = System.getenv("CURSETOKEN")
 if(key == null)
 	key = 'dev'

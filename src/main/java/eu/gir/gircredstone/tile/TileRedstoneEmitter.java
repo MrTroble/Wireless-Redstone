@@ -2,14 +2,15 @@ package eu.gir.gircredstone.tile;
 
 import eu.gir.gircredstone.block.BlockRedstoneAcceptor;
 import eu.gir.gircredstone.init.GIRCInit;
-import eu.gir.gircredstone.item.Linkingtool;
+import eu.gir.linkableapi.ILinkableTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class TileRedstoneEmitter extends BlockEntity {
+public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
 
     public TileRedstoneEmitter(final BlockPos pos, final BlockState state) {
         super(GIRCInit.EMITER_TILE.get(), pos, state);
@@ -20,15 +21,16 @@ public class TileRedstoneEmitter extends BlockEntity {
     @Override
     public void load(final CompoundTag compound) {
         super.load(compound);
-        this.linkedpos = Linkingtool.readBlockPosFromNBT(compound);
+        this.linkedpos = NbtUtils.readBlockPos(compound);
     }
 
     @Override
     protected void saveAdditional(final CompoundTag compound) {
         super.saveAdditional(compound);
-        Linkingtool.writeBlockPosToNBT(linkedpos, compound);
+        NbtUtils.writeBlockPos(linkedpos);
     }
 
+    @Override
     public boolean link(final BlockPos pos) {
         if (pos == null)
             return false;
@@ -36,6 +38,7 @@ public class TileRedstoneEmitter extends BlockEntity {
         return true;
     }
 
+    @Override
     public boolean unlink() {
         if (this.linkedpos == null)
             return false;
@@ -72,5 +75,10 @@ public class TileRedstoneEmitter extends BlockEntity {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean hasLink() {
+        return this.linkedpos != null;
     }
 }

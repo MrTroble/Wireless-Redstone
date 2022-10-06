@@ -5,9 +5,11 @@ import java.util.function.Supplier;
 import eu.gir.gircredstone.GIRCRedstoneMain;
 import eu.gir.gircredstone.block.BlockRedstoneAcceptor;
 import eu.gir.gircredstone.block.BlockRedstoneEmitter;
-import eu.gir.gircredstone.item.Linkingtool;
+import eu.gir.gircredstone.block.BlockRedstoneMultiEmitter;
 import eu.gir.gircredstone.item.RemoteActivator;
 import eu.gir.gircredstone.tile.TileRedstoneEmitter;
+import eu.gir.gircredstone.tile.TileRedstoneMultiEmitter;
+import eu.gir.linkableapi.Linkingtool;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -37,18 +39,23 @@ public class GIRCInit {
     public static final RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
             () -> new BlockRedstoneEmitter(BlockBehaviour.Properties.of(Material.METAL)
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> RS_MULTI_EMITTER = internalRegisterBlock("multiemitter",
-            () -> new BlockRedstoneMultiEmitter(BlockBehaviour.Properties.of(Material.METAL)
-                    .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> RS_MULTI_EMITTER = internalRegisterBlock(
+            "multiemitter", () -> new BlockRedstoneMultiEmitter(BlockBehaviour.Properties
+                    .of(Material.METAL).strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
-            () -> new Linkingtool(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
+            () -> new Linkingtool(CreativeModeTab.TAB_REDSTONE, (level,
+                    pos) -> level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
-            () -> new RemoteActivator(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
+            () -> new RemoteActivator(CreativeModeTab.TAB_REDSTONE));
 
     public static final RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
             .register("emitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<?>> MULTI_EMITER_TILE = TILEENTITY_REGISTRY
+            .register("multiemitter", () -> BlockEntityType.Builder
+                    .of(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
 
     private static final RegistryObject<Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
