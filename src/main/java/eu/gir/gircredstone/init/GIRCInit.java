@@ -37,6 +37,9 @@ public class GIRCInit {
     public static final RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
             () -> new BlockRedstoneEmitter(BlockBehaviour.Properties.of(Material.METAL)
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> RS_MULTI_EMITTER = internalRegisterBlock("multiemitter",
+            () -> new BlockRedstoneMultiEmitter(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
             () -> new Linkingtool(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
