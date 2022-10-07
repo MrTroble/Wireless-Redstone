@@ -1,5 +1,6 @@
 package eu.gir.gircredstone.block;
 
+import eu.gir.gircredstone.tile.TileRedstoneMultiEmitter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -12,6 +13,6 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
 
     @Override
     public BlockEntity newBlockEntity(final BlockPos pos, final BlockState state) {
-        return super.newBlockEntity(pos, state);
+        return new TileRedstoneMultiEmitter(pos, state);
     }
 }

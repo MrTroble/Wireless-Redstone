@@ -20,7 +20,7 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 
     @Override
     public boolean hasLink() {
-        return false;
+        return !listOfPositions.isEmpty();
     }
 
     @Override
@@ -34,6 +34,10 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 
     @Override
     public boolean unlink() {
-        return false;
+        if (listOfPositions.isEmpty())
+            return false;
+        listOfPositions.clear();
+        return true;
     }
+
 }
