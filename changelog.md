@@ -2,6 +2,10 @@
 
 ## [Update]
 
+* feat: pr_br language from @FITFC
+
+## [Update]
+
 * feat: Added remote activator
 
 ## [1.19.1-Forge]
