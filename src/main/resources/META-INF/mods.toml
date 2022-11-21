@@ -6,8 +6,8 @@ license="Apache License Version 2.0"
 [[mods]]
 modId="gircredstone"
 version="${file.jarVersion}"
-displayName="GIRC Redstone"
-displayURL="https://girc.eu/"
+displayName="TC Redstone"
+displayURL="https://troblecodings.com/"
 authors="MrTroble, Jeronimo"
 description="The official Wireless Redstone Mod for GIR.\nWorks in unloaded Chunks TM."
 
