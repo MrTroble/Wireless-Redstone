@@ -16,6 +16,14 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "com.matthewprenger.cursegradle"
 
+sourceSets{
+    main {
+        java {
+            srcDirs("linkableapi/src/")
+        }
+    }
+}
+
 def key = System.getenv("CURSETOKEN")
 if(key == null)
 	key = 'dev'
@@ -75,7 +83,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.1.52'
+    minecraft 'net.minecraftforge:forge:1.19.3-44.0.1'
 }
 
 jar {
