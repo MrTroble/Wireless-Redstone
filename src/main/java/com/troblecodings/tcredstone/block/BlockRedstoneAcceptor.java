@@ -1,4 +1,4 @@
-package eu.gir.gircredstone.block;
+package com.troblecodings.tcredstone.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

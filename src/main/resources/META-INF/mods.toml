@@ -9,18 +9,18 @@ version="${file.jarVersion}"
 displayName="TC Redstone"
 displayURL="https://troblecodings.com/"
 authors="MrTroble, Jeronimo"
-description="The official Wireless Redstone Mod for GIR.\nWorks in unloaded Chunks TM."
+description="Works in unloaded Chunks TM."
 
 [[dependencies.gircredstone]]
     modId="forge" 
     mandatory=true 
-    versionRange="[41.0.98,)" 
+    versionRange="[44.0.0,)" 
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.gircredstone]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19, 1.20)"
+    versionRange="[1.19.3, 1.20)"
     ordering="NONE"
     side="BOTH"

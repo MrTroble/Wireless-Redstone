@@ -1,7 +1,8 @@
-package eu.gir.gircredstone.block;
+package com.troblecodings.tcredstone.block;
 
-import eu.gir.gircredstone.init.GIRCInit;
-import eu.gir.gircredstone.tile.TileRedstoneEmitter;
+import com.troblecodings.tcredstone.init.GIRCInit;
+import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
