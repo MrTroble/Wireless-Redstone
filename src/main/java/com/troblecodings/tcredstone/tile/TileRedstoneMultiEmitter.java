@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.troblecodings.linkableapi.ILinkableTile;
+import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.init.GIRCInit;
 
 import net.minecraft.core.BlockPos;

@@ -1,5 +1,8 @@
 package com.troblecodings.tcredstone.block;
 
+import java.util.List;
+
+import com.troblecodings.tcredstone.init.GIRCInit;
 import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
 import net.minecraft.core.BlockPos;
