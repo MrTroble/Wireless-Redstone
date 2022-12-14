@@ -1,4 +1,4 @@
-package eu.gir.gircredstone.init;
+package com.troblecodings.tcredstone.init;
 
 import java.util.function.Supplier;
 
@@ -11,14 +11,17 @@ import eu.gir.gircredstone.tile.TileRedstoneEmitter;
 import eu.gir.gircredstone.tile.TileRedstoneMultiEmitter;
 import eu.gir.linkableapi.Linkingtool;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -43,11 +46,14 @@ public class GIRCInit {
             "multiemitter", () -> new BlockRedstoneMultiEmitter(BlockBehaviour.Properties
                     .of(Material.METAL).strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
 
+    public static boolean acceptAcceptor(final Level level, final BlockPos pos) {
+        return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
+    }
+
     public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
-            () -> new Linkingtool(CreativeModeTab.TAB_REDSTONE, (level,
-                    pos) -> level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor));
+            () -> new Linkingtool(null, GIRCInit::acceptAcceptor));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
-            () -> new RemoteActivator(CreativeModeTab.TAB_REDSTONE));
+            () -> new RemoteActivator());
 
     public static final RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
             .register("emitter", () -> BlockEntityType.Builder
@@ -60,16 +66,22 @@ public class GIRCInit {
     private static final RegistryObject<Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
         final RegistryObject<Block> registerObject = BLOCK_REGISTRY.register(name, sup);
-        ITEM_REGISTRY.register(name, () -> new BlockItem(registerObject.get(),
-                new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
+        ITEM_REGISTRY.register(name, () -> new BlockItem(registerObject.get(), new Properties()));
         return registerObject;
     }
 
     public static void init() {
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        bus.register(GIRCInit.class);
         ITEM_REGISTRY.register(bus);
         BLOCK_REGISTRY.register(bus);
         TILEENTITY_REGISTRY.register(bus);
+    }
+
+    @SubscribeEvent
+    public static void onCreativeTabs(final CreativeModeTabEvent.BuildContents event) {
+        event.registerSimple(CreativeModeTabs.f_257028_,
+                ITEM_REGISTRY.getEntries().stream().map(reg -> reg.get()).toArray(Item[]::new));
     }
 
 }

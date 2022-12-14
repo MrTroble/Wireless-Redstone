@@ -1,4 +1,8 @@
-package eu.gir.gircredstone.item;
+package com.troblecodings.tcredstone.item;
+
+import com.troblecodings.linkableapi.Linkingtool;
+import com.troblecodings.tcredstone.init.GIRCInit;
+import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import eu.gir.gircredstone.tile.TileRedstoneEmitter;
 import eu.gir.linkableapi.Linkingtool;
@@ -14,8 +18,8 @@ import net.minecraft.world.level.Level;
 
 public class RemoteActivator extends Linkingtool {
 
-    public RemoteActivator(final CreativeModeTab tab) {
-        super(tab, (_u1, _u2) -> false);
+    public RemoteActivator() {
+        super(null, GIRCInit::acceptAcceptor, _u1 -> false);
     }
 
     @Override
