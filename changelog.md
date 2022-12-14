@@ -1,5 +1,9 @@
 # Changelog
 
+## [Update]
+
+* feat: added multi-emitter block
+
 ## [!Breaking Changes]
 
 * 1.19 update to 1.19.3+ with loosing compatibility to <= 1.19.2
