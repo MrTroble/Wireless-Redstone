@@ -11,6 +11,7 @@
     "lt.notlinked.msg": "§l§9Bitte klicke auf einen Signal-Akzeptor um zu verknüpfen.§r",
     "lt.reset": "§cDer Verlinker ist zurückgesetzt.§r",
     "lt.notset": "§cDer Verlinker ist nicht verlinkt.§r",
+    "lt.unlink": "§cDer Signal-Sender ist nicht mehr verlinkt!§r",
     "em.notlinked": "§cDer Signal-Sender ist nicht verlinkt!§r",
     "em.unlink": "§cNicht mehr verlinkt.§r",
     "ra.state": "Aktiviert: %s"

@@ -1,7 +1,8 @@
 package com.troblecodings.tcredstone.item;
 
+import java.util.function.BiPredicate;
+
 import com.troblecodings.linkableapi.Linkingtool;
-import com.troblecodings.tcredstone.init.GIRCInit;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import net.minecraft.core.BlockPos;
@@ -10,13 +11,14 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class RemoteActivator extends Linkingtool {
 
-    public RemoteActivator(final Properties properties) {
-        super(null, GIRCInit::acceptAcceptor, _u1 -> false);
+    public RemoteActivator(final CreativeModeTab tab, final BiPredicate<Level, BlockPos> predicate) {
+        super(tab, predicate, _u -> true);
     }
 
     @Override

@@ -1,13 +1,13 @@
 package com.troblecodings.tcredstone.block;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.troblecodings.tcredstone.init.GIRCInit;
 import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -36,22 +36,22 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
         if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER.get()))
             return InteractionResult.PASS;
         final BlockEntity entity = world.getBlockEntity(pos);
+        final UUID uuid = player.getUUID();
         if (entity instanceof TileRedstoneMultiEmitter) {
             final TileRedstoneMultiEmitter emitter = (TileRedstoneMultiEmitter) entity;
             final List<BlockPos> listOfPositions = emitter.getLinkedPos();
             if (listOfPositions == null) {
-                player.sendSystemMessage(
-                        MutableComponent.create(new TranslatableContents("em.notlinked")));
+                player.sendMessage(new TranslatableComponent("em.notlinked"), uuid);
             } else {
                 if (player.isCrouching()) {
                     emitter.unlink();
-                    listOfPositions.forEach(blockpos -> player.sendSystemMessage(
-                            MutableComponent.create(new TranslatableContents("em.unlink",
-                                    blockpos.getX(), blockpos.getY(), blockpos.getZ()))));
+                    listOfPositions.forEach(
+                            blockpos -> player.sendMessage(new TranslatableComponent("em.unlink",
+                                    blockpos.getX(), blockpos.getY(), blockpos.getZ()), uuid));
                 } else {
-                    listOfPositions.forEach(blockpos -> player.sendSystemMessage(
-                            MutableComponent.create(new TranslatableContents("lt.linkedpos",
-                                    blockpos.getX(), blockpos.getY(), blockpos.getZ()))));
+                    listOfPositions.forEach(
+                            blockpos -> player.sendMessage(new TranslatableComponent("lt.linkedpos",
+                                    blockpos.getX(), blockpos.getY(), blockpos.getZ()), uuid));
                 }
             }
             return InteractionResult.SUCCESS;
