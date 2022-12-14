@@ -29,8 +29,8 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
         if (pos != null && compound != null) {
             
             final ListTag list = new ListTag();
-            listOfPositions.forEach(BlockPos -> {
-                final CompoundTag item = NbtUtils.writeBlockPos(BlockPos);
+            listOfPositions.forEach(blockpos -> {
+                final CompoundTag item = NbtUtils.writeBlockPos(blockpos);
                 list.add(item);
             });
             compound.put(LINKED_POS_LIST, list);
@@ -92,7 +92,7 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     }
 
     public void redstoneUpdate(final boolean enabled) {
-        listOfPositions.forEach(BlockPos -> redstoneUpdate(enabled, BlockPos, level));
+        listOfPositions.forEach(blockpos -> redstoneUpdate(enabled, blockpos, level));
     }
 
     public static boolean redstoneUpdate(final boolean enabled, final BlockPos linkedpos,

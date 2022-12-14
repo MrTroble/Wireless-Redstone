@@ -45,9 +45,9 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
             } else {
                 if (player.isCrouching()) {
                     emitter.unlink();
-                    listOfPositions.forEach(BlockPos -> player.sendSystemMessage(
+                    listOfPositions.forEach(blockpos -> player.sendSystemMessage(
                             MutableComponent.create(new TranslatableContents("em.unlink",
-                                    BlockPos.getX(), BlockPos.getY(), BlockPos.getZ()))));
+                                    blockpos.getX(), blockpos.getY(), blockpos.getZ()))));
                 } else {
                     listOfPositions.forEach(BlockPos -> player.sendSystemMessage(
                             MutableComponent.create(new TranslatableContents("lt.linkedpos",
