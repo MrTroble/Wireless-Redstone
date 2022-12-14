@@ -17,7 +17,8 @@ import net.minecraft.world.level.Level;
 
 public class RemoteActivator extends Linkingtool {
 
-    public RemoteActivator(final CreativeModeTab tab, final BiPredicate<Level, BlockPos> predicate) {
+    public RemoteActivator(final CreativeModeTab tab,
+            final BiPredicate<Level, BlockPos> predicate) {
         super(tab, predicate, _u -> true);
     }
 
