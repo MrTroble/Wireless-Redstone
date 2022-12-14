@@ -1,22 +1,27 @@
-package eu.gir.gircredstone.init;
+package com.troblecodings.tcredstone.init;
 
 import java.util.function.Supplier;
 
-import eu.gir.gircredstone.GIRCRedstoneMain;
-import eu.gir.gircredstone.block.BlockRedstoneAcceptor;
-import eu.gir.gircredstone.block.BlockRedstoneEmitter;
-import eu.gir.gircredstone.item.Linkingtool;
-import eu.gir.gircredstone.item.RemoteActivator;
-import eu.gir.gircredstone.tile.TileRedstoneEmitter;
+import com.troblecodings.linkableapi.Linkingtool;
+import com.troblecodings.tcredstone.GIRCRedstoneMain;
+import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
+import com.troblecodings.tcredstone.block.BlockRedstoneEmitter;
+import com.troblecodings.tcredstone.item.RemoteActivator;
+import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
+
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -29,7 +34,7 @@ public class GIRCInit {
     public static final DeferredRegister<Block> BLOCK_REGISTRY = DeferredRegister
             .create(ForgeRegistries.BLOCKS, GIRCRedstoneMain.MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY = DeferredRegister
-            .create(ForgeRegistries.BLOCK_ENTITIES, GIRCRedstoneMain.MODID);
+            .create(ForgeRegistries.BLOCK_ENTITY_TYPES, GIRCRedstoneMain.MODID);
 
     public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
             () -> new BlockRedstoneAcceptor(BlockBehaviour.Properties.of(Material.METAL)
@@ -38,28 +43,38 @@ public class GIRCInit {
             () -> new BlockRedstoneEmitter(BlockBehaviour.Properties.of(Material.METAL)
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
 
+    public static boolean acceptAcceptor(final Level level, final BlockPos pos) {
+        return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
+    }
+
     public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
-            () -> new Linkingtool(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
+            () -> new Linkingtool(null, GIRCInit::acceptAcceptor));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
-            () -> new RemoteActivator(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
+            () -> new RemoteActivator());
 
     public static final RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
             .register("emitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
 
-    private static RegistryObject<Block> internalRegisterBlock(final String name,
+    private static final RegistryObject<Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
         final RegistryObject<Block> registerObject = BLOCK_REGISTRY.register(name, sup);
-        ITEM_REGISTRY.register(name, () -> new BlockItem(registerObject.get(),
-                new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
+        ITEM_REGISTRY.register(name, () -> new BlockItem(registerObject.get(), new Properties()));
         return registerObject;
     }
 
     public static void init() {
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        bus.register(GIRCInit.class);
         ITEM_REGISTRY.register(bus);
         BLOCK_REGISTRY.register(bus);
         TILEENTITY_REGISTRY.register(bus);
+    }
+
+    @SubscribeEvent
+    public static void onCreativeTabs(final CreativeModeTabEvent.BuildContents event) {
+        event.registerSimple(CreativeModeTabs.f_257028_,
+                ITEM_REGISTRY.getEntries().stream().map(reg -> reg.get()).toArray(Item[]::new));
     }
 
 }

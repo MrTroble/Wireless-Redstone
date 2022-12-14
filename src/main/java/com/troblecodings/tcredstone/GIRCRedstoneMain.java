@@ -1,9 +1,10 @@
-package eu.gir.gircredstone;
+package com.troblecodings.tcredstone;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import eu.gir.gircredstone.init.GIRCInit;
+import com.troblecodings.tcredstone.init.GIRCInit;
+
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(GIRCRedstoneMain.MODID)

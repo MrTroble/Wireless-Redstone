@@ -6,21 +6,21 @@ license="Apache License Version 2.0"
 [[mods]]
 modId="gircredstone"
 version="${file.jarVersion}"
-displayName="GIRC Redstone"
-displayURL="https://girc.eu/"
+displayName="TC Redstone"
+displayURL="https://troblecodings.com/"
 authors="MrTroble, Jeronimo"
-description="The official Wireless Redstone Mod for GIR.\nWorks in unloaded Chunks TM."
+description="Works in unloaded Chunks TM."
 
 [[dependencies.gircredstone]]
     modId="forge" 
     mandatory=true 
-    versionRange="[38,)" 
+    versionRange="[44.0.0,)" 
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.gircredstone]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18, 1.19)"
+    versionRange="[1.19.3, 1.20)"
     ordering="NONE"
     side="BOTH"

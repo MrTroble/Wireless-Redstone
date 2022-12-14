@@ -1,15 +1,16 @@
-package eu.gir.gircredstone.tile;
+package com.troblecodings.tcredstone.tile;
 
-import eu.gir.gircredstone.block.BlockRedstoneAcceptor;
-import eu.gir.gircredstone.init.GIRCInit;
-import eu.gir.gircredstone.item.Linkingtool;
+import com.troblecodings.linkableapi.ILinkableTile;
+import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
+import com.troblecodings.tcredstone.init.GIRCInit;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class TileRedstoneEmitter extends BlockEntity {
+public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
 
     public TileRedstoneEmitter(final BlockPos pos, final BlockState state) {
         super(GIRCInit.EMITER_TILE.get(), pos, state);
@@ -17,18 +18,41 @@ public class TileRedstoneEmitter extends BlockEntity {
 
     private BlockPos linkedpos = null;
 
+    private static final String ID_X = "xLinkedPos";
+    private static final String ID_Y = "yLinkedPos";
+    private static final String ID_Z = "zLinkedPos";
+
+    public static CompoundTag writeBlockPosToNBT(final BlockPos pos, final CompoundTag compound) {
+        if (pos != null && compound != null) {
+            compound.putInt(ID_X, pos.getX());
+            compound.putInt(ID_Y, pos.getY());
+            compound.putInt(ID_Z, pos.getZ());
+        }
+        return compound;
+    }
+
+    public static BlockPos readBlockPosFromNBT(final CompoundTag compound) {
+        if (compound != null && compound.contains(ID_X) && compound.contains(ID_Y)
+                && compound.contains(ID_Z)) {
+            return new BlockPos(compound.getInt(ID_X), compound.getInt(ID_Y),
+                    compound.getInt(ID_Z));
+        }
+        return null;
+    }
+
     @Override
     public void load(final CompoundTag compound) {
         super.load(compound);
-        this.linkedpos = Linkingtool.readBlockPosFromNBT(compound);
+        this.linkedpos = readBlockPosFromNBT(compound);
     }
 
     @Override
     protected void saveAdditional(final CompoundTag compound) {
         super.saveAdditional(compound);
-        Linkingtool.writeBlockPosToNBT(linkedpos, compound);
+        writeBlockPosToNBT(linkedpos, compound);
     }
 
+    @Override
     public boolean link(final BlockPos pos) {
         if (pos == null)
             return false;
@@ -36,6 +60,7 @@ public class TileRedstoneEmitter extends BlockEntity {
         return true;
     }
 
+    @Override
     public boolean unlink() {
         if (this.linkedpos == null)
             return false;
@@ -74,4 +99,8 @@ public class TileRedstoneEmitter extends BlockEntity {
         return false;
     }
 
+    @Override
+    public boolean hasLink() {
+        return this.linkedpos != null;
+    }
 }
