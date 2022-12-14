@@ -27,7 +27,7 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 
     public CompoundTag writeBlockPosToNBT(final List<BlockPos> pos, final CompoundTag compound) {
         if (pos != null && compound != null) {
-            
+
             final ListTag list = new ListTag();
             listOfPositions.forEach(blockpos -> {
                 final CompoundTag item = NbtUtils.writeBlockPos(blockpos);

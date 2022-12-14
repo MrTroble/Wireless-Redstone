@@ -49,9 +49,9 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
                             MutableComponent.create(new TranslatableContents("em.unlink",
                                     blockpos.getX(), blockpos.getY(), blockpos.getZ()))));
                 } else {
-                    listOfPositions.forEach(BlockPos -> player.sendSystemMessage(
+                    listOfPositions.forEach(blockpos -> player.sendSystemMessage(
                             MutableComponent.create(new TranslatableContents("lt.linkedpos",
-                                    BlockPos.getX(), BlockPos.getY(), BlockPos.getZ()))));
+                                    blockpos.getX(), blockpos.getY(), blockpos.getZ()))));
                 }
             }
             return InteractionResult.SUCCESS;
