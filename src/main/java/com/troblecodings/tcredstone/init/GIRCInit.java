@@ -6,8 +6,10 @@ import com.troblecodings.linkableapi.Linkingtool;
 import com.troblecodings.tcredstone.GIRCRedstoneMain;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.block.BlockRedstoneEmitter;
+import com.troblecodings.tcredstone.block.BlockRedstoneMultiEmitter;
 import com.troblecodings.tcredstone.item.RemoteActivator;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
+import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
@@ -42,6 +44,9 @@ public class GIRCInit {
     public static final RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
             () -> new BlockRedstoneEmitter(BlockBehaviour.Properties.of(Material.METAL)
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> RS_MULTI_EMITTER = internalRegisterBlock(
+            "multiemitter", () -> new BlockRedstoneMultiEmitter(BlockBehaviour.Properties
+                    .of(Material.METAL).strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
 
     public static boolean acceptAcceptor(final Level level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
@@ -55,6 +60,10 @@ public class GIRCInit {
     public static final RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
             .register("emitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<?>> MULTI_EMITER_TILE = TILEENTITY_REGISTRY
+            .register("multiemitter", () -> BlockEntityType.Builder
+                    .of(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
 
     private static final RegistryObject<Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
