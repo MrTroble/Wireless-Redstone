@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 
 public class RemoteActivator extends Linkingtool {
 
-    public RemoteActivator() {
+    public RemoteActivator(final Properties properties) {
         super(null, GIRCInit::acceptAcceptor, _u1 -> false);
     }
 

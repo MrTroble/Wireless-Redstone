@@ -1,11 +1,12 @@
 package com.troblecodings.tcredstone.block;
 
+import java.util.UUID;
+
 import com.troblecodings.tcredstone.init.GIRCInit;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -30,20 +31,20 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock {
         if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER.get()))
             return InteractionResult.PASS;
         final BlockEntity entity = world.getBlockEntity(pos);
+        final UUID uuid = player.getUUID();
         if (entity instanceof TileRedstoneEmitter) {
             final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
             final BlockPos linkedpos = emitter.getLinkedPos();
             if (linkedpos == null) {
-                player.sendSystemMessage(
-                        MutableComponent.create(new TranslatableContents("em.notlinked")));
+                player.sendMessage(new TranslatableComponent("em.notlinked"), uuid);
             } else {
                 if (player.isCrouching()) {
                     emitter.unlink();
-                    player.sendSystemMessage(MutableComponent.create(new TranslatableContents(
-                            "em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ())));
+                    player.sendMessage(new TranslatableComponent("em.unlink", linkedpos.getX(),
+                            linkedpos.getY(), linkedpos.getZ()), uuid);
                 } else {
-                    player.sendSystemMessage(MutableComponent.create(new TranslatableContents(
-                            "lt.linkedpos", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ())));
+                    player.sendMessage(new TranslatableComponent("lt.linkedpos", linkedpos.getX(),
+                            linkedpos.getY(), linkedpos.getZ()), uuid);
                 }
             }
             return InteractionResult.SUCCESS;

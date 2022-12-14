@@ -11,7 +11,7 @@ import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.Level;
@@ -19,9 +19,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -34,7 +32,7 @@ public class GIRCInit {
     public static final DeferredRegister<Block> BLOCK_REGISTRY = DeferredRegister
             .create(ForgeRegistries.BLOCKS, GIRCRedstoneMain.MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY = DeferredRegister
-            .create(ForgeRegistries.BLOCK_ENTITY_TYPES, GIRCRedstoneMain.MODID);
+            .create(ForgeRegistries.BLOCK_ENTITIES, GIRCRedstoneMain.MODID);
 
     public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
             () -> new BlockRedstoneAcceptor(BlockBehaviour.Properties.of(Material.METAL)
@@ -50,7 +48,7 @@ public class GIRCInit {
     public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
             () -> new Linkingtool(null, GIRCInit::acceptAcceptor));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
-            () -> new RemoteActivator());
+            () -> new RemoteActivator(new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
     public static final RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
             .register("emitter", () -> BlockEntityType.Builder
@@ -70,11 +68,4 @@ public class GIRCInit {
         BLOCK_REGISTRY.register(bus);
         TILEENTITY_REGISTRY.register(bus);
     }
-
-    @SubscribeEvent
-    public static void onCreativeTabs(final CreativeModeTabEvent.BuildContents event) {
-        event.registerSimple(CreativeModeTabs.f_257028_,
-                ITEM_REGISTRY.getEntries().stream().map(reg -> reg.get()).toArray(Item[]::new));
-    }
-
 }
