@@ -1,6 +1,7 @@
-package eu.gir.gircredstone.block;
+package com.troblecodings.tcredstone.block;
 
-import eu.gir.gircredstone.tile.TileRedstoneMultiEmitter;
+import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;

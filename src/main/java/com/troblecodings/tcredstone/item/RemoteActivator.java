@@ -4,15 +4,12 @@ import com.troblecodings.linkableapi.Linkingtool;
 import com.troblecodings.tcredstone.init.GIRCInit;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
-import eu.gir.gircredstone.tile.TileRedstoneEmitter;
-import eu.gir.linkableapi.Linkingtool;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 

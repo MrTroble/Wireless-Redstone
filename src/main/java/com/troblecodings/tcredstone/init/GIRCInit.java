@@ -2,14 +2,16 @@ package com.troblecodings.tcredstone.init;
 
 import java.util.function.Supplier;
 
-import eu.gir.gircredstone.GIRCRedstoneMain;
-import eu.gir.gircredstone.block.BlockRedstoneAcceptor;
-import eu.gir.gircredstone.block.BlockRedstoneEmitter;
-import eu.gir.gircredstone.block.BlockRedstoneMultiEmitter;
-import eu.gir.gircredstone.item.RemoteActivator;
-import eu.gir.gircredstone.tile.TileRedstoneEmitter;
-import eu.gir.gircredstone.tile.TileRedstoneMultiEmitter;
-import eu.gir.linkableapi.Linkingtool;
+import com.troblecodings.linkableapi.Linkingtool;
+import com.troblecodings.tcredstone.GIRCRedstoneMain;
+import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
+import com.troblecodings.tcredstone.block.BlockRedstoneEmitter;
+import com.troblecodings.tcredstone.block.BlockRedstoneMultiEmitter;
+import com.troblecodings.tcredstone.item.RemoteActivator;
+import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
+import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
+
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;

@@ -1,18 +1,18 @@
-package eu.gir.gircredstone.tile;
-
-import com.mojang.authlib.minecraft.TelemetrySession;
-import eu.gir.gircredstone.init.GIRCInit;
-import eu.gir.linkableapi.ILinkableTile;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
+package com.troblecodings.tcredstone.tile;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.troblecodings.linkableapi.ILinkableTile;
+import com.troblecodings.tcredstone.init.GIRCInit;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+
 public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTile {
 
-    private List<BlockPos> listOfPositions = new ArrayList<>();
+    private final List<BlockPos> listOfPositions = new ArrayList<>();
 
     public TileRedstoneMultiEmitter(final BlockPos pos, final BlockState state) {
         super(GIRCInit.MULTI_EMITER_TILE.get(), pos, state);
