@@ -1,1 +1,1 @@
-{"parent": "minecraft:block/cube_all", "textures": {"all": "gircredstone:block/acceptor_on"}}
+{"parent": "minecraft:block/cube_all", "textures": {"all": "gircredstone:blocks/acceptor_on"}}
