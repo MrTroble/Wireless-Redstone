@@ -86,9 +86,10 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     }
 
     @Override
-    protected void saveAdditional(final CompoundTag compound) {
-        super.saveAdditional(compound);
+    public CompoundTag save(final CompoundTag compound) {
+        super.save(compound);
         writeBlockPosToNBT(listOfPositions, compound);
+        return compound;
     }
 
     public void redstoneUpdate(final boolean enabled) {

@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[38,)"
+loaderVersion="[37,)"
 issueTrackerURL="https://github.com/MrTroble/Wireless-Redstone/issues"
 license="Apache License Version 2.0"
 
@@ -14,13 +14,13 @@ description="Wireless Redstone Mod - Works in unloaded Chunks TM."
 [[dependencies.gircredstone]]
     modId="forge" 
     mandatory=true 
-    versionRange="[38,)" 
+    versionRange="[37,)" 
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.gircredstone]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18, 1.19)"
+    versionRange="[1.17, 1.18)"
     ordering="NONE"
     side="BOTH"
