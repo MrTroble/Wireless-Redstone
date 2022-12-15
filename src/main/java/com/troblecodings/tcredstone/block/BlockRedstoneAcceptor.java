@@ -1,12 +1,12 @@
 package com.troblecodings.tcredstone.block;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition.Builder;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 
 public class BlockRedstoneAcceptor extends Block {
 
@@ -23,19 +23,20 @@ public class BlockRedstoneAcceptor extends Block {
     }
 
     @Override
-    public int getSignal(final BlockState blockState, final BlockGetter world, final BlockPos pos,
+    public int getSignal(final BlockState blockState, final IBlockReader world, final BlockPos pos,
             final Direction direction) {
         return this.getDirectSignal(blockState, world, pos, direction);
     }
 
     @Override
-    public int getDirectSignal(final BlockState blockState, final BlockGetter world,
+    public int getDirectSignal(final BlockState blockState, final IBlockReader world,
             final BlockPos pos, final Direction direction) {
         return blockState.getValue(POWER) ? 15 : 0;
     }
 
     @Override
-    protected void createBlockStateDefinition(final Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(
+            final StateContainer.Builder<Block, BlockState> builder) {
         builder.add(POWER);
     }
 

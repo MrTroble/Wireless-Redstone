@@ -7,30 +7,30 @@ import com.troblecodings.linkableapi.ILinkableTile;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.init.TCRedstoneInit;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.NBTUtil;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTile {
+public class TileRedstoneMultiEmitter extends TileEntity implements ILinkableTile {
 
     private List<BlockPos> listOfPositions = new ArrayList<>();
 
     private static final String LINKED_POS_LIST = "linkedPos";
 
-    public TileRedstoneMultiEmitter(final BlockPos pos, final BlockState state) {
-        super(TCRedstoneInit.MULTI_EMITER_TILE.get(), pos, state);
+    public TileRedstoneMultiEmitter() {
+        super(TCRedstoneInit.MULTI_EMITER_TILE.get());
     }
 
-    public CompoundTag writeBlockPosToNBT(final List<BlockPos> pos, final CompoundTag compound) {
+    public CompoundNBT writeBlockPosToNBT(final List<BlockPos> pos, final CompoundNBT compound) {
         if (pos != null && compound != null) {
 
-            final ListTag list = new ListTag();
+            final ListNBT list = new ListNBT();
             listOfPositions.forEach(blockpos -> {
-                final CompoundTag item = NbtUtils.writeBlockPos(blockpos);
+                final CompoundNBT item = NBTUtil.writeBlockPos(blockpos);
                 list.add(item);
             });
             compound.put(LINKED_POS_LIST, list);
@@ -40,13 +40,13 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
         return compound;
     }
 
-    public List<BlockPos> readBlockPosFromNBT(final CompoundTag compound) {
-        final ListTag list = (ListTag) compound.get(LINKED_POS_LIST);
+    public List<BlockPos> readBlockPosFromNBT(final CompoundNBT compound) {
+        final ListNBT list = (ListNBT) compound.get(LINKED_POS_LIST);
         if (list != null) {
             listOfPositions.clear();
             list.forEach(pos -> {
-                final CompoundTag item = (CompoundTag) pos;
-                listOfPositions.add(NbtUtils.readBlockPos(item));
+                final CompoundNBT item = (CompoundNBT) pos;
+                listOfPositions.add(NBTUtil.readBlockPos(item));
             });
             return listOfPositions;
         }
@@ -80,13 +80,13 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     }
 
     @Override
-    public void load(final CompoundTag compound) {
-        super.load(compound);
+    public void load(final BlockState state, final CompoundNBT compound) {
+        super.load(state, compound);
         this.listOfPositions = readBlockPosFromNBT(compound);
     }
 
     @Override
-    public CompoundTag save(final CompoundTag compound) {
+    public CompoundNBT save(final CompoundNBT compound) {
         super.save(compound);
         writeBlockPosToNBT(listOfPositions, compound);
         return compound;
@@ -97,7 +97,7 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     }
 
     public static boolean redstoneUpdate(final boolean enabled, final BlockPos linkedpos,
-            final Level level) {
+            final World level) {
         if (linkedpos != null) {
             final BlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
@@ -107,7 +107,7 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
         return enabled;
     }
 
-    public static boolean redstoneUpdate(final BlockPos linkedpos, final Level level) {
+    public static boolean redstoneUpdate(final BlockPos linkedpos, final World level) {
         if (linkedpos != null) {
             final BlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {

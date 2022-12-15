@@ -6,16 +6,17 @@ import java.util.UUID;
 import com.troblecodings.tcredstone.init.TCRedstoneInit;
 import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 
 public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
 
@@ -24,47 +25,47 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
     }
 
     @Override
-    public BlockEntity newBlockEntity(final BlockPos pos, final BlockState state) {
-        return new TileRedstoneMultiEmitter(pos, state);
+    public TileEntity newBlockEntity(final IBlockReader pos) {
+        return new TileRedstoneMultiEmitter();
     }
 
     @Override
-    public InteractionResult use(final BlockState state, final Level world, final BlockPos pos,
-            final Player player, final InteractionHand hand, final BlockHitResult hit) {
+    public ActionResultType use(final BlockState state, final World world, final BlockPos pos,
+            final PlayerEntity player, final Hand hand, final BlockRayTraceResult hit) {
         if (world.isClientSide)
-            return InteractionResult.PASS;
+            return ActionResultType.PASS;
         if (player.getItemInHand(hand).getItem().equals(TCRedstoneInit.RS_LINKER.get()))
-            return InteractionResult.PASS;
-        final BlockEntity entity = world.getBlockEntity(pos);
+            return ActionResultType.PASS;
+        final TileEntity entity = world.getBlockEntity(pos);
         final UUID uuid = player.getUUID();
         if (entity instanceof TileRedstoneMultiEmitter) {
             final TileRedstoneMultiEmitter emitter = (TileRedstoneMultiEmitter) entity;
             final List<BlockPos> listOfPositions = emitter.getLinkedPos();
             if (listOfPositions == null) {
-                player.sendMessage(new TranslatableComponent("em.notlinked"), uuid);
+                player.sendMessage(new TranslationTextComponent("em.notlinked"), uuid);
             } else {
                 if (player.isCrouching()) {
                     emitter.unlink();
                     listOfPositions.forEach(
-                            blockpos -> player.sendMessage(new TranslatableComponent("em.unlink",
+                            blockpos -> player.sendMessage(new TranslationTextComponent("em.unlink",
                                     blockpos.getX(), blockpos.getY(), blockpos.getZ()), uuid));
                 } else {
-                    listOfPositions.forEach(
-                            blockpos -> player.sendMessage(new TranslatableComponent("lt.linkedpos",
+                    listOfPositions.forEach(blockpos -> player
+                            .sendMessage(new TranslationTextComponent("lt.linkedpos",
                                     blockpos.getX(), blockpos.getY(), blockpos.getZ()), uuid));
                 }
             }
-            return InteractionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
-        return InteractionResult.FAIL;
+        return ActionResultType.FAIL;
     }
 
     @Override
-    public void neighborChanged(final BlockState state, final Level world, final BlockPos pos,
+    public void neighborChanged(final BlockState state, final World world, final BlockPos pos,
             final Block blockIn, final BlockPos fromPos, final boolean isMoving) {
         if (world.isClientSide)
             return;
-        final BlockEntity entity = world.getBlockEntity(pos);
+        final TileEntity entity = world.getBlockEntity(pos);
         if (entity instanceof TileRedstoneMultiEmitter) {
             final TileRedstoneMultiEmitter emitter = (TileRedstoneMultiEmitter) entity;
             emitter.redstoneUpdate(world.hasNeighborSignal(pos));

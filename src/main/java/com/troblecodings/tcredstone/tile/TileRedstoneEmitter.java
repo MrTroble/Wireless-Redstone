@@ -4,16 +4,16 @@ import com.troblecodings.linkableapi.ILinkableTile;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.init.TCRedstoneInit;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
+public class TileRedstoneEmitter extends TileEntity implements ILinkableTile {
 
-    public TileRedstoneEmitter(final BlockPos pos, final BlockState state) {
-        super(TCRedstoneInit.EMITER_TILE.get(), pos, state);
+    public TileRedstoneEmitter() {
+        super(TCRedstoneInit.EMITER_TILE.get());
     }
 
     private BlockPos linkedpos = null;
@@ -22,7 +22,7 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
     private static final String ID_Y = "yLinkedPos";
     private static final String ID_Z = "zLinkedPos";
 
-    public static CompoundTag writeBlockPosToNBT(final BlockPos pos, final CompoundTag compound) {
+    public static CompoundNBT writeBlockPosToNBT(final BlockPos pos, final CompoundNBT compound) {
         if (pos != null && compound != null) {
             compound.putInt(ID_X, pos.getX());
             compound.putInt(ID_Y, pos.getY());
@@ -31,7 +31,7 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
         return compound;
     }
 
-    public static BlockPos readBlockPosFromNBT(final CompoundTag compound) {
+    public static BlockPos readBlockPosFromNBT(final CompoundNBT compound) {
         if (compound != null && compound.contains(ID_X) && compound.contains(ID_Y)
                 && compound.contains(ID_Z)) {
             return new BlockPos(compound.getInt(ID_X), compound.getInt(ID_Y),
@@ -41,13 +41,13 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
     }
 
     @Override
-    public void load(final CompoundTag compound) {
-        super.load(compound);
+    public void load(final BlockState state, final CompoundNBT compound) {
+        super.load(state, compound);
         this.linkedpos = readBlockPosFromNBT(compound);
     }
 
     @Override
-    public CompoundTag save(final CompoundTag compound) {
+    public CompoundNBT save(final CompoundNBT compound) {
         super.save(compound);
         writeBlockPosToNBT(linkedpos, compound);
         return compound;
@@ -78,7 +78,7 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
     }
 
     public static boolean redstoneUpdate(final boolean enabled, final BlockPos linkedpos,
-            final Level level) {
+            final World level) {
         if (linkedpos != null) {
             final BlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
@@ -88,7 +88,7 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
         return enabled;
     }
 
-    public static boolean redstoneUpdate(final BlockPos linkedpos, final Level level) {
+    public static boolean redstoneUpdate(final BlockPos linkedpos, final World level) {
         if (linkedpos != null) {
             final BlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
