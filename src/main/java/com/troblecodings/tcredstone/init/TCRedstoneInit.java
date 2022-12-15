@@ -31,45 +31,45 @@ public final class TCRedstoneInit {
     private TCRedstoneInit() {
     }
 
-    public static final DeferredRegister<Item> ITEM_REGISTRY = DeferredRegister
-            .create(ForgeRegistries.ITEMS, TCRedstoneMain.MODID);
-    public static final DeferredRegister<Block> BLOCK_REGISTRY = DeferredRegister
-            .create(ForgeRegistries.BLOCKS, TCRedstoneMain.MODID);
-    public static final DeferredRegister<TileEntityType<?>> TILEENTITY_REGISTRY = DeferredRegister
-            .create(ForgeRegistries.TILE_ENTITIES, TCRedstoneMain.MODID);
+    public static final DeferredRegister<Item> ITEM_REGISTRY = new DeferredRegister<Item>(
+            ForgeRegistries.ITEMS, TCRedstoneMain.MODID);
+    public static final DeferredRegister<Block> BLOCK_REGISTRY = new DeferredRegister<Block>(
+            ForgeRegistries.BLOCKS, TCRedstoneMain.MODID);
+    public static final DeferredRegister<TileEntityType<?>> TILEENTITY_REGISTRY = new DeferredRegister<TileEntityType<?>>(
+            ForgeRegistries.TILE_ENTITIES, TCRedstoneMain.MODID);
 
     public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
             () -> new BlockRedstoneAcceptor(
-                    Block.Properties.of(Material.METAL).strength(1.5f, 6.0f)));
+                    Block.Properties.create(Material.IRON).hardnessAndResistance(1.5f, 6.0f)));
     public static final RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
             () -> new BlockRedstoneEmitter(
-                    Block.Properties.of(Material.METAL).strength(1.5f, 6.0f)));
+                    Block.Properties.create(Material.IRON).hardnessAndResistance(1.5f, 6.0f)));
     public static final RegistryObject<Block> RS_MULTI_EMITTER = internalRegisterBlock(
             "multiemitter", () -> new BlockRedstoneMultiEmitter(
-                    Block.Properties.of(Material.METAL).strength(1.5f, 6.0f)));
+                    Block.Properties.create(Material.IRON).hardnessAndResistance(1.5f, 6.0f)));
 
     public static boolean acceptAcceptor(final World level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
     }
 
     public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
-            () -> new Linkingtool(ItemGroup.TAB_REDSTONE, TCRedstoneInit::acceptAcceptor));
+            () -> new Linkingtool(ItemGroup.REDSTONE, TCRedstoneInit::acceptAcceptor));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
-            () -> new RemoteActivator(ItemGroup.TAB_REDSTONE, TCRedstoneInit::acceptAcceptor));
+            () -> new RemoteActivator(ItemGroup.REDSTONE, TCRedstoneInit::acceptAcceptor));
 
     public static final RegistryObject<TileEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
             .register("emitter", () -> TileEntityType.Builder
-                    .of(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
+                    .create(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
 
     public static final RegistryObject<TileEntityType<?>> MULTI_EMITER_TILE = TILEENTITY_REGISTRY
             .register("multiemitter", () -> TileEntityType.Builder
-                    .of(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
+                    .create(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
 
     private static final RegistryObject<Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
         final RegistryObject<Block> registerObject = BLOCK_REGISTRY.register(name, sup);
         ITEM_REGISTRY.register(name, () -> new BlockItem(registerObject.get(),
-                new Properties().tab(ItemGroup.TAB_REDSTONE)));
+                new Properties()));
         return registerObject;
     }
 

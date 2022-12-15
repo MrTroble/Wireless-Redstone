@@ -9,7 +9,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -24,25 +23,25 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
     }
 
     @Override
-    public TileEntity newBlockEntity(final IBlockReader pos) {
+    public TileEntity createNewTileEntity(final IBlockReader pos) {
         return new TileRedstoneMultiEmitter();
     }
 
     @Override
-    public ActionResultType use(final BlockState state, final World world, final BlockPos pos,
+    public boolean onBlockActivated(final BlockState state, final World world, final BlockPos pos,
             final PlayerEntity player, final Hand hand, final BlockRayTraceResult hit) {
-        if (world.isClientSide)
-            return ActionResultType.PASS;
-        if (player.getItemInHand(hand).getItem().equals(TCRedstoneInit.RS_LINKER.get()))
-            return ActionResultType.PASS;
-        final TileEntity entity = world.getBlockEntity(pos);
+        if (!world.isRemote)
+            return false;
+        if (player.getHeldItem(hand).getItem().equals(TCRedstoneInit.RS_LINKER.get()))
+            return false;
+        final TileEntity entity = world.getTileEntity(pos);
         if (entity instanceof TileRedstoneMultiEmitter) {
             final TileRedstoneMultiEmitter emitter = (TileRedstoneMultiEmitter) entity;
             final List<BlockPos> listOfPositions = emitter.getLinkedPos();
             if (listOfPositions == null) {
                 player.sendMessage(new TranslationTextComponent("em.notlinked"));
             } else {
-                if (player.isCrouching()) {
+                if (player.isSneaking()) {
                     emitter.unlink();
                     listOfPositions.forEach(
                             blockpos -> player.sendMessage(new TranslationTextComponent("em.unlink",
@@ -53,20 +52,20 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
                                     blockpos.getX(), blockpos.getY(), blockpos.getZ())));
                 }
             }
-            return ActionResultType.SUCCESS;
+            return true;
         }
-        return ActionResultType.FAIL;
+        return false;
     }
 
     @Override
     public void neighborChanged(final BlockState state, final World world, final BlockPos pos,
             final Block blockIn, final BlockPos fromPos, final boolean isMoving) {
-        if (world.isClientSide)
+        if (!world.isRemote)
             return;
-        final TileEntity entity = world.getBlockEntity(pos);
+        final TileEntity entity = world.getTileEntity(pos);
         if (entity instanceof TileRedstoneMultiEmitter) {
             final TileRedstoneMultiEmitter emitter = (TileRedstoneMultiEmitter) entity;
-            emitter.redstoneUpdate(world.hasNeighborSignal(pos));
+            emitter.redstoneUpdate(world.isBlockPowered(pos));
         }
     }
 

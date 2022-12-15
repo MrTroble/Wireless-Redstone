@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,16 +23,16 @@ public class RemoteActivator extends Linkingtool {
     }
 
     @Override
-    public ActionResult<ItemStack> use(final World level, final PlayerEntity player,
+    public ActionResult<ItemStack> onItemRightClick(final World level, final PlayerEntity player,
             final Hand hand) {
-        final ItemStack itemstack = player.getItemInHand(hand);
-        if (!hand.equals(Hand.MAIN_HAND) || level.isClientSide)
-            return ActionResult.pass(itemstack);
+        final ItemStack itemstack = player.getHeldItem(hand);
+        if (!hand.equals(Hand.MAIN_HAND) || !level.isRemote)
+            return ActionResult.newResult(ActionResultType.PASS,itemstack);
         final CompoundNBT comp = itemstack.getTag();
         final BlockPos linkpos = NBTUtil.readBlockPos(comp);
         final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos, level);
-        message(player, "ra.state", String.valueOf(state));
-        return ActionResult.success(itemstack);
+        message("ra.state" + String.valueOf(state));
+        return ActionResult.newResult(ActionResultType.SUCCESS,itemstack);
     }
 
 }
