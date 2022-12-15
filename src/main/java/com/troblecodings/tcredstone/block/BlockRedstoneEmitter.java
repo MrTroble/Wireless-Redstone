@@ -1,7 +1,5 @@
 package com.troblecodings.tcredstone.block;
 
-import java.util.UUID;
-
 import com.troblecodings.tcredstone.init.TCRedstoneInit;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
@@ -33,20 +31,19 @@ public class BlockRedstoneEmitter extends Block implements ITileEntityProvider {
         if (player.getItemInHand(hand).getItem().equals(TCRedstoneInit.RS_LINKER.get()))
             return ActionResultType.PASS;
         final TileEntity entity = world.getBlockEntity(pos);
-        final UUID uuid = player.getUUID();
         if (entity instanceof TileRedstoneEmitter) {
             final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
             final BlockPos linkedpos = emitter.getLinkedPos();
             if (linkedpos == null) {
-                player.sendMessage(new TranslationTextComponent("em.notlinked"), uuid);
+                player.sendMessage(new TranslationTextComponent("em.notlinked"));
             } else {
                 if (player.isCrouching()) {
                     emitter.unlink();
                     player.sendMessage(new TranslationTextComponent("em.unlink", linkedpos.getX(),
-                            linkedpos.getY(), linkedpos.getZ()), uuid);
+                            linkedpos.getY(), linkedpos.getZ()));
                 } else {
                     player.sendMessage(new TranslationTextComponent("lt.linkedpos",
-                            linkedpos.getX(), linkedpos.getY(), linkedpos.getZ()), uuid);
+                            linkedpos.getX(), linkedpos.getY(), linkedpos.getZ()));
                 }
             }
             return ActionResultType.SUCCESS;

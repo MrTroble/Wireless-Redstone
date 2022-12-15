@@ -41,8 +41,8 @@ public class TileRedstoneEmitter extends TileEntity implements ILinkableTile {
     }
 
     @Override
-    public void load(final BlockState state, final CompoundNBT compound) {
-        super.load(state, compound);
+    public void load(final CompoundNBT compound) {
+        super.load(compound);
         this.linkedpos = readBlockPosFromNBT(compound);
     }
 

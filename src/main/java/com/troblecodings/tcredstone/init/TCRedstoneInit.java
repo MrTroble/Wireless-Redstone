@@ -39,14 +39,14 @@ public final class TCRedstoneInit {
             .create(ForgeRegistries.TILE_ENTITIES, TCRedstoneMain.MODID);
 
     public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
-            () -> new BlockRedstoneAcceptor(Block.Properties.of(Material.METAL).strength(1.5f, 6.0f)
-                    .requiresCorrectToolForDrops()));
+            () -> new BlockRedstoneAcceptor(
+                    Block.Properties.of(Material.METAL).strength(1.5f, 6.0f)));
     public static final RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
-            () -> new BlockRedstoneEmitter(Block.Properties.of(Material.METAL).strength(1.5f, 6.0f)
-                    .requiresCorrectToolForDrops()));
+            () -> new BlockRedstoneEmitter(
+                    Block.Properties.of(Material.METAL).strength(1.5f, 6.0f)));
     public static final RegistryObject<Block> RS_MULTI_EMITTER = internalRegisterBlock(
-            "multiemitter", () -> new BlockRedstoneMultiEmitter(Block.Properties.of(Material.METAL)
-                    .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
+            "multiemitter", () -> new BlockRedstoneMultiEmitter(
+                    Block.Properties.of(Material.METAL).strength(1.5f, 6.0f)));
 
     public static boolean acceptAcceptor(final World level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
