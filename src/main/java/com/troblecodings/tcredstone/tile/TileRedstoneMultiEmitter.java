@@ -80,28 +80,28 @@ public class TileRedstoneMultiEmitter extends TileEntity implements ILinkableTil
     }
 
     @Override
-    public void read(final CompoundNBT compound) {
-        super.read(compound);
+    public void load(final CompoundNBT compound) {
+        super.load(compound);
         this.listOfPositions = readBlockPosFromNBT(compound);
     }
 
     @Override
-    public CompoundNBT write(final CompoundNBT compound) {
-        super.write(compound);
+    public CompoundNBT save(final CompoundNBT compound) {
+        super.save(compound);
         writeBlockPosToNBT(listOfPositions, compound);
         return compound;
     }
 
     public void redstoneUpdate(final boolean enabled) {
-        listOfPositions.forEach(blockpos -> redstoneUpdate(enabled, blockpos, world));
+        listOfPositions.forEach(blockpos -> redstoneUpdate(enabled, blockpos, level));
     }
 
     public static boolean redstoneUpdate(final boolean enabled, final BlockPos linkedpos,
-            final World world) {
+            final World level) {
         if (linkedpos != null) {
-            final BlockState state = world.getBlockState(linkedpos);
+            final BlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                world.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, enabled), 3);
+                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, enabled), 3);
             }
         }
         return enabled;
@@ -111,8 +111,8 @@ public class TileRedstoneMultiEmitter extends TileEntity implements ILinkableTil
         if (linkedpos != null) {
             final BlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                final boolean newState = !state.has(BlockRedstoneAcceptor.POWER);
-                level.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, newState), 3);
+                final boolean newState = !state.getValue(BlockRedstoneAcceptor.POWER);
+                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, newState), 3);
                 return newState;
             }
         }

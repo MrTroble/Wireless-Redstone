@@ -14,26 +14,28 @@ public class BlockRedstoneAcceptor extends Block {
 
     public BlockRedstoneAcceptor(final Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(POWER, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(POWER, false));
     }
 
     @Override
-    public boolean canProvidePower(final BlockState state) {
+    public boolean isSignalSource(final BlockState state) {
         return true;
     }
-    
+
     @Override
-    public int getWeakPower(final BlockState blockState, final IBlockReader blockAccess, final BlockPos pos, final Direction side) {
-        return this.getStrongPower(blockState, blockAccess, pos, side);
+    public int getSignal(final BlockState blockState, final IBlockReader blockAccess,
+            final BlockPos pos, final Direction side) {
+        return this.getDirectSignal(blockState, blockAccess, pos, side);
     }
 
     @Override
-    public int getStrongPower(final BlockState blockState, final IBlockReader blockAccess, final BlockPos pos, final Direction side) {
-        return blockState.get(POWER) ? 15:0;
+    public int getDirectSignal(final BlockState blockState, final IBlockReader blockAccess,
+            final BlockPos pos, final Direction side) {
+        return blockState.getValue(POWER) ? 15 : 0;
     }
 
     @Override
-    protected void fillStateContainer(final Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(final Builder<Block, BlockState> builder) {
         builder.add(POWER);
     }
 

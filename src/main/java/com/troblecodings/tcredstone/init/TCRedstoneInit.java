@@ -40,36 +40,36 @@ public final class TCRedstoneInit {
 
     public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
             () -> new BlockRedstoneAcceptor(
-                    Block.Properties.create(Material.IRON).hardnessAndResistance(1.5f, 6.0f)));
+                    Block.Properties.of(Material.METAL).strength(1.5f, 6.0f)));
     public static final RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
             () -> new BlockRedstoneEmitter(
-                    Block.Properties.create(Material.IRON).hardnessAndResistance(1.5f, 6.0f)));
+                    Block.Properties.of(Material.METAL).strength(1.5f, 6.0f)));
     public static final RegistryObject<Block> RS_MULTI_EMITTER = internalRegisterBlock(
             "multiemitter", () -> new BlockRedstoneMultiEmitter(
-                    Block.Properties.create(Material.IRON).hardnessAndResistance(1.5f, 6.0f)));
+                    Block.Properties.of(Material.METAL).strength(1.5f, 6.0f)));
 
     public static boolean acceptAcceptor(final World level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
     }
 
     public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
-            () -> new Linkingtool(ItemGroup.REDSTONE, TCRedstoneInit::acceptAcceptor));
+            () -> new Linkingtool(ItemGroup.TAB_REDSTONE, TCRedstoneInit::acceptAcceptor));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
-            () -> new RemoteActivator(ItemGroup.REDSTONE, TCRedstoneInit::acceptAcceptor));
+            () -> new RemoteActivator(ItemGroup.TAB_REDSTONE, TCRedstoneInit::acceptAcceptor));
 
     public static final RegistryObject<TileEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
             .register("emitter", () -> TileEntityType.Builder
-                    .create(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
+                    .of(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
 
     public static final RegistryObject<TileEntityType<?>> MULTI_EMITER_TILE = TILEENTITY_REGISTRY
             .register("multiemitter", () -> TileEntityType.Builder
-                    .create(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
+                    .of(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
 
     private static final RegistryObject<Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
         final RegistryObject<Block> registerObject = BLOCK_REGISTRY.register(name, sup);
         ITEM_REGISTRY.register(name, () -> new BlockItem(registerObject.get(),
-                new Properties()));
+                new Properties().tab(ItemGroup.TAB_REDSTONE)));
         return registerObject;
     }
 

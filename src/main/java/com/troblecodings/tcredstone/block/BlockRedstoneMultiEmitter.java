@@ -23,18 +23,18 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
     }
 
     @Override
-    public TileEntity createNewTileEntity(final IBlockReader pos) {
+    public TileEntity newBlockEntity(final IBlockReader pos) {
         return new TileRedstoneMultiEmitter();
     }
 
     @Override
-    public boolean onBlockActivated(final BlockState state, final World world, final BlockPos pos,
+    public boolean use(final BlockState state, final World world, final BlockPos pos,
             final PlayerEntity player, final Hand hand, final BlockRayTraceResult hit) {
-        if (!world.isRemote)
+        if (world.isClientSide)
             return false;
-        if (player.getHeldItem(hand).getItem().equals(TCRedstoneInit.RS_LINKER.get()))
+        if (player.getItemInHand(hand).getItem().equals(TCRedstoneInit.RS_LINKER.get()))
             return false;
-        final TileEntity entity = world.getTileEntity(pos);
+        final TileEntity entity = world.getBlockEntity(pos);
         if (entity instanceof TileRedstoneMultiEmitter) {
             final TileRedstoneMultiEmitter emitter = (TileRedstoneMultiEmitter) entity;
             final List<BlockPos> listOfPositions = emitter.getLinkedPos();
@@ -60,12 +60,12 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
     @Override
     public void neighborChanged(final BlockState state, final World world, final BlockPos pos,
             final Block blockIn, final BlockPos fromPos, final boolean isMoving) {
-        if (!world.isRemote)
+        if (world.isClientSide)
             return;
-        final TileEntity entity = world.getTileEntity(pos);
+        final TileEntity entity = world.getBlockEntity(pos);
         if (entity instanceof TileRedstoneMultiEmitter) {
             final TileRedstoneMultiEmitter emitter = (TileRedstoneMultiEmitter) entity;
-            emitter.redstoneUpdate(world.isBlockPowered(pos));
+            emitter.redstoneUpdate(world.hasNeighborSignal(pos));
         }
     }
 
