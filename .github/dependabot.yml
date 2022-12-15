@@ -1,0 +1,110 @@
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.19-master"
+    assignees:
+      - "MrTroble"
+    ignore:
+      - dependency-name: "net.minecraftforge:forge"
+        versions: ["[1.20,]"]
+    labels:
+      - "Skip-Changelog"
+      - "dependencies"
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.18-master"
+    assignees:
+      - "MrTroble"
+    ignore:
+      - dependency-name: "net.minecraftforge:forge"
+        versions: ["[1.19,]"]
+    labels:
+      - "Skip-Changelog"
+      - "dependencies"
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.17.1-master"
+    assignees:
+      - "MrTroble"
+    ignore:
+      - dependency-name: "net.minecraftforge:forge"
+        versions: ["[1.18,]"]
+    labels:
+      - "Skip-Changelog"
+      - "dependencies"
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.16.5-master"
+    assignees:
+      - "MrTroble"
+    ignore:
+      - dependency-name: "net.minecraftforge:forge"
+        versions: ["[1.17,]"]
+    labels:
+      - "Skip-Changelog"
+      - "dependencies"
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.15.2-master"
+    assignees:
+      - "MrTroble"
+    ignore:
+      - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
+      - dependency-name: "net.minecraftforge:forge"
+        versions: ["[1.16,]"]
+    labels:
+      - "Skip-Changelog"
+      - "dependencies"
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.14.4-master"
+    assignees:
+      - "MrTroble"
+    ignore:
+      - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
+      - dependency-name: "net.minecraftforge:forge"
+        versions: ["[1.15,]"]
+    labels:
+      - "Skip-Changelog"
+      - "dependencies"
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.13.2-master"
+    assignees:
+      - "MrTroble"
+    ignore:
+      - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
+      - dependency-name: "net.minecraftforge:forge"
+        versions: ["[1.14,]"]
+    labels:
+      - "Skip-Changelog"
+      - "dependencies"
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "1.12.2-master"
+    assignees:
+      - "MrTroble"
+    labels:
+      - "Skip-Changelog"
+      - "dependencies"
+    ignore:
+      - dependency-name: "net.minecraftforge.gradle:ForgeGradle"
+      - dependency-name: "net.minecraftforge:forge"
+        versions: ["[1.13,]"]
