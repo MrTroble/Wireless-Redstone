@@ -35,8 +35,9 @@ public final class TCRedstoneInit {
             ForgeRegistries.ITEMS, TCRedstoneMain.MODID);
     public static final DeferredRegister<Block> BLOCK_REGISTRY = new DeferredRegister<Block>(
             ForgeRegistries.BLOCKS, TCRedstoneMain.MODID);
-    public static final DeferredRegister<TileEntityType<?>> TILEENTITY_REGISTRY = new DeferredRegister<TileEntityType<?>>(
-            ForgeRegistries.TILE_ENTITIES, TCRedstoneMain.MODID);
+    public static final DeferredRegister<TileEntityType<?>> TILEENTITY_REGISTRY =
+            new DeferredRegister<TileEntityType<?>>(ForgeRegistries.TILE_ENTITIES,
+                    TCRedstoneMain.MODID);
 
     public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
             () -> new BlockRedstoneAcceptor(
