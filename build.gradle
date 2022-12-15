@@ -46,7 +46,7 @@ version = ver
 group = 'com.troblecodings'
 archivesBaseName = 'TC-Redstone'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 minecraft {
     mappings channel: 'official', version: '1.17.1'
