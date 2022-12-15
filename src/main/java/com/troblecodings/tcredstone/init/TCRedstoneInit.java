@@ -3,7 +3,7 @@ package com.troblecodings.tcredstone.init;
 import java.util.function.Supplier;
 
 import com.troblecodings.linkableapi.Linkingtool;
-import com.troblecodings.tcredstone.GIRCRedstoneMain;
+import com.troblecodings.tcredstone.TCRedstoneMain;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.block.BlockRedstoneEmitter;
 import com.troblecodings.tcredstone.block.BlockRedstoneMultiEmitter;
@@ -27,14 +27,17 @@ import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class GIRCInit {
+public class TCRedstoneInit {
+    
+    private TCRedstoneInit() {
+    }
 
     public static final DeferredRegister<Item> ITEM_REGISTRY = DeferredRegister
-            .create(ForgeRegistries.ITEMS, GIRCRedstoneMain.MODID);
+            .create(ForgeRegistries.ITEMS, TCRedstoneMain.MODID);
     public static final DeferredRegister<Block> BLOCK_REGISTRY = DeferredRegister
-            .create(ForgeRegistries.BLOCKS, GIRCRedstoneMain.MODID);
+            .create(ForgeRegistries.BLOCKS, TCRedstoneMain.MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY = DeferredRegister
-            .create(ForgeRegistries.BLOCK_ENTITIES, GIRCRedstoneMain.MODID);
+            .create(ForgeRegistries.BLOCK_ENTITIES, TCRedstoneMain.MODID);
 
     public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
             () -> new BlockRedstoneAcceptor(BlockBehaviour.Properties.of(Material.METAL)
@@ -51,9 +54,9 @@ public class GIRCInit {
     }
 
     public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
-            () -> new Linkingtool(CreativeModeTab.TAB_REDSTONE, GIRCInit::acceptAcceptor));
+            () -> new Linkingtool(CreativeModeTab.TAB_REDSTONE, TCRedstoneInit::acceptAcceptor));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
-            () -> new RemoteActivator(CreativeModeTab.TAB_REDSTONE, GIRCInit::acceptAcceptor));
+            () -> new RemoteActivator(CreativeModeTab.TAB_REDSTONE, TCRedstoneInit::acceptAcceptor));
 
     public static final RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
             .register("emitter", () -> BlockEntityType.Builder
@@ -73,7 +76,7 @@ public class GIRCInit {
 
     public static void init() {
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        bus.register(GIRCInit.class);
+        bus.register(TCRedstoneInit.class);
         ITEM_REGISTRY.register(bus);
         BLOCK_REGISTRY.register(bus);
         TILEENTITY_REGISTRY.register(bus);
