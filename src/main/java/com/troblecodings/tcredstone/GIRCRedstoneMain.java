@@ -1,0 +1,21 @@
+package com.troblecodings.tcredstone;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.troblecodings.tcredstone.init.GIRCInit;
+
+import net.minecraftforge.fml.common.Mod;
+
+@Mod(GIRCRedstoneMain.MODID)
+public class GIRCRedstoneMain {
+
+    public GIRCRedstoneMain() {
+        GIRCInit.init();
+    }
+
+    public static final Logger LOGGER = LogManager.getLogger();
+
+    public static final String MODID = "gircredstone";
+
+}
