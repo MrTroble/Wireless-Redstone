@@ -1,4 +1,4 @@
-package eu.gir.gircredstone.block;
+package com.troblecodings.tcredstone.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,18 +18,18 @@ public class BlockRedstoneAcceptor extends Block {
     }
 
     @Override
-    public boolean isSignalSource(final BlockState state) {
+    public boolean isSignalSource(final BlockState blockState) {
         return true;
     }
 
     @Override
-    public int getSignal(final BlockState state, final BlockGetter level, final BlockPos pos,
+    public int getSignal(final BlockState blockState, final BlockGetter world, final BlockPos pos,
             final Direction direction) {
-        return this.getDirectSignal(state, level, pos, direction);
+        return this.getDirectSignal(blockState, world, pos, direction);
     }
 
     @Override
-    public int getDirectSignal(final BlockState blockState, final BlockGetter level,
+    public int getDirectSignal(final BlockState blockState, final BlockGetter world,
             final BlockPos pos, final Direction direction) {
         return blockState.getValue(POWER) ? 15 : 0;
     }

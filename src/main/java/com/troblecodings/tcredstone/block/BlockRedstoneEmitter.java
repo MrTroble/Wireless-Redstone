@@ -1,9 +1,10 @@
-package eu.gir.gircredstone.block;
+package com.troblecodings.tcredstone.block;
 
 import java.util.UUID;
 
-import eu.gir.gircredstone.init.GIRCInit;
-import eu.gir.gircredstone.tile.TileRedstoneEmitter;
+import com.troblecodings.tcredstone.init.GIRCInit;
+import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
