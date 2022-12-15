@@ -18,7 +18,7 @@ public class TCRedstoneMain {
 
     public static final String MODID = "gircredstone";
     
-    public void Test() {
+    public void test() {
         //literally do nothing
     }
 
