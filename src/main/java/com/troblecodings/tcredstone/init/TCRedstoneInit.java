@@ -26,6 +26,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(bus = Bus.MOD, modid = TCRedstoneMain.MODID)
 public final class TCRedstoneInit {
+    
+    private TCRedstoneInit() {
+    }
 
     public static final Block RS_ACCEPTOR = new BlockRedstoneAcceptor(
             net.minecraft.block.Block.Properties.create(Material.IRON).hardnessAndResistance(1.5f,
