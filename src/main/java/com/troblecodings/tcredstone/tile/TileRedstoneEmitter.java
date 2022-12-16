@@ -50,7 +50,7 @@ public class TileRedstoneEmitter extends TileEntity implements ILinkableTile {
     public NBTTagCompound write(final NBTTagCompound compound) {
         super.write(compound);
         writeBlockPosToNBT(linkedpos, compound);
-        return compound;
+        return super.write(compound);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class TileRedstoneEmitter extends TileEntity implements ILinkableTile {
         if (linkedpos != null) {
             final IBlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                final boolean newState = !state.has(BlockRedstoneAcceptor.POWER);
+                final boolean newState = !state.get(BlockRedstoneAcceptor.POWER);
                 level.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, newState),
                         3);
                 return newState;

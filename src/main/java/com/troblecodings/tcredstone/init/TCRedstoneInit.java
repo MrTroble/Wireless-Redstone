@@ -5,6 +5,7 @@ import com.troblecodings.tcredstone.TCRedstoneMain;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.block.BlockRedstoneEmitter;
 import com.troblecodings.tcredstone.block.BlockRedstoneMultiEmitter;
+import com.troblecodings.tcredstone.item.RemoteActivator;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
@@ -26,26 +27,22 @@ import net.minecraftforge.registries.IForgeRegistry;
 @Mod.EventBusSubscriber(bus = Bus.MOD, modid = TCRedstoneMain.MODID)
 public final class TCRedstoneInit {
 
-    static String modID = TCRedstoneMain.MODID;
-
-    private TCRedstoneInit() {
-    }
-
     public static final Block RS_ACCEPTOR = new BlockRedstoneAcceptor(
             net.minecraft.block.Block.Properties.create(Material.IRON).hardnessAndResistance(1.5f,
-                    6.0f)).setRegistryName(modID, "acceptor");
+                    6.0f)).setRegistryName(TCRedstoneMain.MODID, "acceptor");
     public static final Block RS_EMITTER = new BlockRedstoneEmitter(
             net.minecraft.block.Block.Properties.create(Material.IRON).hardnessAndResistance(1.5f,
-                    6.0f)).setRegistryName(modID, "emitter");
+                    6.0f)).setRegistryName(TCRedstoneMain.MODID, "emitter");
     public static final Block RS_MULTI_EMITTER = new BlockRedstoneMultiEmitter(
             net.minecraft.block.Block.Properties.create(Material.IRON).hardnessAndResistance(1.5f,
-                    6.0f)).setRegistryName(modID, "multiemitter");
+                    6.0f)).setRegistryName(TCRedstoneMain.MODID, "multiemitter");
 
     public static final Item RS_LINKER = new Linkingtool(ItemGroup.REDSTONE,
-            TCRedstoneInit::acceptAcceptor).setRegistryName(modID, "linker");
-    public static final Item REMOTE_ACTIVATOR = new Linkingtool(ItemGroup.REDSTONE,
-            TCRedstoneInit::acceptAcceptor).setRegistryName(modID, "activator");
+            TCRedstoneInit::acceptAcceptor).setRegistryName(TCRedstoneMain.MODID, "linker");
+    public static final Item REMOTE_ACTIVATOR = new RemoteActivator(ItemGroup.REDSTONE,
+            TCRedstoneInit::acceptAcceptor).setRegistryName(TCRedstoneMain.MODID, "activator");
 
+    @SubscribeEvent
     public static void registerBlock(final RegistryEvent.Register<Block> event) {
         final IForgeRegistry<Block> registry = event.getRegistry();
         registry.register(RS_ACCEPTOR);
@@ -60,6 +57,9 @@ public final class TCRedstoneInit {
                 .setRegistryName(RS_ACCEPTOR.getRegistryName()));
         registry.register(new ItemBlock(RS_EMITTER, new Properties().group(ItemGroup.REDSTONE))
                 .setRegistryName(RS_EMITTER.getRegistryName()));
+        registry.register(
+                new ItemBlock(RS_MULTI_EMITTER, new Properties().group(ItemGroup.REDSTONE))
+                        .setRegistryName(RS_MULTI_EMITTER.getRegistryName()));
         registry.register(RS_LINKER);
         registry.register(REMOTE_ACTIVATOR);
     }
@@ -69,10 +69,11 @@ public final class TCRedstoneInit {
     }
 
     public static final TileEntityType<?> EMITER_TILE = TileEntityType.Builder
-            .create(TileRedstoneEmitter::new).build(null).setRegistryName(modID, "emitter");
+            .create(TileRedstoneEmitter::new).build(null)
+            .setRegistryName(TCRedstoneMain.MODID, "emitter");
     public static final TileEntityType<?> MULTI_EMITER_TILE = TileEntityType.Builder
             .create(TileRedstoneMultiEmitter::new).build(null)
-            .setRegistryName(modID, "multiemitter");
+            .setRegistryName(TCRedstoneMain.MODID, "multiemitter");
 
     @SubscribeEvent
     public static void registerTE(final RegistryEvent.Register<TileEntityType<?>> evt) {
