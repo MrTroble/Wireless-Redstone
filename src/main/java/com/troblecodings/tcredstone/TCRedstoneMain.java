@@ -3,20 +3,31 @@ package com.troblecodings.tcredstone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraftforge.fml.common.Mod;
+import com.troblecodings.tcredstone.proxy.CommonProxy;
 
-@Mod(TCRedstoneMain.MODID)
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+@Mod(modid = TCRedstoneMain.MODID)
 public class TCRedstoneMain {
 
     public TCRedstoneMain() {
     }
 
-    public static final Logger LOGGER = LogManager.getLogger();
+    public static Logger LOGGER = LogManager.getLogger();
 
     public static final String MODID = "gircredstone";
-    
-    public void test() {
-        //literally do nothing
+
+    @SidedProxy(serverSide = "com.troblecodings.tcredstone.proxy.CommonProxy",
+            clientSide = "com.troblecodings.tcredstone.proxy.ClientProxy")
+    public static CommonProxy PROXY;
+
+    @EventHandler
+    public void preInit(final FMLPreInitializationEvent event) {
+        LOGGER = event.getModLog();
+        PROXY.preinit(event);
     }
 
 }

@@ -2,7 +2,6 @@ package com.troblecodings.tcredstone.tile;
 
 import com.troblecodings.linkableapi.ILinkableTile;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
-import com.troblecodings.tcredstone.init.TCRedstoneInit;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,21 +11,18 @@ import net.minecraft.world.World;
 
 public class TileRedstoneEmitter extends TileEntity implements ILinkableTile {
 
-    public TileRedstoneEmitter() {
-        super(TCRedstoneInit.EMITER_TILE);
-    }
-
     private BlockPos linkedpos = null;
 
     private static final String ID_X = "xLinkedPos";
     private static final String ID_Y = "yLinkedPos";
     private static final String ID_Z = "zLinkedPos";
 
-    public static NBTTagCompound writeBlockPosToNBT(final BlockPos pos, final NBTTagCompound compound) {
+    public static NBTTagCompound writeBlockPosToNBT(final BlockPos pos,
+            final NBTTagCompound compound) {
         if (pos != null && compound != null) {
-            compound.setInt(ID_X, pos.getX());
-            compound.setInt(ID_Y, pos.getY());
-            compound.setInt(ID_Z, pos.getZ());
+            compound.setInteger(ID_X, pos.getX());
+            compound.setInteger(ID_Y, pos.getY());
+            compound.setInteger(ID_Z, pos.getZ());
         }
         return compound;
     }
@@ -34,23 +30,23 @@ public class TileRedstoneEmitter extends TileEntity implements ILinkableTile {
     public static BlockPos readBlockPosFromNBT(final NBTTagCompound compound) {
         if (compound != null && compound.hasKey(ID_X) && compound.hasKey(ID_Y)
                 && compound.hasKey(ID_Z)) {
-            return new BlockPos(compound.getInt(ID_X), compound.getInt(ID_Y),
-                    compound.getInt(ID_Z));
+            return new BlockPos(compound.getInteger(ID_X), compound.getInteger(ID_Y),
+                    compound.getInteger(ID_Z));
         }
         return null;
     }
 
     @Override
-    public void read(final NBTTagCompound compound) {
-        super.read(compound);
+    public void readFromNBT(final NBTTagCompound compound) {
+        super.readFromNBT(compound);
         this.linkedpos = readBlockPosFromNBT(compound);
     }
 
     @Override
-    public NBTTagCompound write(final NBTTagCompound compound) {
-        super.write(compound);
+    public NBTTagCompound writeToNBT(final NBTTagCompound compound) {
+        super.writeToNBT(compound);
         writeBlockPosToNBT(linkedpos, compound);
-        return super.write(compound);
+        return super.writeToNBT(compound);
     }
 
     @Override
@@ -82,7 +78,8 @@ public class TileRedstoneEmitter extends TileEntity implements ILinkableTile {
         if (linkedpos != null) {
             final IBlockState state = world.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                world.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, enabled), 3);
+                world.setBlockState(linkedpos,
+                        state.withProperty(BlockRedstoneAcceptor.POWER, enabled), 3);
             }
         }
         return enabled;
@@ -92,9 +89,9 @@ public class TileRedstoneEmitter extends TileEntity implements ILinkableTile {
         if (linkedpos != null) {
             final IBlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                final boolean newState = !state.get(BlockRedstoneAcceptor.POWER);
-                level.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, newState),
-                        3);
+                final boolean newState = !state.getValue(BlockRedstoneAcceptor.POWER);
+                level.setBlockState(linkedpos,
+                        state.withProperty(BlockRedstoneAcceptor.POWER, newState), 3);
                 return newState;
             }
         }
