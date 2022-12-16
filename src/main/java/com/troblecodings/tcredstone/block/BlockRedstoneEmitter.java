@@ -5,6 +5,7 @@ import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -19,7 +20,7 @@ import net.minecraft.world.World;
 public class BlockRedstoneEmitter extends Block implements ITileEntityProvider {
 
     public BlockRedstoneEmitter(final Properties properties) {
-        super(properties);
+        super(Properties.create(Material.IRON).hardnessAndResistance(1.5f, 6.0f));
     }
 
     @Override
