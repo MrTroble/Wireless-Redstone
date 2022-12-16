@@ -1,13 +1,126 @@
 # Changelog
 
+## [Update]
+
+* feat: added multi-emitter block
+* feat: added remote control
+
+## [!Breaking Changes]
+
+* 1.19 update to 1.19.3+ with loosing compatibility to <= 1.19.2
+* Introducing linkable API which might break things
+
+## [Update]
+
+* feat: pr_br language from @FITFC
+
+## [Update]
+
+* feat: Added remote activator
+
+## [1.19.1-Forge]
+
+* Updated to Forge version 1.19.1-42.0.1
+
+***This version is only for 1.19.1-42.0.1 and higher. Please use older versions for older forge versions.***
+
+## [1.19-Forge]
+
+* Fixed startup crash for newer forge versions
+
+***This version is only for 1.19-41.0.98. Please use older versions for older forge versions*** 
+
+## [Internal]
+
+* Internal forge update
+
+## [Internal]
+
+* Internal forge update
+
+## [1.19]
+
+* deps: Updatet to 1.19
+
+## [Update/Fix]
+
+* feat: Added block tags and loot tables (blocks drop items when they are broken)
+
+## [Internal]
+
+* Internal forge update
+
+## [Internal]
+
+* ref: Added final modifier
+* deps: Updatet dependencies
+
+## [Fix] 1.16.5 - 06.11.2022 - 1
+
+* fix: Fixed link not being saved correctly
+
+## [Internal] 04.13.2022 - 1
+
+* Internal forge update
+
+## [Internal] 03.24.2022 - 1
+
+* Internal forge update
+
+## [Internal] 03.16.2022 - 1
+
+* Internal forge update
+
+## [Internal] 03.14.2022 - 1
+
+* Internal forge update
+
+## [Fix] 1.16.5 - 03.09.2022 - 1
+
+* Fixed wrong ressources
+
+## [Fix] 1.15.2 - 03.09.2022 - 1
+
+* Fixed wrong textures
+
+## [Fix] 1.14.4 - 03.09.2022 - 1
+
+* Fixed wrong ressources
+
+## [Fix] 1.13.2 - 03.09.2022 - 1
+
+* Fixed wrong ressources
+
+## [Fix] 03.09.2022 - 1
+
+* Fixed wrong ressource files
+* Fixed loading bug
+
+## [Update/Fix] 1.17.1 - 06.11.2022 - 1
+
+* feat: Blocks are now breakable with an iron pickaxe
+* fix: Fixed link not being saved correctly
+
 ## [Update] 01.31.2022 - 1
 
 * Update readme
+
+## [Release] 10.11.2021 - 1
+
+* Change release type from beta to release
 
 ## [Update] 08.28.2021 - 1/2
 
 * Updated compression
 * Compacted json
+
+## [Fix] 1.14.4 - 08.06.2021 - 1
+* Fixed issue with unneeded chunkloading
+
+## [Fix] 1.13.2 - 08.05.2021 - 2
+* Fixed issue with language keys not working
+
+## 1.13.2 release
 
 ## [Fix] 07.28.2021 - 1
 * Fixed issues with server sided translation keys
