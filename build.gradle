@@ -49,7 +49,7 @@ archivesBaseName = 'TC-Redstone'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20180921-1.13'
+    mappings channel: 'snapshot', version: '20171003-1.12'
 
     runs {
         client {
