@@ -1,0 +1,16 @@
+[
+{
+  "modid": "gircredstone",
+  "name": "TC Wireless Redstone",
+  "description": "Wireless Redstone Mod - Works in unloaded Chunks TM.",
+  "version": "${version}",
+  "mcversion": "1.12.2",
+  "url": "https://troblecodings.com/",
+  "updateUrl": "",
+  "authorList": ["MrTroble", "Jeronimo"],
+  "credits": "MrTroble",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

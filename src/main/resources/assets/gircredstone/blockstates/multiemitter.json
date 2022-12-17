@@ -1,7 +1,7 @@
 {
     "variants": {
-        "": {
-            "model": "gircredstone:block/multiemitter"
+        "normal": {
+            "model": "gircredstone:multiemitter"
         }
     }
 }

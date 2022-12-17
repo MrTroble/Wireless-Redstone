@@ -1,0 +1,16 @@
+item.gircredstone.linker=WLR Verlinker
+item.gircredstone.activator=WLR Fernaktivator
+block.gircredstone.emitter=WLR Signal-Sender
+block.gircredstone.multiemitter=WLR Multi-Signal-Sender
+block.gircredstone.acceptor=WLR Signal-Akzeptor
+lt.linkedpos=§2Verlinkt mit: {%d, %d, %d§2}§r
+lt.setpos=§2Gesetzt auf: {%d, %d, %d§2}§r
+lt.setpos.msg=§l§9Bitte klicke auf einen Signal-Sender um die Verkn§pfung herzustellen.§r
+lt.notlinked=§cNicht verlinkt!§r
+lt.notlinked.msg=§l§9Bitte klicke auf einen Signal-Akzeptor um zu verknüpfen.§r
+lt.reset=§cDer Verlinker ist zurückgesetzt.§r
+lt.notset=§cDer Verlinker ist nicht verlinkt.§r
+lt.unlink=§cDer Signal-Sender ist nicht mehr verlinkt!§r
+em.notlinked=§cDer Signal-Sender ist nicht verlinkt!§r
+em.unlink=§cNicht mehr verlinkt.§r
+ra.state=Aktiviert: %s"
