@@ -54,12 +54,12 @@ public final class TCRedstoneBlocks {
                                     .createNewTileEntity(null, 0).getClass();
                             TileEntity.register(tileclass.getSimpleName().toLowerCase(), tileclass);
                         } catch (final NullPointerException ex) {
-                            TCRedstoneMain.LOGGER.trace(
+                            TCRedstoneMain.logger.trace(
                                     "All tileentity provide need to call back a default entity if the world is null!",
                                     ex);
                         }
                     }
-                } catch (IllegalArgumentException | IllegalAccessException e) {
+                } catch (final IllegalArgumentException | IllegalAccessException  e) {
                     e.printStackTrace();
                 }
             }

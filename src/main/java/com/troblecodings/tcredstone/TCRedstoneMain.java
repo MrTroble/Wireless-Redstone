@@ -16,18 +16,18 @@ public class TCRedstoneMain {
     public TCRedstoneMain() {
     }
 
-    public static Logger LOGGER = LogManager.getLogger();
+    public static Logger logger = LogManager.getLogger();
 
     public static final String MODID = "gircredstone";
 
     @SidedProxy(serverSide = "com.troblecodings.tcredstone.proxy.CommonProxy",
             clientSide = "com.troblecodings.tcredstone.proxy.ClientProxy")
-    public static CommonProxy PROXY;
+    public static CommonProxy proxy;
 
     @EventHandler
     public void preInit(final FMLPreInitializationEvent event) {
-        LOGGER = event.getModLog();
-        PROXY.preinit(event);
+        logger = event.getModLog();
+        proxy.preinit(event);
     }
 
 }

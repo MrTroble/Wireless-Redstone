@@ -20,6 +20,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class TCRedstoneItems {
     
+    private TCRedstoneItems( ) {
+    }
+    
     public static final Item LINKER = new Linkingtool(CreativeTabs.REDSTONE,
             TCRedstoneItems::acceptAcceptor);
     public static final Item ACTIVATOR = new RemoteActivator(CreativeTabs.REDSTONE,
@@ -39,7 +42,7 @@ public class TCRedstoneItems {
                     item.setRegistryName(new ResourceLocation(TCRedstoneMain.MODID, name));
                     item.setUnlocalizedName(name);
                     itemsToRegister.add(item);
-                } catch (IllegalArgumentException | IllegalAccessException e) {
+                } catch (final IllegalArgumentException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }
