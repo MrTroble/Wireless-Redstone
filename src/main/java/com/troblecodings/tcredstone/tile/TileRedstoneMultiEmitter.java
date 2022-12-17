@@ -26,10 +26,8 @@ public class TileRedstoneMultiEmitter extends TileEntity implements ILinkableTil
 
             final NBTTagList list = new NBTTagList();
             listOfPositions.forEach(blockpos -> {
-                for (int i = 0; i < listOfPositions.size(); i++) {
-                    final NBTTagCompound item = NBTUtil.createPosTag(blockpos);
-                    list.set(i, item);
-                }
+                final NBTTagCompound item = NBTUtil.createPosTag(blockpos);
+                list.appendTag(item);
             });
             compound.setTag(LINKED_POS_LIST, list);
             System.out.println("List: " + listOfPositions);
