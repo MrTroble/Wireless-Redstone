@@ -1,8 +1,8 @@
-item.gircredstone.linker=WLR Vinculador
-item.gircredstone.activator=WLR Ativador Remoto
-block.gircredstone.emitter=WLR Emissor
-block.gircredstone.multiemitter=WLR Multi-Emissor
-block.gircredstone.acceptor=WLR Receptor
+item.linker.name=WLR Vinculador
+item.activator.name=WLR Ativador Remoto
+tile.emitter.name=WLR Emissor
+tile.multiemitter.name=WLR Multi-Emissor
+tile.acceptor.name=WLR Receptor
 lt.linkedpos=§2Ligado a: {%d, %d, %d§2}§r
 lt.setpos=§2Definido como: {%d, %d, %d§2}§r
 lt.setpos.msg=§l§9Por favor, clique em um emissor para definir o link.§r

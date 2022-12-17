@@ -1,8 +1,8 @@
-item.gircredstone.linker=WLR Linker
-item.gircredstone.activator=WLR Remote Activator
-block.gircredstone.emitter=WLR Emitter
-block.gircredstone.multiemitter=WLR Multi-Emitter
-block.gircredstone.acceptor=WLR Acceptor
+item.linker.name=WLR Linker
+item.activator.name=WLR Remote Activator
+tile.emitter.name=WLR Emitter
+tile.multiemitter.name=WLR Multi-Emitter
+tile.acceptor.name=WLR Acceptor
 lt.linkedpos=§2Linked to: {%d, %d, %d§2}§r
 lt.setpos=§2Set to: {%d, %d, %d§2}§r
 lt.setpos.msg=§l§9Please click on an Emitter to set the link.§r
