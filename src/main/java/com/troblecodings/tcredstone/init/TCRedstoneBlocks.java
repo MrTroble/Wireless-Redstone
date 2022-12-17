@@ -59,7 +59,7 @@ public final class TCRedstoneBlocks {
                                     ex);
                         }
                     }
-                } catch (final IllegalArgumentException | IllegalAccessException  e) {
+                } catch (final IllegalArgumentException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }
