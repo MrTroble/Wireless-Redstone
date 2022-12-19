@@ -82,8 +82,9 @@ public class GIRCInit {
 
     @SubscribeEvent
     public static void onCreativeTabs(final CreativeModeTabEvent.BuildContents event) {
-        event.registerSimple(CreativeModeTabs.f_257028_,
-                ITEM_REGISTRY.getEntries().stream().map(reg -> reg.get()).toArray(Item[]::new));
+        if (event.getTab().equals(CreativeModeTabs.f_257028_)) {
+            ITEM_REGISTRY.getEntries().forEach(event::accept);
+        }
     }
 
 }
