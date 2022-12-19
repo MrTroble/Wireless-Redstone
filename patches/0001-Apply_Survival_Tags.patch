@@ -1,0 +1,93 @@
+diff --git a/src/main/java/eu/gir/gircredstone/block/BlockBasic.java b/src/main/java/eu/gir/gircredstone/block/BlockBasic.java
+index 4b54e69..bd20128 100644
+--- a/src/main/java/eu/gir/gircredstone/block/BlockBasic.java
++++ b/src/main/java/eu/gir/gircredstone/block/BlockBasic.java
+@@ -7,7 +7,7 @@ import net.minecraft.world.level.material.Material;
+ public class BlockBasic extends Block {
+ 	
+ 	public BlockBasic(final String name) {
+-		super(Properties.of(Material.METAL));
++		super(Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F));
+ 		this.setRegistryName(GIRCRedstoneMain.MODID, name);
+ 	}
+ 	
+diff --git a/src/main/resources/data/gircredstone/loot_tables/blocks/acceptor.json b/src/main/resources/data/gircredstone/loot_tables/blocks/acceptor.json
+new file mode 100644
+index 0000000..bf6248e
+--- /dev/null
++++ b/src/main/resources/data/gircredstone/loot_tables/blocks/acceptor.json
+@@ -0,0 +1,19 @@
++{
++	"type": "minecraft:block",
++	"pools": [
++		{
++			"rolls": 1,
++			"entries": [
++				{
++					"type": "minecraft:item",
++					"name": "gircredstone:acceptor"
++				}
++			],
++			"conditions": [
++				{
++					"condition": "minecraft:survives_explosion"
++				}
++			]
++		}
++	]
++}
+\ No newline at end of file
+diff --git a/src/main/resources/data/gircredstone/loot_tables/blocks/emitter.json b/src/main/resources/data/gircredstone/loot_tables/blocks/emitter.json
+new file mode 100644
+index 0000000..4d3dc29
+--- /dev/null
++++ b/src/main/resources/data/gircredstone/loot_tables/blocks/emitter.json
+@@ -0,0 +1,19 @@
++{
++	"type": "minecraft:block",
++	"pools": [
++		{
++			"rolls": 1,
++			"entries": [
++				{
++					"type": "minecraft:item",
++					"name": "gircredstone:emitter"
++				}
++			],
++			"conditions": [
++				{
++					"condition": "minecraft:survives_explosion"
++				}
++			]
++		}
++	]
++}
+\ No newline at end of file
+diff --git a/src/main/resources/data/minecraft/tags/blocks/mineable/pickaxe.json b/src/main/resources/data/minecraft/tags/blocks/mineable/pickaxe.json
+new file mode 100644
+index 0000000..41b83bc
+--- /dev/null
++++ b/src/main/resources/data/minecraft/tags/blocks/mineable/pickaxe.json
+@@ -0,0 +1,7 @@
++{
++	"replace": false,
++	"values": [
++		"gircredstone:acceptor",
++		"gircredstone:emitter"
++	]
++}
+\ No newline at end of file
+diff --git a/src/main/resources/data/minecraft/tags/blocks/needs_iron_tool.json b/src/main/resources/data/minecraft/tags/blocks/needs_iron_tool.json
+new file mode 100644
+index 0000000..41b83bc
+--- /dev/null
++++ b/src/main/resources/data/minecraft/tags/blocks/needs_iron_tool.json
+@@ -0,0 +1,7 @@
++{
++	"replace": false,
++	"values": [
++		"gircredstone:acceptor",
++		"gircredstone:emitter"
++	]
++}
+\ No newline at end of file

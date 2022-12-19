@@ -1,23 +1,20 @@
 modLoader="javafml"
-loaderVersion="[25,)"
-issueTrackerURL="https://github.com/German-Immersive-Railroading-Community/GIRC-Redstone/issues"
+loaderVersion="[29,)"
+issueTrackerURL="https://github.com/MrTroble/Wireless-Redstone/issues"
+license="Apache License Version 2.0"
 
 [[mods]]
 modId="gircredstone"
 version="${file.jarVersion}"
-displayName="GIRC Redstone"
-displayURL="https://girc.eu/"
+displayName="TC Redstone"
+displayURL="https://troblecodings.com/"
 authors="MrTroble, Jeronimo"
-description='''
-The official Wireless Redstone Mod for GIR.
-
-Works in unloaded Chunks TM.
-'''
+description="Wireless Redstone Mod - Works in unloaded Chunks TM."
 
 [[dependencies.gircredstone]]
     modId="forge" 
     mandatory=true 
-    versionRange="[25,)" 
+    versionRange="[29,)" 
     ordering="NONE"
     side="BOTH"
 

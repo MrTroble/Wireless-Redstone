@@ -1,0 +1,4 @@
+[submodule "linkableapi"]
+	path = linkableapi
+	url = https://github.com/MrTroble/linkableapi
+	branch = 1.15.2-master
