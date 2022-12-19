@@ -1,5 +1,9 @@
 # Changelog
 
+## [Fix]
+
+* fix: remote activator
+
 ## [Update]
 
 * feat: added multi-emitter block
