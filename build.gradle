@@ -44,7 +44,7 @@ if(ver == null)
 	ver = "dev"
 version = ver
 group = 'com.troblecodings'
-archivesBaseName = 'TC-Redstone'
+archivesBaseName = 'TC-Redstone-1.13.2'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
