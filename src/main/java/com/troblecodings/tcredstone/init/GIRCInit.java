@@ -13,7 +13,7 @@ import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.Level;
@@ -21,9 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -53,9 +51,9 @@ public class GIRCInit {
     }
 
     public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
-            () -> new Linkingtool(null, GIRCInit::acceptAcceptor));
+            () -> new Linkingtool(CreativeModeTab.TAB_REDSTONE, GIRCInit::acceptAcceptor));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
-            () -> new RemoteActivator());
+            () -> new RemoteActivator(CreativeModeTab.TAB_REDSTONE, GIRCInit::acceptAcceptor));
 
     public static final RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
             .register("emitter", () -> BlockEntityType.Builder
@@ -68,7 +66,8 @@ public class GIRCInit {
     private static final RegistryObject<Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
         final RegistryObject<Block> registerObject = BLOCK_REGISTRY.register(name, sup);
-        ITEM_REGISTRY.register(name, () -> new BlockItem(registerObject.get(), new Properties()));
+        ITEM_REGISTRY.register(name, () -> new BlockItem(registerObject.get(),
+                new Properties().tab(CreativeModeTab.TAB_REDSTONE)));
         return registerObject;
     }
 
@@ -78,13 +77,6 @@ public class GIRCInit {
         ITEM_REGISTRY.register(bus);
         BLOCK_REGISTRY.register(bus);
         TILEENTITY_REGISTRY.register(bus);
-    }
-
-    @SubscribeEvent
-    public static void onCreativeTabs(final CreativeModeTabEvent.BuildContents event) {
-        if (event.getTab().equals(CreativeModeTabs.f_257028_)) {
-            ITEM_REGISTRY.getEntries().forEach(event::accept);
-        }
     }
 
 }
