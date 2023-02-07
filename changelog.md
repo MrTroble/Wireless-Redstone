@@ -1,5 +1,9 @@
 # Changelog
 
+## [Port 1.19.2]
+
+* port to version 1.19.2
+
 ## [Update]
 
 * feat: added multi-emitter block
