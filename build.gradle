@@ -44,7 +44,7 @@ if(ver == null)
 	ver = "dev"
 version = ver
 group = 'com.troblecodings'
-archivesBaseName = 'TC-Redstone-1.19.3'
+archivesBaseName = 'TC-Redstone-1.19.4'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -83,7 +83,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.3-44.1.20'
+    minecraft 'net.minecraftforge:forge:1.19.4-45.0.1'
 }
 
 jar {

@@ -1,11 +1,10 @@
 package com.troblecodings.tcredstone.block;
 
+import com.troblecodings.linkableapi.Message;
 import com.troblecodings.tcredstone.init.GIRCInit;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class BlockRedstoneEmitter extends Block implements EntityBlock {
+public class BlockRedstoneEmitter extends Block implements EntityBlock, Message {
 
     public BlockRedstoneEmitter(final Properties properties) {
         super(properties);
@@ -34,16 +33,15 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock {
             final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
             final BlockPos linkedpos = emitter.getLinkedPos();
             if (linkedpos == null) {
-                player.sendSystemMessage(
-                        MutableComponent.create(new TranslatableContents("em.notlinked")));
+                message(player, "em.notlinked");
             } else {
                 if (player.isCrouching()) {
                     emitter.unlink();
-                    player.sendSystemMessage(MutableComponent.create(new TranslatableContents(
-                            "em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ())));
+                    message(player, "em.unlink", linkedpos.getX(), linkedpos.getY(),
+                            linkedpos.getZ());
                 } else {
-                    player.sendSystemMessage(MutableComponent.create(new TranslatableContents(
-                            "lt.linkedpos", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ())));
+                    message(player, "lt.linkedpos", linkedpos.getX(), linkedpos.getY(),
+                            linkedpos.getZ());
                 }
             }
             return InteractionResult.SUCCESS;
