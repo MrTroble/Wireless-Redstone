@@ -20,8 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -39,14 +38,14 @@ public class GIRCInit {
             .create(ForgeRegistries.BLOCK_ENTITY_TYPES, GIRCRedstoneMain.MODID);
 
     public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
-            () -> new BlockRedstoneAcceptor(BlockBehaviour.Properties.of(Material.METAL)
+            () -> new BlockRedstoneAcceptor(BlockBehaviour.Properties.of() //TODO Material.METAL
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
-            () -> new BlockRedstoneEmitter(BlockBehaviour.Properties.of(Material.METAL)
+            () -> new BlockRedstoneEmitter(BlockBehaviour.Properties.of() //TODO Material.METAL
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> RS_MULTI_EMITTER = internalRegisterBlock(
             "multiemitter", () -> new BlockRedstoneMultiEmitter(BlockBehaviour.Properties
-                    .of(Material.METAL).strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
+                    .of().strength(1.5f, 6.0f).requiresCorrectToolForDrops())); //TODO Material.METAL
 
     public static boolean acceptAcceptor(final Level level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
@@ -81,8 +80,8 @@ public class GIRCInit {
     }
 
     @SubscribeEvent
-    public static void onCreativeTabs(final CreativeModeTabEvent.BuildContents event) {
-        if (event.getTab().equals(CreativeModeTabs.f_257028_)) {
+    public static void onCreativeTabs(final BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey().equals(CreativeModeTabs.REDSTONE_BLOCKS)) {
             ITEM_REGISTRY.getEntries().forEach(event::accept);
         }
     }
