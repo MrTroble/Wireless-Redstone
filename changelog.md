@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.18.2 - 3.2.1]
+
+* feat: added multi linking tool
+
 ## [Fix]
 
 * fix: remote activator
