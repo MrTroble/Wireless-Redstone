@@ -34,16 +34,14 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock {
             final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
             final BlockPos linkedpos = emitter.getLinkedPos();
             if (linkedpos == null) {
-                player.sendSystemMessage(
-                        MutableComponent.create(new TranslatableContents("em.notlinked")));
+                player.sendSystemMessage(MutableComponent.create(new TranslatableContents(
+                        "em.notlinked", (String) null, TranslatableContents.NO_ARGS)));
             } else {
                 if (player.isCrouching()) {
                     emitter.unlink();
-                    player.sendSystemMessage(MutableComponent.create(new TranslatableContents(
-                            "em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ())));
+                    message(player, "lt.linkedpos", pos.getX(), pos.getY(), pos.getZ());
                 } else {
-                    player.sendSystemMessage(MutableComponent.create(new TranslatableContents(
-                            "lt.linkedpos", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ())));
+                    message(player, "lt.linkedpos", pos.getX(), pos.getY(), pos.getZ());
                 }
             }
             return InteractionResult.SUCCESS;
@@ -66,6 +64,14 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock {
     @Override
     public BlockEntity newBlockEntity(final BlockPos pos, final BlockState state) {
         return new TileRedstoneEmitter(pos, state);
+    }
+
+    public void message(final Player player, final String text, final Object... obj) {
+        player.sendSystemMessage(getComponent(text, obj));
+    }
+
+    public MutableComponent getComponent(final String text, final Object... obj) {
+        return MutableComponent.create(new TranslatableContents(text, text, obj));
     }
 
 }
