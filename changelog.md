@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.1-3.2.1]
+
+* added multi linking tool
+
 ## [1.20-Forge]
 
 * Port to 1.20
