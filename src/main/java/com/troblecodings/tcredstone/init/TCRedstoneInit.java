@@ -1,6 +1,7 @@
 package com.troblecodings.tcredstone.init;
 
 import com.troblecodings.linkableapi.Linkingtool;
+import com.troblecodings.linkableapi.MultiLinkingTool;
 import com.troblecodings.tcredstone.TCRedstoneMain;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.block.BlockRedstoneEmitter;
@@ -42,6 +43,8 @@ public final class TCRedstoneInit {
 
     public static final Item RS_LINKER = new Linkingtool(ItemGroup.REDSTONE,
             TCRedstoneInit::acceptAcceptor).setRegistryName(TCRedstoneMain.MODID, "linker");
+    public static final Item RS_MULTILINKER = new MultiLinkingTool(ItemGroup.REDSTONE,
+            TCRedstoneInit::acceptAcceptor).setRegistryName(TCRedstoneMain.MODID, "multilinker");
     public static final Item REMOTE_ACTIVATOR = new RemoteActivator(ItemGroup.REDSTONE,
             TCRedstoneInit::acceptAcceptor).setRegistryName(TCRedstoneMain.MODID, "activator");
 
@@ -64,6 +67,7 @@ public final class TCRedstoneInit {
                 new ItemBlock(RS_MULTI_EMITTER, new Properties().group(ItemGroup.REDSTONE))
                         .setRegistryName(RS_MULTI_EMITTER.getRegistryName()));
         registry.register(RS_LINKER);
+        registry.register(RS_MULTILINKER);
         registry.register(REMOTE_ACTIVATOR);
     }
 
