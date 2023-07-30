@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.15.2 - 3.2.1]
+
+* feat: added multi linking tool
+
 ## [Update]
 
 * feat: added multi-emitter block
