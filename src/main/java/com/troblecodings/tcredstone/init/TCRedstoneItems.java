@@ -25,6 +25,8 @@ public final class TCRedstoneItems {
     
     public static final Item LINKER = new Linkingtool(CreativeTabs.REDSTONE,
             TCRedstoneItems::acceptAcceptor);
+    public static final Item MULTILINKER = new Linkingtool(CreativeTabs.REDSTONE,
+            TCRedstoneItems::acceptAcceptor);
     public static final Item ACTIVATOR = new RemoteActivator(CreativeTabs.REDSTONE,
             TCRedstoneItems::acceptAcceptor);
     
