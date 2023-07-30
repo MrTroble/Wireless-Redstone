@@ -1,5 +1,5 @@
 item.linker.name=WLR Verlinker
-item.gircredstone.multilinker=WLR Multi Verlinker
+item.multilinker.name=WLR Multi Verlinker
 item.activator.name=WLR Fernaktivator
 tile.emitter.name=WLR Signal-Sender
 tile.multiemitter.name=WLR Multi-Signal-Sender

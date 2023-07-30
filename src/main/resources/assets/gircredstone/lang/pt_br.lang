@@ -1,5 +1,5 @@
 item.linker.name=WLR Vinculador
-item.gircredstone.multilinker=WLR Múltiplo Vinculador
+item.multilinker.name=WLR Múltiplo Vinculador
 item.activator.name=WLR Ativador Remoto
 tile.emitter.name=WLR Emissor
 tile.multiemitter.name=WLR Multi-Emissor
