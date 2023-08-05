@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -28,12 +29,13 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
     }
 
     @Override
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, 
+    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state,
             final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX,
             final float hitY, final float hitZ) {
         if (world.isRemote)
             return true;
-        if (player.getHeldItem(hand).getItem().equals(TCRedstoneItems.LINKER))
+        final Item item = player.getHeldItemMainhand().getItem();
+        if (item.equals(TCRedstoneItems.LINKER) || item.equals(TCRedstoneItems.MULTILINKER))
             return false;
         final TileEntity entity = world.getTileEntity(pos);
         if (entity instanceof TileRedstoneMultiEmitter) {
