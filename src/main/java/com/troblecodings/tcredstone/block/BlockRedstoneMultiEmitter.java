@@ -40,18 +40,16 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter {
             final TileRedstoneMultiEmitter emitter = (TileRedstoneMultiEmitter) entity;
             final List<BlockPos> listOfPositions = emitter.getLinkedPos();
             if (listOfPositions == null) {
-                player.sendSystemMessage(
-                        MutableComponent.create(new TranslatableContents("em.notlinked")));
+                player.sendSystemMessage(MutableComponent.create(new TranslatableContents(
+                        "em.notlinked", (String) null, TranslatableContents.NO_ARGS)));
             } else {
                 if (player.isCrouching()) {
                     emitter.unlink();
-                    listOfPositions.forEach(blockpos -> player.sendSystemMessage(
-                            MutableComponent.create(new TranslatableContents("em.unlink",
-                                    blockpos.getX(), blockpos.getY(), blockpos.getZ()))));
+                    listOfPositions.forEach(blockpos -> message(player, "lt.linkedpos",
+                            blockpos.getX(), blockpos.getY(), blockpos.getZ()));
                 } else {
-                    listOfPositions.forEach(blockpos -> player.sendSystemMessage(
-                            MutableComponent.create(new TranslatableContents("lt.linkedpos",
-                                    blockpos.getX(), blockpos.getY(), blockpos.getZ()))));
+                    listOfPositions.forEach(blockpos -> message(player, "lt.linkedpos",
+                            blockpos.getX(), blockpos.getY(), blockpos.getZ()));
                 }
             }
             return InteractionResult.SUCCESS;
