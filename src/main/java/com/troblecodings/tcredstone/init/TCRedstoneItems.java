@@ -5,6 +5,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import com.troblecodings.linkableapi.Linkingtool;
+import com.troblecodings.linkableapi.MultiLinkingTool;
 import com.troblecodings.tcredstone.TCRedstoneMain;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.item.RemoteActivator;
@@ -24,6 +25,8 @@ public final class TCRedstoneItems {
     }
     
     public static final Item LINKER = new Linkingtool(CreativeTabs.REDSTONE,
+            TCRedstoneItems::acceptAcceptor);
+    public static final Item MULTILINKER = new MultiLinkingTool(CreativeTabs.REDSTONE,
             TCRedstoneItems::acceptAcceptor);
     public static final Item ACTIVATOR = new RemoteActivator(CreativeTabs.REDSTONE,
             TCRedstoneItems::acceptAcceptor);
