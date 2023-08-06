@@ -1,5 +1,6 @@
 {
     "item.gircredstone.linker": "WLR Verlinker",
+    "item.gircredstone.multilinker": "WLR Multi Verlinker",
     "item.gircredstone.activator": "WLR Fernaktivator",
     "block.gircredstone.emitter": "WLR Signal-Sender",
     "block.gircredstone.multiemitter": "WLR Multi-Signal-Sender",
