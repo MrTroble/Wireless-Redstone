@@ -18,8 +18,18 @@
 	"entrypoints": {
 		"main": [
 			"com.troblecodings.tcredstone.TCRedstoneMain"
+		],
+		"client": [
+			"com.troblecodings.tcredstone.TCRedstoneMainClient"
 		]
 	},
+	"mixins": [
+		"tcredstone.mixins.json",
+		{
+			"config": "tcredstone.client.mixins.json",
+			"environment": "client"
+		}
+	],
 	"depends": {
 		"fabricloader": ">=0.15.0",
 		"minecraft": "~1.20.4",
