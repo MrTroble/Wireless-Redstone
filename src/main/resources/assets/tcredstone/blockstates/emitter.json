@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "": {
+            "model": "tcredstone:block/emitter"
+        }
+    }
+}

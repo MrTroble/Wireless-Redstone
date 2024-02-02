@@ -5,116 +5,115 @@ import java.util.List;
 
 import com.troblecodings.linkableapi.ILinkableTile;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
-import com.troblecodings.tcredstone.init.GIRCInit;
+import com.troblecodings.tcredstone.init.TCInit;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtHelper;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTile {
 
-    private List<BlockPos> listOfPositions = new ArrayList<>();
+	private List<BlockPos> listOfPositions = new ArrayList<>();
 
-    private static final String LINKED_POS_LIST = "linkedPos";
+	private static final String LINKED_POS_LIST = "linkedPos";
 
-    public TileRedstoneMultiEmitter(final BlockPos pos, final BlockState state) {
-        super(GIRCInit.MULTI_EMITER_TILE.get(), pos, state);
-    }
+	public TileRedstoneMultiEmitter(final BlockPos pos, final BlockState state) {
+		super(TCInit.MULTI_EMITER_TILE, pos, state);
+	}
 
-    public CompoundTag writeBlockPosToNBT(final List<BlockPos> pos, final CompoundTag compound) {
-        if (pos != null && compound != null) {
+	public NbtCompound writeBlockPosToNBT(final List<BlockPos> pos, final NbtCompound compound) {
+		if (pos != null && compound != null) {
 
-            final ListTag list = new ListTag();
-            listOfPositions.forEach(blockpos -> {
-                final CompoundTag item = NbtUtils.writeBlockPos(blockpos);
-                list.add(item);
-            });
-            compound.put(LINKED_POS_LIST, list);
-            System.out.println("List: " + listOfPositions);
-            System.out.println("Comp: " + compound);
-        }
-        return compound;
-    }
+			final NbtList list = new NbtList();
+			listOfPositions.forEach(blockpos -> {
+				final NbtCompound item = NbtHelper.fromBlockPos(blockpos);
+				list.add(item);
+			});
+			compound.put(LINKED_POS_LIST, list);
+			System.out.println("List: " + listOfPositions);
+			System.out.println("Comp: " + compound);
+		}
+		return compound;
+	}
 
-    public List<BlockPos> readBlockPosFromNBT(final CompoundTag compound) {
-        final ListTag list = (ListTag) compound.get(LINKED_POS_LIST);
-        if (list != null) {
-            listOfPositions.clear();
-            list.forEach(pos -> {
-                final CompoundTag item = (CompoundTag) pos;
-                listOfPositions.add(NbtUtils.readBlockPos(item));
-            });
-            return listOfPositions;
-        }
-        return null;
-    }
+	public List<BlockPos> readBlockPosFromNBT(final NbtCompound compound) {
+		final NbtList list = (NbtList) compound.get(LINKED_POS_LIST);
+		if (list != null) {
+			listOfPositions.clear();
+			list.forEach(pos -> {
+				final NbtCompound item = (NbtCompound) pos;
+				listOfPositions.add(NbtHelper.toBlockPos(item));
+			});
+			return listOfPositions;
+		}
+		return null;
+	}
 
-    @Override
-    public boolean hasLink() {
-        return !listOfPositions.isEmpty();
-    }
+	@Override
+	public boolean hasLink() {
+		return !listOfPositions.isEmpty();
+	}
 
-    @Override
-    public boolean link(final BlockPos pos) {
-        if (pos != null && !listOfPositions.contains(pos)) {
-            listOfPositions.add(pos);
-            return true;
-        }
-        return false;
-    }
+	@Override
+	public boolean link(final BlockPos pos) {
+		if (pos != null && !listOfPositions.contains(pos)) {
+			listOfPositions.add(pos);
+			return true;
+		}
+		return false;
+	}
 
-    @Override
-    public boolean unlink() {
-        if (listOfPositions.isEmpty())
-            return false;
-        listOfPositions.clear();
-        return true;
-    }
+	@Override
+	public boolean unlink() {
+		if (listOfPositions.isEmpty())
+			return false;
+		listOfPositions.clear();
+		return true;
+	}
 
-    public List<BlockPos> getLinkedPos() {
-        return this.listOfPositions;
-    }
+	public List<BlockPos> getLinkedPos() {
+		return this.listOfPositions;
+	}
 
-    @Override
-    public void load(final CompoundTag compound) {
-        super.load(compound);
-        this.listOfPositions = readBlockPosFromNBT(compound);
-    }
+	@Override
+	public void readNbt(final NbtCompound compound) {
+		super.readNbt(compound);
+		this.listOfPositions = readBlockPosFromNBT(compound);
+	}
 
-    @Override
-    protected void saveAdditional(final CompoundTag compound) {
-        super.saveAdditional(compound);
-        writeBlockPosToNBT(listOfPositions, compound);
-    }
+	@Override
+	protected void writeNbt(final NbtCompound compound) {
+		super.writeNbt(compound);
+		writeBlockPosToNBT(listOfPositions, compound);
+	}
 
-    public void redstoneUpdate(final boolean enabled) {
-        listOfPositions.forEach(blockpos -> redstoneUpdate(enabled, blockpos, level));
-    }
+	public void redstoneUpdate(final boolean enabled) {
+		listOfPositions.forEach(blockpos -> redstoneUpdate(enabled, blockpos, world));
+	}
 
-    public static boolean redstoneUpdate(final boolean enabled, final BlockPos linkedpos,
-            final Level level) {
-        if (linkedpos != null) {
-            final BlockState state = level.getBlockState(linkedpos);
-            if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, enabled), 3);
-            }
-        }
-        return enabled;
-    }
+	public static boolean redstoneUpdate(final boolean enabled, final BlockPos linkedpos, final World level) {
+		if (linkedpos != null) {
+			final BlockState state = level.getBlockState(linkedpos);
+			if (state.getBlock() instanceof BlockRedstoneAcceptor) {
+				level.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, enabled), 3);
+			}
+		}
+		return enabled;
+	}
 
-    public static boolean redstoneUpdate(final BlockPos linkedpos, final Level level) {
-        if (linkedpos != null) {
-            final BlockState state = level.getBlockState(linkedpos);
-            if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                final boolean newState = !state.getValue(BlockRedstoneAcceptor.POWER);
-                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, newState), 3);
-                return newState;
-            }
-        }
-        return false;
-    }
+	public static boolean redstoneUpdate(final BlockPos linkedpos, final World level) {
+		if (linkedpos != null) {
+			final BlockState state = level.getBlockState(linkedpos);
+			if (state.getBlock() instanceof BlockRedstoneAcceptor) {
+				final boolean newState = !state.get(BlockRedstoneAcceptor.POWER);
+				level.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, newState), 3);
+				return newState;
+			}
+		}
+		return false;
+	}
 }

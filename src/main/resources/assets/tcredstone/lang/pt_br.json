@@ -1,0 +1,19 @@
+{
+    "item.tcredstone.linker": "WLR Vinculador",
+    "item.tcredstone.multilinker": "WLR Múltiplo Vinculador",
+    "item.tcredstone.activator": "WLR Ativador Remoto",
+    "block.tcredstone.emitter": "WLR Emissor",
+    "block.tcredstone.multiemitter": "WLR Multi-Emissor",
+    "block.tcredstone.acceptor": "WLR Receptor",
+    "lt.linkedpos": "§2Ligado a: {%d, %d, %d§2}§r",
+    "lt.setpos": "§2Definido como: {%d, %d, %d§2}§r",
+    "lt.setpos.msg": "§l§9Por favor, clique em um emissor para definir o link.§r",
+    "lt.notlinked": "§cNão ligado!§r",
+    "lt.notlinked.msg": "§l§9Por favor, clique em um aceitador para vincular.§r",
+    "lt.reset": "§cA ferramenta foi redefinida.§r",
+    "lt.notset": "§cA ferramenta não está vinculado.§r",
+    "lt.unlink": "§cEmissor não está mais vinculado!§r",
+    "em.notlinked": "§cEmissor não está vinculado!§r",
+    "em.unlink": "§cDesvinculado.§r",
+    "ra.state": "Ativado: %s"
+}

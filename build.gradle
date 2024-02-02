@@ -1,20 +1,14 @@
-buildscript {
-    repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url "https://plugins.gradle.org/m2/" }
-        jcenter()
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
-        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
-    }
+plugins {
+	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'maven-publish'
 }
-        
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-apply plugin: "com.matthewprenger.cursegradle"
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
 
 sourceSets{
     main {
@@ -24,92 +18,82 @@ sourceSets{
     }
 }
 
-def key = System.getenv("CURSETOKEN")
-if(key == null)
-	key = 'dev'
-curseforge {
-  apiKey = key
-  project {
-    id = '503143'
-    changelog = file('changelog.md')
-    changelogType = 'markdown'
-    releaseType = 'release'
-    addGameVersion 'Java 17'
-  }
-}
-
-
-def ver = System.getenv("APPVEYOR_BUILD_VERSION")
-if(ver == null)
-	ver = "dev"
-version = ver
-group = 'com.troblecodings'
-archivesBaseName = 'TC-Redstone-1.20.1'
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-minecraft {
-    mappings channel: 'official', version: '1.20.1'
-
-    runs {
-        client {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            
-            mods {
-                gircredstone {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            
-            mods {
-                gircredstone {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
-}
-
 repositories {
+	// Add repositories to retrieve artifacts from in here.
+	// You should only use this when depending on other mods because
+	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
+	// for more information about repositories.
+}
+
+loom {
+    splitEnvironmentSourceSets()
+
+	mods {
+		"modid" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
 
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.4-49.0.12'
+	// To change the versions see the gradle.properties file
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	// Fabric API. This is technically optional, but you probably want it anyway.
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	
+	// Uncomment the following line to enable the deprecated Fabric API modules. 
+	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
+
+	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
+}
+
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {
-    manifest {
-        attributes([
-            "Specification-Title": "TC-Redstone",
-            "Specification-Vendor": "troblecodings",
-            "Specification-Version": ver,
-            "Implementation-Title": project.name,
-            "Implementation-Version": ver,
-            "Implementation-Vendor" :"troblecodings",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
+	from("LICENSE") {
+		rename { "${it}_${project.base.archivesName.get()}"}
+	}
 }
 
-jar.finalizedBy('reobfJar') 
+// configure the maven publication
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
-    }
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+	repositories {
+		// Add repositories to publish to here.
+		// Notice: This block does NOT have the same function as the block in the top level.
+		// The repositories here will be used for publishing your artifact, not for
+		// retrieving dependencies.
+	}
 }

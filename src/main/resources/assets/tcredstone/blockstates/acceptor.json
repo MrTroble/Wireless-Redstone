@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "power=false": {
+            "model": "tcredstone:block/acceptor_off"
+        },
+        "power=true": {
+            "model": "tcredstone:block/acceptor_on"
+        }
+    }
+}

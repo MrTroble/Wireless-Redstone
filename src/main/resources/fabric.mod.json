@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "tcredstone",
+	"version": "${version}",
+	"name": "TC Redstone",
+	"description": "Best Wireless Redstone Mod. :tm:",
+	"authors": [
+		"MrTroble",
+		"Jeronimo"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "Apache License Version 2.0",
+	"icon": "assets/tcredstone/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.troblecodings.tcredstone.TCRedstoneMain"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
