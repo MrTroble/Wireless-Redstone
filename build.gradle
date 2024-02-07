@@ -2,6 +2,7 @@ plugins {
 	id 'fabric-loom' version '1.5-SNAPSHOT'
 	id 'maven-publish'
 	id "com.matthewprenger.cursegradle" version "1.4.0"
+	id "com.modrinth.minotaur" version "2.+"
 }
 
 def ver = System.getenv("APPVEYOR_BUILD_VERSION")
@@ -45,6 +46,21 @@ afterEvaluate {
     tasks.curseforge503143.dependsOn remapJar
 }
 
+
+def token = System.getenv("MODRINTHTOKEN")
+if(key == null)
+	key = 'dev'
+modrinth {
+    token = token
+    projectId = 'rMlghquR'
+    versionNumber = ver
+	versionType = 'release'
+    versionName = 'TC-Redstone-1.20.4-Fabric'
+    uploadFile = remapJar
+    gameVersions = ['1.20.4']
+    loaders = ['fabric']
+}
+
 loom {
     splitEnvironmentSourceSets()
 
@@ -55,6 +71,11 @@ loom {
 		}
 	}
 
+}
+
+task publishToModSites {
+    publishToModSites.dependsOn modrinth
+    publishToModSites.dependsOn curseforge
 }
 
 dependencies {
