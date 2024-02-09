@@ -5,6 +5,7 @@ import com.troblecodings.tcredstone.init.TCInit;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
@@ -15,8 +16,8 @@ import net.minecraft.world.World;
 
 public class RemoteActivator extends Linkingtool {
 
-	public RemoteActivator() {
-		super(null, TCInit::acceptAcceptor, _u1 -> false);
+	public RemoteActivator(ItemGroup tab) {
+		super(tab, TCInit::acceptAcceptor, _u1 -> false);
 	}
 
 	@Override
