@@ -12,8 +12,8 @@ import net.minecraft.world.World;
 
 public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
 
-    public TileRedstoneEmitter(final BlockPos pos, final BlockState state) {
-        super(TCInit.EMITER_TILE, pos, state);
+    public TileRedstoneEmitter() {
+        super(TCInit.EMITER_TILE);
     }
 
     private BlockPos linkedpos = null;
@@ -39,11 +39,11 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
         }
         return null;
     }
-
+    
     @Override
-    public void readNbt(final NbtCompound compound) {
-        super.readNbt(compound);
-        this.linkedpos = readBlockPosFromNBT(compound);
+    public void fromTag(BlockState state, NbtCompound tag) {
+        super.fromTag(state, tag);
+        this.linkedpos = readBlockPosFromNBT(tag);
     }
 
     @Override

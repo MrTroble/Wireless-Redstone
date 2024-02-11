@@ -20,13 +20,10 @@
 			"com.troblecodings.tcredstone.TCRedstoneMain"
 		]
 	},
-	"mixins": [
-		"tcredstone.mixins.json"
-	],
 	"depends": {
 		"fabricloader": ">=0.15.0",
-		"minecraft": "~1.17.1",
-		"java": ">=17"
+		"minecraft": "~1.16.5",
+		"java": ">=8"
 	},
 	"suggests": {
 		"another-mod": "*"

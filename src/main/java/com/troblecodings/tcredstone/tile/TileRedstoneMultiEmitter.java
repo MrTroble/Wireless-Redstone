@@ -21,8 +21,8 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 
 	private static final String LINKED_POS_LIST = "linkedPos";
 
-	public TileRedstoneMultiEmitter(final BlockPos pos, final BlockState state) {
-		super(TCInit.MULTI_EMITER_TILE, pos, state);
+	public TileRedstoneMultiEmitter() {
+		super(TCInit.MULTI_EMITER_TILE);
 	}
 
 	public NbtCompound writeBlockPosToNBT(final List<BlockPos> pos, final NbtCompound compound) {
@@ -80,9 +80,9 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 	}
 
 	@Override
-	public void readNbt(final NbtCompound compound) {
-		super.readNbt(compound);
-		this.listOfPositions = readBlockPosFromNBT(compound);
+	public void fromTag(BlockState state, NbtCompound tag) {
+	    super.fromTag(state, tag);
+	    this.listOfPositions = readBlockPosFromNBT(tag);
 	}
 
 	@Override

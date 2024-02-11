@@ -25,7 +25,7 @@ public class RemoteActivator extends Linkingtool {
 		final ItemStack itemstack = player.getStackInHand(hand);
 		if (!hand.equals(Hand.MAIN_HAND) || level.isClient())
 			return TypedActionResult.pass(itemstack);
-		final NbtCompound comp = itemstack.getNbt();
+		final NbtCompound comp = itemstack.getTag();
 		final BlockPos linkpos = NbtHelper.toBlockPos(comp);
 		final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos, level);
 		message(player, "ra.state", String.valueOf(state));

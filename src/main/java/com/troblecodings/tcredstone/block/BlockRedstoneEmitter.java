@@ -13,6 +13,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class BlockRedstoneEmitter extends Block implements BlockEntityProvider, Message {
@@ -60,9 +61,9 @@ public class BlockRedstoneEmitter extends Block implements BlockEntityProvider, 
 		}
 	}
 
-	@Override
-	public BlockEntity createBlockEntity(final BlockPos pos, final BlockState state) {
-		return new TileRedstoneEmitter(pos, state);
-	}
+    @Override
+    public BlockEntity createBlockEntity(BlockView var1) {
+        return new TileRedstoneEmitter();
+    }
 
 }

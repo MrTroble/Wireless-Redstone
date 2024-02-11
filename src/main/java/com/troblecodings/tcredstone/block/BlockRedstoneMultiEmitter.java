@@ -14,6 +14,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements Message {
@@ -23,8 +24,8 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(final BlockPos pos, final BlockState state) {
-		return new TileRedstoneMultiEmitter(pos, state);
+	public BlockEntity createBlockEntity(BlockView var1) {
+		return new TileRedstoneMultiEmitter();
 	}
 
 	@Override

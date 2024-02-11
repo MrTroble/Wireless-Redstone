@@ -12,7 +12,6 @@ import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
@@ -43,15 +42,15 @@ public class TCInit {
             new BlockRedstoneMultiEmitter(
                     FabricBlockSettings.of(Material.STONE).strength(1.5f, 6.0f)),
             ItemGroup.REDSTONE);
-
+    
     public static final BlockEntityType<TileRedstoneEmitter> EMITER_TILE = Registry.register(
             Registry.BLOCK_ENTITY_TYPE, new Identifier(TCRedstoneMain.MODID, "emitter"),
-            FabricBlockEntityTypeBuilder.create(TileRedstoneEmitter::new, RS_EMITTER).build());
+            BlockEntityType.Builder.create(TileRedstoneEmitter::new, RS_EMITTER).build(null));
     public static final BlockEntityType<TileRedstoneMultiEmitter> MULTI_EMITER_TILE = Registry
             .register(Registry.BLOCK_ENTITY_TYPE,
                     new Identifier(TCRedstoneMain.MODID, "multiemitter"),
-                    FabricBlockEntityTypeBuilder
-                            .create(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER).build());
+                    BlockEntityType.Builder
+                            .create(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER).build(null));
 
     public static boolean acceptAcceptor(final World level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
