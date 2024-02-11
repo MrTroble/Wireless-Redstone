@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.20.4 - 3.2.2]
+
+* port 1.20.4
+* rem: debug output
+
 ## [1.20.1-3.2.1]
 
 * added multi linking tool
