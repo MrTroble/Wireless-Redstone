@@ -6,7 +6,7 @@ import com.troblecodings.tcredstone.init.TCInit;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -22,7 +22,7 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
     private static final String ID_Y = "yLinkedPos";
     private static final String ID_Z = "zLinkedPos";
 
-    public static NbtCompound writeBlockPosToNBT(final BlockPos pos, final NbtCompound compound) {
+    public static CompoundTag writeBlockPosToNBT(final BlockPos pos, final CompoundTag compound) {
         if (pos != null && compound != null) {
             compound.putInt(ID_X, pos.getX());
             compound.putInt(ID_Y, pos.getY());
@@ -31,7 +31,7 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
         return compound;
     }
 
-    public static BlockPos readBlockPosFromNBT(final NbtCompound compound) {
+    public static BlockPos readBlockPosFromNBT(final CompoundTag compound) {
         if (compound != null && compound.contains(ID_X) && compound.contains(ID_Y)
                 && compound.contains(ID_Z)) {
             return new BlockPos(compound.getInt(ID_X), compound.getInt(ID_Y),
@@ -41,14 +41,14 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
     }
     
     @Override
-    public void fromTag(BlockState state, NbtCompound tag) {
-        super.fromTag(state, tag);
+    public void fromTag(CompoundTag tag) {
+        super.fromTag(tag);
         this.linkedpos = readBlockPosFromNBT(tag);
     }
 
     @Override
-    public NbtCompound writeNbt(final NbtCompound compound) {
-        super.writeNbt(compound);
+    public CompoundTag toTag(final CompoundTag compound) {
+        super.toTag(compound);
         return writeBlockPosToNBT(linkedpos, compound);
     }
 

@@ -9,9 +9,9 @@ import com.troblecodings.tcredstone.init.TCInit;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtHelper;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -25,12 +25,12 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 		super(TCInit.MULTI_EMITER_TILE);
 	}
 
-	public NbtCompound writeBlockPosToNBT(final List<BlockPos> pos, final NbtCompound compound) {
+	public CompoundTag writeBlockPosToNBT(final List<BlockPos> pos, final CompoundTag compound) {
 		if (pos != null && compound != null) {
 
-			final NbtList list = new NbtList();
+			final ListTag list = new ListTag();
 			listOfPositions.forEach(blockpos -> {
-				final NbtCompound item = NbtHelper.fromBlockPos(blockpos);
+				final CompoundTag item = NbtHelper.fromBlockPos(blockpos);
 				list.add(item);
 			});
 			compound.put(LINKED_POS_LIST, list);
@@ -40,12 +40,12 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 		return compound;
 	}
 
-	public List<BlockPos> readBlockPosFromNBT(final NbtCompound compound) {
-		final NbtList list = (NbtList) compound.get(LINKED_POS_LIST);
+	public List<BlockPos> readBlockPosFromNBT(final CompoundTag compound) {
+		final ListTag list = (ListTag) compound.get(LINKED_POS_LIST);
 		if (list != null) {
 			listOfPositions.clear();
 			list.forEach(pos -> {
-				final NbtCompound item = (NbtCompound) pos;
+				final CompoundTag item = (CompoundTag) pos;
 				listOfPositions.add(NbtHelper.toBlockPos(item));
 			});
 			return listOfPositions;
@@ -80,14 +80,14 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 	}
 
 	@Override
-	public void fromTag(BlockState state, NbtCompound tag) {
-	    super.fromTag(state, tag);
+	public void fromTag(CompoundTag tag) {
+	    super.fromTag(tag);
 	    this.listOfPositions = readBlockPosFromNBT(tag);
 	}
 
 	@Override
-    public NbtCompound writeNbt(final NbtCompound compound) {
-		super.writeNbt(compound);
+    public CompoundTag toTag(final CompoundTag compound) {
+		super.toTag(compound);
 		return writeBlockPosToNBT(listOfPositions, compound);
 	}
 
