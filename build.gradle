@@ -11,7 +11,7 @@ if(ver == null)
 version = ver
 group = 'com.troblecodings'
 base {
-	archivesName = 'TC-Redstone-1.18.2-Fabric'
+	archivesName = 'TC-Redstone-1.17.1-Fabric'
 }
 
 sourceSets{
@@ -55,22 +55,10 @@ modrinth {
     projectId = 'rMlghquR'
     versionNumber = ver
 	versionType = 'release'
-    versionName = 'TC-Redstone-1.18.2-Fabric'
+    versionName = 'TC-Redstone-1.17.1-Fabric'
     uploadFile = remapJar
-    gameVersions = ['1.18.2']
+    gameVersions = ['1.17.1']
     loaders = ['fabric']
-}
-
-loom {
-    splitEnvironmentSourceSets()
-
-	mods {
-		"tcredstone" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
-		}
-	}
-
 }
 
 task publishToModSites {
@@ -79,11 +67,11 @@ task publishToModSites {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.18.2"
-	mappings "net.fabricmc:yarn:1.18.2+build.4:v2"
+	minecraft "com.mojang:minecraft:1.17.1"
+	mappings "net.fabricmc:yarn:1.17.1+build.65:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.15.6"
 
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.77.0+1.18.2"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.46.1+1.17"
 }
 
 processResources {

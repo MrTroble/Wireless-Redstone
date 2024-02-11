@@ -86,9 +86,9 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 	}
 
 	@Override
-	protected void writeNbt(final NbtCompound compound) {
+    public NbtCompound writeNbt(final NbtCompound compound) {
 		super.writeNbt(compound);
-		writeBlockPosToNBT(listOfPositions, compound);
+		return writeBlockPosToNBT(listOfPositions, compound);
 	}
 
 	public void redstoneUpdate(final boolean enabled) {
