@@ -57,7 +57,7 @@ modrinth {
 	versionType = 'release'
     versionName = 'TC-Redstone-1.15.2-Fabric'
     uploadFile = remapJar
-    gameVersions = ['1.16.5']
+    gameVersions = ['1.15.2']
     loaders = ['fabric']
 }
 
