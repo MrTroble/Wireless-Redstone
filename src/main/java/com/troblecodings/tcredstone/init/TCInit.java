@@ -44,10 +44,10 @@ public class TCInit {
             ItemGroup.REDSTONE);
     
     public static final BlockEntityType<TileRedstoneEmitter> EMITER_TILE = Registry.register(
-            Registry.BLOCK_ENTITY_TYPE, new Identifier(TCRedstoneMain.MODID, "emitter"),
+            Registry.BLOCK_ENTITY, new Identifier(TCRedstoneMain.MODID, "emitter"),
             BlockEntityType.Builder.create(TileRedstoneEmitter::new, RS_EMITTER).build(null));
     public static final BlockEntityType<TileRedstoneMultiEmitter> MULTI_EMITER_TILE = Registry
-            .register(Registry.BLOCK_ENTITY_TYPE,
+            .register(Registry.BLOCK_ENTITY,
                     new Identifier(TCRedstoneMain.MODID, "multiemitter"),
                     BlockEntityType.Builder
                             .create(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER).build(null));

@@ -9,6 +9,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtHelper;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -24,12 +25,12 @@ public class RemoteActivator extends Linkingtool {
 	public TypedActionResult<ItemStack> use(final World level, final PlayerEntity player, final Hand hand) {
 		final ItemStack itemstack = player.getStackInHand(hand);
 		if (!hand.equals(Hand.MAIN_HAND) || level.isClient())
-			return TypedActionResult.pass(itemstack);
+			return new TypedActionResult<ItemStack>(ActionResult.PASS, player.getStackInHand(hand));
 		final CompoundTag comp = itemstack.getTag();
 		final BlockPos linkpos = NbtHelper.toBlockPos(comp);
 		final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos, level);
 		message(player, "ra.state", String.valueOf(state));
-		return TypedActionResult.success(itemstack);
+		return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, player.getStackInHand(hand));
 	}
 
 }

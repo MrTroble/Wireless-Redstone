@@ -9,7 +9,6 @@ import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -21,32 +20,32 @@ public class BlockRedstoneEmitter extends Block implements BlockEntityProvider, 
 	public BlockRedstoneEmitter(final Settings properties) {
 		super(properties);
 	}
-
+	
 	@Override
-	public ActionResult onUse(final BlockState state, final World world, final BlockPos pos, final PlayerEntity player,
-			final Hand hand, final BlockHitResult hit) {
-		if (world.isClient())
-			return ActionResult.PASS;
-		if (player.getStackInHand(hand).getItem().equals(TCInit.RS_LINKER)
-				|| player.getStackInHand(hand).getItem().equals(TCInit.RS_MULTILINKER))
-			return ActionResult.PASS;
-		final BlockEntity entity = world.getBlockEntity(pos);
-		if (entity instanceof TileRedstoneEmitter) {
-			final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
-			final BlockPos linkedpos = emitter.getLinkedPos();
-			if (linkedpos == null) {
-				message(player, "em.notlinked");
-			} else {
-				if (player.isSneaking()) {
-					emitter.unlink();
-					message(player, "em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ());
-				} else {
-					message(player, "lt.linkedpos", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ());
-				}
-			}
-			return ActionResult.SUCCESS;
-		}
-		return ActionResult.FAIL;
+	public boolean activate(BlockState state, World world, BlockPos pos, PlayerEntity player,
+	        Hand hand, BlockHitResult hit) {
+	    if (world.isClient())
+            return false;
+        if (player.getStackInHand(hand).getItem().equals(TCInit.RS_LINKER)
+                || player.getStackInHand(hand).getItem().equals(TCInit.RS_MULTILINKER))
+            return false;
+        final BlockEntity entity = world.getBlockEntity(pos);
+        if (entity instanceof TileRedstoneEmitter) {
+            final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
+            final BlockPos linkedpos = emitter.getLinkedPos();
+            if (linkedpos == null) {
+                message(player, "em.notlinked");
+            } else {
+                if (player.isSneaking()) {
+                    emitter.unlink();
+                    message(player, "em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ());
+                } else {
+                    message(player, "lt.linkedpos", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ());
+                }
+            }
+            return true;
+        }
+        return false;
 	}
 
 	@Override
