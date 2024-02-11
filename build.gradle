@@ -11,7 +11,7 @@ if(ver == null)
 version = ver
 group = 'com.troblecodings'
 base {
-	archivesName = 'TC-Redstone-1.16.5-Fabric'
+	archivesName = 'TC-Redstone-1.15.2-Fabric'
 }
 
 sourceSets{
