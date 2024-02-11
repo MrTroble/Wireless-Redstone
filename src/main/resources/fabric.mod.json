@@ -20,9 +20,6 @@
 			"com.troblecodings.tcredstone.TCRedstoneMain"
 		]
 	},
-	"mixins": [
-		"tcredstone.mixins.json"
-	],
 	"depends": {
 		"fabricloader": ">=0.15.0",
 		"minecraft": "~1.18.2",
