@@ -34,8 +34,6 @@ public class TileRedstoneMultiEmitter extends TileEntity implements ILinkableTil
                 list.add(item);
             });
             compound.put(LINKED_POS_LIST, list);
-            System.out.println("List: " + listOfPositions);
-            System.out.println("Comp: " + compound);
         }
         return compound;
     }
