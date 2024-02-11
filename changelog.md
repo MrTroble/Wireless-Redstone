@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.13.2 - 3.2.2]
+
+* rem: debug output
+
 ## [1.13.2 - 3.2.1]
 
 * feat: added multilinking tool 
