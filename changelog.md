@@ -2,6 +2,8 @@
 
 ## [1.20.1 - 3.2.4]
 
+* feat: add item damage
+* ref: update linkable api
 * ref: update buildpipeline
 
 ## [1.20.1 - 3.2.2]
