@@ -2,12 +2,14 @@ package com.troblecodings.tcredstone.tile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.troblecodings.linkableapi.ILinkableTile;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.init.GIRCInit;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
@@ -30,7 +32,7 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 
             final ListTag list = new ListTag();
             listOfPositions.forEach(blockpos -> {
-                final CompoundTag item = NbtUtils.writeBlockPos(blockpos);
+                final CompoundTag item = (CompoundTag) NbtUtils.writeBlockPos(blockpos);
                 list.add(item);
             });
             compound.put(LINKED_POS_LIST, list);
@@ -44,7 +46,7 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
             listOfPositions.clear();
             list.forEach(pos -> {
                 final CompoundTag item = (CompoundTag) pos;
-                listOfPositions.add(NbtUtils.readBlockPos(item));
+                listOfPositions.add(NbtUtils.readBlockPos(item, LINKED_POS_LIST).get());
             });
             return listOfPositions;
         }
@@ -57,9 +59,9 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     }
 
     @Override
-    public boolean link(final BlockPos pos) {
-        if (pos != null && !listOfPositions.contains(pos)) {
-            listOfPositions.add(pos);
+    public boolean link(final Optional<BlockPos> pos) {
+        if (pos != null && !listOfPositions.contains(pos.get())) {
+            listOfPositions.add(pos.get());
             return true;
         }
         return false;
@@ -78,14 +80,14 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     }
 
     @Override
-    public void load(final CompoundTag compound) {
-        super.load(compound);
+    public void loadAdditional(final CompoundTag compound, final Provider provider) {
+        super.loadAdditional(compound, provider);
         this.listOfPositions = readBlockPosFromNBT(compound);
     }
 
     @Override
-    protected void saveAdditional(final CompoundTag compound) {
-        super.saveAdditional(compound);
+    protected void saveAdditional(final CompoundTag compound, final Provider provider) {
+        super.saveAdditional(compound, provider);
         writeBlockPosToNBT(listOfPositions, compound);
     }
 
