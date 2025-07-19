@@ -5,14 +5,17 @@ import java.util.List;
 import java.util.Optional;
 
 import com.troblecodings.linkableapi.ILinkableTile;
+import com.troblecodings.linkableapi.MultiLinkingTool;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.init.GIRCInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntArrayTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,7 +35,7 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 
             final ListTag list = new ListTag();
             listOfPositions.forEach(blockpos -> {
-                final CompoundTag item = (CompoundTag) NbtUtils.writeBlockPos(blockpos);
+                final Tag item = NbtUtils.writeBlockPos(blockpos);
                 list.add(item);
             });
             compound.put(LINKED_POS_LIST, list);
@@ -45,8 +48,8 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
         if (list != null) {
             listOfPositions.clear();
             list.forEach(pos -> {
-                final CompoundTag item = (CompoundTag) pos;
-                listOfPositions.add(NbtUtils.readBlockPos(item, LINKED_POS_LIST).get());
+                listOfPositions.add(
+                        MultiLinkingTool.readBlockPos((IntArrayTag) pos, LINKED_POS_LIST).get());
             });
             return listOfPositions;
         }
