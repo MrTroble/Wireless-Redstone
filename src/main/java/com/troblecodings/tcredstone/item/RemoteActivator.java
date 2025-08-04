@@ -1,8 +1,10 @@
 package com.troblecodings.tcredstone.item;
 
+import java.util.Optional;
 import java.util.function.BiPredicate;
 
 import com.troblecodings.linkableapi.Linkingtool;
+import com.troblecodings.tcredstone.GIRCRedstoneMain;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import net.minecraft.core.BlockPos;
@@ -26,15 +28,13 @@ public class RemoteActivator extends Linkingtool {
     public InteractionResultHolder<ItemStack> use(final Level level, final Player player,
             final InteractionHand hand) {
         final ItemStack itemstack = player.getItemInHand(hand);
-        final CompoundTag tag = itemstack.getOrCreateTag();
-        if (tag.contains(LINKINGTOOL_TAG)) {
+        final CompoundTag tag = itemstack.get(GIRCRedstoneMain.COMPOUND_DATA); // TODO
+        if (tag != null) {
             if (!hand.equals(InteractionHand.MAIN_HAND) || level.isClientSide)
                 return InteractionResultHolder.pass(itemstack);
-            final CompoundTag comp = tag.getCompound(LINKINGTOOL_TAG);
-            final boolean containsPos =
-                    comp.contains("X") && comp.contains("Y") && comp.contains("Z");
-            if (containsPos) {
-                final BlockPos linkpos = NbtUtils.readBlockPos(comp);
+            final CompoundTag comp = getOrCreateForStack(itemstack);
+            if (comp.contains(LINKINGTOOL_TAG)) {
+                final Optional<BlockPos> linkpos = NbtUtils.readBlockPos(comp, LINKINGTOOL_TAG);
                 final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos, level);
                 message(player, "ra.state", String.valueOf(state));
                 return InteractionResultHolder.success(itemstack);

@@ -13,6 +13,8 @@ import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -27,6 +29,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
 public class GIRCInit {
@@ -75,6 +78,7 @@ public class GIRCInit {
     }
 
     public static void init() {
+        @SuppressWarnings("removal")
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.register(GIRCInit.class);
         ITEM_REGISTRY.register(bus);
@@ -87,6 +91,15 @@ public class GIRCInit {
         if (event.getTabKey().equals(CreativeModeTabs.REDSTONE_BLOCKS)) {
             ITEM_REGISTRY.getEntries().forEach(event::accept);
         }
+    }
+
+    @SubscribeEvent
+    public static void registerDataComponents(final RegisterEvent event) {
+        event.register(BuiltInRegistries.DATA_COMPONENT_TYPE.key(), registry -> {
+            registry.register(
+                    ResourceLocation.fromNamespaceAndPath(GIRCRedstoneMain.MODID, "compound_data"),
+                    GIRCRedstoneMain.COMPOUND_DATA);
+        });
     }
 
 }

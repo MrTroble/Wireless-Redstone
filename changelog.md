@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.6 - 3.2.3]
+
+* port 1.20.6
+
 ## [1.20.4 - 3.2.3]
 
 * feat: add item damage

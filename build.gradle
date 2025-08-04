@@ -34,7 +34,7 @@ curseforge {
     changelog = file('changelog.md')
     changelogType = 'markdown'
     releaseType = 'release'
-    addGameVersion 'Java 17'
+    addGameVersion 'Java 21'
   }
 }
 
@@ -44,12 +44,12 @@ if(ver == null)
 	ver = "dev"
 version = ver
 group = 'com.troblecodings'
-archivesBaseName = 'TC-Redstone-1.20.4'
+archivesBaseName = 'TC-Redstone-1.20.6'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 minecraft {
-    mappings channel: 'official', version: '1.20.4'
+    mappings channel: 'official', version: '1.20.6'
 
     runs {
         client {
@@ -83,7 +83,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.4-49.1.0'
+    minecraft 'net.minecraftforge:forge:1.20.6-50.2.0'
 }
 
 jar {
