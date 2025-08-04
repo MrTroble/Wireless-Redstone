@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.6 Fabric - 3.2.3]
+
+* port to 1.20.6
+
 ## [1.20.4 Fabric - 3.2.3]
 
 * port to fabric
