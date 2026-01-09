@@ -1,10 +1,13 @@
 package com.troblecodings.tcredstone.tile;
 
+import java.util.Optional;
+
 import com.troblecodings.linkableapi.ILinkableTile;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.init.GIRCInit;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -33,30 +36,29 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
 
     public static BlockPos readBlockPosFromNBT(final CompoundTag compound) {
         if (compound != null && compound.contains(ID_X) && compound.contains(ID_Y)
-                && compound.contains(ID_Z)) {
+                && compound.contains(ID_Z))
             return new BlockPos(compound.getInt(ID_X), compound.getInt(ID_Y),
                     compound.getInt(ID_Z));
-        }
         return null;
     }
 
     @Override
-    public void load(final CompoundTag compound) {
-        super.load(compound);
+    protected void loadAdditional(final CompoundTag compound, final Provider provider) {
+        super.loadAdditional(compound, provider);
         this.linkedpos = readBlockPosFromNBT(compound);
     }
 
     @Override
-    protected void saveAdditional(final CompoundTag compound) {
-        super.saveAdditional(compound);
+    protected void saveAdditional(final CompoundTag compound, final Provider provider) {
+        super.saveAdditional(compound, provider);
         writeBlockPosToNBT(linkedpos, compound);
     }
 
     @Override
-    public boolean link(final BlockPos pos) {
+    public boolean link(final Optional<BlockPos> pos) {
         if (pos == null)
             return false;
-        this.linkedpos = pos;
+        this.linkedpos = pos.get();
         return true;
     }
 
@@ -87,12 +89,13 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
         return enabled;
     }
 
-    public static boolean redstoneUpdate(final BlockPos linkedpos, final Level level) {
-        if (linkedpos != null) {
-            final BlockState state = level.getBlockState(linkedpos);
+    public static boolean redstoneUpdate(final Optional<BlockPos> linkpos, final Level level) {
+        if (linkpos != null) {
+            final BlockState state = level.getBlockState(linkpos.get());
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
                 final boolean newState = !state.getValue(BlockRedstoneAcceptor.POWER);
-                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, newState), 3);
+                level.setBlock(linkpos.get(), state.setValue(BlockRedstoneAcceptor.POWER, newState),
+                        3);
                 return newState;
             }
         }
