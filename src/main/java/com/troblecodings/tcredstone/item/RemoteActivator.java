@@ -9,7 +9,6 @@ import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +33,7 @@ public class RemoteActivator extends Linkingtool {
                 return InteractionResult.PASS;
             final CompoundTag comp = getOrCreateForStack(itemstack);
             if (comp.contains(LINKINGTOOL_TAG)) {
-                final Optional<BlockPos> linkpos = NbtUtils.readBlockPos(comp, LINKINGTOOL_TAG);
+                final Optional<BlockPos> linkpos = readBlockPos(comp, LINKINGTOOL_TAG);
                 final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos, level);
                 message(player, "ra.state", String.valueOf(state));
                 return InteractionResult.SUCCESS;

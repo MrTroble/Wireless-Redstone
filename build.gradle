@@ -34,7 +34,7 @@ if(ver == null)
 	ver = "0.0"
 version = ver
 group = 'com.troblecodings'
-base.archivesName = 'TC-Redstone-1.21.4'
+base.archivesName = 'TC-Redstone-1.21.5'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 

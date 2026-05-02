@@ -37,8 +37,8 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
     public static BlockPos readBlockPosFromNBT(final CompoundTag compound) {
         if (compound != null && compound.contains(ID_X) && compound.contains(ID_Y)
                 && compound.contains(ID_Z))
-            return new BlockPos(compound.getInt(ID_X), compound.getInt(ID_Y),
-                    compound.getInt(ID_Z));
+            return new BlockPos(compound.getInt(ID_X).orElse(0),
+                    compound.getInt(ID_Y).orElse(0), compound.getInt(ID_Z).orElse(0));
         return null;
     }
 

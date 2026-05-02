@@ -14,7 +14,6 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntArrayTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -35,7 +34,7 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 
             final ListTag list = new ListTag();
             listOfPositions.forEach(blockpos -> {
-                final Tag item = NbtUtils.writeBlockPos(blockpos);
+                final Tag item = MultiLinkingTool.writeBlockPos(blockpos);
                 list.add(item);
             });
             compound.put(LINKED_POS_LIST, list);
