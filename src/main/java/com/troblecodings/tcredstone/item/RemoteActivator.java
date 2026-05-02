@@ -19,9 +19,9 @@ import net.minecraft.world.level.Level;
 
 public class RemoteActivator extends Linkingtool {
 
-    public RemoteActivator(final CreativeModeTab tab,
+    public RemoteActivator(final Properties properties, final CreativeModeTab tab,
             final BiPredicate<Level, BlockPos> predicate) {
-        super(tab, predicate, _u -> false);
+        super(properties, tab, predicate, _u -> false);
     }
 
     @Override
