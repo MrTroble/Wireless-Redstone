@@ -1,0 +1,23 @@
+{
+  "stats": {
+    "minecraft:used": {
+      "gircredstone:linker": 2,
+      "minecraft:lever": 1,
+      "minecraft:redstone_torch": 11,
+      "gircredstone:emitter": 2,
+      "minecraft:redstone": 9,
+      "gircredstone:acceptor": 1,
+      "gircredstone:activator": 1
+    },
+    "minecraft:custom": {
+      "minecraft:sprint_one_cm": 651,
+      "minecraft:time_since_rest": 5800,
+      "minecraft:walk_one_cm": 22474,
+      "minecraft:total_world_time": 7237,
+      "minecraft:leave_game": 10,
+      "minecraft:play_time": 5588,
+      "minecraft:time_since_death": 5588
+    }
+  },
+  "DataVersion": 4790
+}
