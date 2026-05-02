@@ -18,8 +18,8 @@ import net.minecraft.world.World;
 
 public class RemoteActivator extends Linkingtool {
 
-    public RemoteActivator(final BiPredicate<World, BlockPos> predicate) {
-        super(null, predicate, _u1 -> false);
+    public RemoteActivator(final Settings settings, final BiPredicate<World, BlockPos> predicate) {
+        super(settings, null, predicate, _u1 -> false);
     }
 
     @Override
