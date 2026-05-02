@@ -1,22 +1,12 @@
-buildscript {
-    repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url "https://plugins.gradle.org/m2/" }
-        jcenter()
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
-        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
-    }
+plugins {
+    id 'java-library'
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.neoforged.gradle.userdev' version '7.0.171'
+    id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
-        
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-apply plugin: "com.matthewprenger.cursegradle"
 
-sourceSets{
+sourceSets {
     main {
         java {
             srcDirs("linkableapi/src/")
@@ -44,47 +34,35 @@ if(ver == null)
 	ver = "0.0"
 version = ver
 group = 'com.troblecodings'
-archivesBaseName = 'TC-Redstone-1.21'
+base.archivesName = 'TC-Redstone-1.21'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-minecraft {
-    mappings channel: 'official', version: '1.21'
+runs {
+    configureEach {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
+        modSource project.sourceSets.main
+    }
 
-    runs {
-        client {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            
-            mods {
-                gircredstone {
-                    source sourceSets.main
-                }
-            }
-        }
+    client {
+        // configured as client
+    }
 
-        server {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            
-            mods {
-                gircredstone {
-                    source sourceSets.main
-                }
-            }
-        }
+    server {
+        arguments '--nogui'
     }
 }
 
 repositories {
-
+    maven {
+        name = 'NeoForged'
+        url = 'https://maven.neoforged.net/releases'
+    }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.21-51.0.33'
-    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+    implementation "net.neoforged:neoforge:${neoforge_version}"
 }
 
 jar {
@@ -101,7 +79,6 @@ jar {
     }
 }
 
-jar.finalizedBy('reobfJar') 
 publishing {
     publications {
         mavenJava(MavenPublication) {

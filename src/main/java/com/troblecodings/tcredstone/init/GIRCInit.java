@@ -14,6 +14,7 @@ import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -23,31 +24,29 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.RegisterEvent;
 
 public class GIRCInit {
 
     public static final DeferredRegister<Item> ITEM_REGISTRY =
-            DeferredRegister.create(ForgeRegistries.ITEMS, GIRCRedstoneMain.MODID);
+            DeferredRegister.create(Registries.ITEM, GIRCRedstoneMain.MODID);
     public static final DeferredRegister<Block> BLOCK_REGISTRY =
-            DeferredRegister.create(ForgeRegistries.BLOCKS, GIRCRedstoneMain.MODID);
+            DeferredRegister.create(Registries.BLOCK, GIRCRedstoneMain.MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, GIRCRedstoneMain.MODID);
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, GIRCRedstoneMain.MODID);
 
-    public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
+    public static final DeferredHolder<Block, Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
             () -> new BlockRedstoneAcceptor(BlockBehaviour.Properties.of() // TODO Material.METAL
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> RS_EMITTER = internalRegisterBlock("emitter",
+    public static final DeferredHolder<Block, Block> RS_EMITTER = internalRegisterBlock("emitter",
             () -> new BlockRedstoneEmitter(BlockBehaviour.Properties.of() // TODO Material.METAL
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> RS_MULTI_EMITTER = internalRegisterBlock(
+    public static final DeferredHolder<Block, Block> RS_MULTI_EMITTER = internalRegisterBlock(
             "multiemitter", () -> new BlockRedstoneMultiEmitter(BlockBehaviour.Properties.of()
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops())); // TODO Material.METAL
 
@@ -55,31 +54,29 @@ public class GIRCInit {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
     }
 
-    public static final RegistryObject<Item> RS_LINKER =
+    public static final DeferredHolder<Item, Item> RS_LINKER =
             ITEM_REGISTRY.register("linker", () -> new Linkingtool(null, GIRCInit::acceptAcceptor));
-    public static final RegistryObject<Item> RS_MULTILINKER = ITEM_REGISTRY.register("multilinker",
-            () -> new MultiLinkingTool(null, GIRCInit::acceptAcceptor));
-    public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
-            () -> new RemoteActivator(null, GIRCInit::acceptAcceptor));
+    public static final DeferredHolder<Item, Item> RS_MULTILINKER = ITEM_REGISTRY.register(
+            "multilinker", () -> new MultiLinkingTool(null, GIRCInit::acceptAcceptor));
+    public static final DeferredHolder<Item, Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register(
+            "activator", () -> new RemoteActivator(null, GIRCInit::acceptAcceptor));
 
-    public static final RegistryObject<BlockEntityType<?>> EMITER_TILE =
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<?>> EMITER_TILE =
             TILEENTITY_REGISTRY.register("emitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<?>> MULTI_EMITER_TILE =
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<?>> MULTI_EMITER_TILE =
             TILEENTITY_REGISTRY.register("multiemitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
 
-    private static final RegistryObject<Block> internalRegisterBlock(final String name,
+    private static final DeferredHolder<Block, Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
-        final RegistryObject<Block> registerObject = BLOCK_REGISTRY.register(name, sup);
+        final DeferredHolder<Block, Block> registerObject = BLOCK_REGISTRY.register(name, sup);
         ITEM_REGISTRY.register(name, () -> new BlockItem(registerObject.get(), new Properties()));
         return registerObject;
     }
 
-    public static void init() {
-        @SuppressWarnings("removal")
-        final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    public static void init(final IEventBus bus) {
         bus.register(GIRCInit.class);
         ITEM_REGISTRY.register(bus);
         BLOCK_REGISTRY.register(bus);
@@ -89,7 +86,7 @@ public class GIRCInit {
     @SubscribeEvent
     public static void onCreativeTabs(final BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey().equals(CreativeModeTabs.REDSTONE_BLOCKS)) {
-            ITEM_REGISTRY.getEntries().forEach(event::accept);
+            ITEM_REGISTRY.getEntries().forEach(holder -> event.accept(holder.get()));
         }
     }
 
