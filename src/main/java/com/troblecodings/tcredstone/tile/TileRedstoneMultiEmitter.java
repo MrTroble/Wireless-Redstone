@@ -13,7 +13,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtIntArray;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
@@ -35,7 +34,7 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 
             final NbtList list = new NbtList();
             listOfPositions.forEach(blockpos -> {
-                final NbtElement item = NbtHelper.fromBlockPos(blockpos);
+                final NbtElement item = MultiLinkingTool.writeBlockPos(blockpos);
                 list.add(item);
             });
             compound.put(LINKED_POS_LIST, list);

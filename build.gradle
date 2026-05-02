@@ -11,7 +11,7 @@ if(ver == null)
 version = ver
 group = 'com.troblecodings'
 base {
-	archivesName = 'TC-Redstone-1.21.4-Fabric'
+	archivesName = 'TC-Redstone-1.21.5-Fabric'
 }
 
 sourceSets{
@@ -55,9 +55,9 @@ modrinth {
     projectId = 'rMlghquR'
     versionNumber = ver
 	versionType = 'release'
-    versionName = 'TC-Redstone-1.21.4-Fabric'
+    versionName = 'TC-Redstone-1.21.5-Fabric'
     uploadFile = remapJar
-    gameVersions = ['1.21.4']
+    gameVersions = ['1.21.5']
     loaders = ['fabric']
 }
 
