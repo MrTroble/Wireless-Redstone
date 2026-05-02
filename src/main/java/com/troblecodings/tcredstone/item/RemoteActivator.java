@@ -29,7 +29,7 @@ public class RemoteActivator extends Linkingtool {
         final ItemStack itemstack = player.getItemInHand(hand);
         final CompoundTag tag = itemstack.get(GIRCRedstoneMain.COMPOUND_DATA);
         if (tag != null) {
-            if (!hand.equals(InteractionHand.MAIN_HAND) || level.isClientSide)
+            if (!hand.equals(InteractionHand.MAIN_HAND) || level.isClientSide())
                 return InteractionResult.PASS;
             final CompoundTag comp = getOrCreateForStack(itemstack);
             if (comp.contains(LINKINGTOOL_TAG)) {

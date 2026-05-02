@@ -33,7 +33,7 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
     public InteractionResult useItemOn(final ItemStack stack, final BlockState state,
             final Level world, final BlockPos pos, final Player player, final InteractionHand hand,
             final BlockHitResult hit) {
-        if (world.isClientSide)
+        if (world.isClientSide())
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER.get()))
             return InteractionResult.TRY_WITH_EMPTY_HAND;
@@ -61,7 +61,7 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
     @Override
     public void neighborChanged(final BlockState state, final Level world, final BlockPos pos,
             final Block blockIn, final Orientation orientation, final boolean isMoving) {
-        if (world.isClientSide)
+        if (world.isClientSide())
             return;
         final BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof TileRedstoneMultiEmitter) {
