@@ -8,8 +8,8 @@ import com.troblecodings.tcredstone.init.TCInit;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper.WrapperLookup;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -25,33 +25,27 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
     private static final String ID_Y = "yLinkedPos";
     private static final String ID_Z = "zLinkedPos";
 
-    public static NbtCompound writeBlockPosToNBT(final BlockPos pos, final NbtCompound compound) {
-        if (pos != null && compound != null) {
-            compound.putInt(ID_X, pos.getX());
-            compound.putInt(ID_Y, pos.getY());
-            compound.putInt(ID_Z, pos.getZ());
+    @Override
+    protected void readData(final ReadView view) {
+        super.readData(view);
+        final Optional<Integer> x = view.getOptionalInt(ID_X);
+        final Optional<Integer> y = view.getOptionalInt(ID_Y);
+        final Optional<Integer> z = view.getOptionalInt(ID_Z);
+        if (x.isPresent() && y.isPresent() && z.isPresent()) {
+            this.linkedpos = new BlockPos(x.get(), y.get(), z.get());
+        } else {
+            this.linkedpos = null;
         }
-        return compound;
-    }
-
-    public static BlockPos readBlockPosFromNBT(final NbtCompound compound) {
-        if (compound != null && compound.contains(ID_X) && compound.contains(ID_Y)
-                && compound.contains(ID_Z))
-            return new BlockPos(compound.getInt(ID_X, 0), compound.getInt(ID_Y, 0),
-                    compound.getInt(ID_Z, 0));
-        return null;
     }
 
     @Override
-    protected void readNbt(final NbtCompound compound, final WrapperLookup wrapperLookup) {
-        super.readNbt(compound, wrapperLookup);
-        this.linkedpos = readBlockPosFromNBT(compound);
-    }
-
-    @Override
-    protected void writeNbt(final NbtCompound compound, final WrapperLookup wrapperLookup) {
-        super.writeNbt(compound, wrapperLookup);
-        writeBlockPosToNBT(linkedpos, compound);
+    protected void writeData(final WriteView view) {
+        super.writeData(view);
+        if (linkedpos != null) {
+            view.putInt(ID_X, linkedpos.getX());
+            view.putInt(ID_Y, linkedpos.getY());
+            view.putInt(ID_Z, linkedpos.getZ());
+        }
     }
 
     @Override
