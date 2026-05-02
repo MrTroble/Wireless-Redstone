@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.11-SNAPSHOT'
+	id 'fabric-loom' version '1.16.1'
 	id 'maven-publish'
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "com.modrinth.minotaur" version "2.+"
@@ -11,7 +11,7 @@ if(ver == null)
 version = ver
 group = 'com.troblecodings'
 base {
-	archivesName = 'TC-Redstone-1.21.10-Fabric'
+	archivesName = 'TC-Redstone-1.21.11-Fabric'
 }
 
 sourceSets{
@@ -55,9 +55,9 @@ modrinth {
     projectId = 'rMlghquR'
     versionNumber = ver
 	versionType = 'release'
-    versionName = 'TC-Redstone-1.21.10-Fabric'
+    versionName = 'TC-Redstone-1.21.11-Fabric'
     uploadFile = remapJar
-    gameVersions = ['1.21.10']
+    gameVersions = ['1.21.11']
     loaders = ['fabric']
 }
 
