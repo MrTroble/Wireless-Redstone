@@ -1,7 +1,6 @@
 plugins {
-	id 'fabric-loom' version '1.17.0-alpha.7'
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
-	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "com.modrinth.minotaur" version "2.+"
 }
 
@@ -22,31 +21,6 @@ sourceSets{
     }
 }
 
-def key = System.getenv("CURSETOKEN")
-if(key == null)
-	key = 'dev'
-curseforge {
-	apiKey = key
-    project {
-        id = '503143'
-		changelog = file('changelog.md')
-		changelogType = 'markdown'
-		releaseType = 'release'
-        addGameVersion 'Java 21'
-		mainArtifact(remapJar) {
-			displayName = "Example $project.version"
-        }
-    }
-    options {
-        forgeGradleIntegration = false
-    }
-}
-
-afterEvaluate {
-    tasks.curseforge503143.dependsOn remapJar
-}
-
-
 def token = System.getenv("MODRINTHTOKEN")
 if(token == null)
 	token = 'dev'
@@ -56,22 +30,20 @@ modrinth {
     versionNumber = ver
 	versionType = 'release'
     versionName = 'TC-Redstone-26.1.2-Fabric'
-    uploadFile = remapJar
+    uploadFile = jar
     gameVersions = ['26.1.2']
     loaders = ['fabric']
 }
 
 task publishToModSites {
     publishToModSites.dependsOn modrinth
-    publishToModSites.dependsOn curseforge
 }
 
 dependencies {
 	minecraft "com.mojang:minecraft:${minecraft_version}"
-	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+	implementation "net.fabricmc:fabric-loader:${loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 }
 
 processResources {
@@ -83,14 +55,14 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 25
 }
 
 java {
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {

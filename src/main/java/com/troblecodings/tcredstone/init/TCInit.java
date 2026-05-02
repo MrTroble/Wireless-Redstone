@@ -1,6 +1,5 @@
 package com.troblecodings.tcredstone.init;
 
-import java.util.Set;
 import java.util.function.Function;
 
 import com.troblecodings.linkableapi.Linkingtool;
@@ -13,7 +12,8 @@ import com.troblecodings.tcredstone.item.RemoteActivator;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -59,13 +59,14 @@ public class TCInit {
     public static final BlockEntityType<TileRedstoneEmitter> EMITER_TILE = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE,
             Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, "emitter"),
-            new BlockEntityType<>(TileRedstoneEmitter::new, Set.of(RS_EMITTER)));
+            FabricBlockEntityTypeBuilder
+                    .<TileRedstoneEmitter>create(TileRedstoneEmitter::new, RS_EMITTER).build());
 
-    public static final BlockEntityType<TileRedstoneMultiEmitter> MULTI_EMITER_TILE =
-            Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+    public static final BlockEntityType<TileRedstoneMultiEmitter> MULTI_EMITER_TILE = Registry
+            .register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                     Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, "multiemitter"),
-                    new BlockEntityType<>(TileRedstoneMultiEmitter::new,
-                            Set.of(RS_MULTI_EMITTER)));
+                    FabricBlockEntityTypeBuilder.<TileRedstoneMultiEmitter>create(
+                            TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER).build());
 
     public static boolean acceptAcceptor(final Level level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
@@ -89,7 +90,7 @@ public class TCInit {
         final Item item = Registry.register(BuiltInRegistries.ITEM, itemKey,
                 new BlockItem(block, new Item.Properties().setId(itemKey)
                         .useBlockDescriptionPrefix()));
-        ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.accept(item));
+        CreativeModeTabEvents.modifyOutputEvent(group).register(output -> output.accept(item));
         return item;
     }
 
@@ -99,7 +100,7 @@ public class TCInit {
         final ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM,
                 Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, name));
         final Item item = factory.apply(new Item.Properties().setId(itemKey));
-        ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.accept(item));
+        CreativeModeTabEvents.modifyOutputEvent(group).register(output -> output.accept(item));
         return Registry.register(BuiltInRegistries.ITEM, itemKey, item);
     }
 
