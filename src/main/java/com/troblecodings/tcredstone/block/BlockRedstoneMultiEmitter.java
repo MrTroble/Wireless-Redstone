@@ -11,11 +11,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.block.WireOrientation;
 
 public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements Message {
 
@@ -29,14 +30,14 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
     }
 
     @Override
-    protected ItemActionResult onUseWithItem(final ItemStack stack, final BlockState state,
+    protected ActionResult onUseWithItem(final ItemStack stack, final BlockState state,
             final World world, final BlockPos pos, final PlayerEntity player, final Hand hand,
             final BlockHitResult hit) {
         if (world.isClient())
-            return ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         if (player.getStackInHand(hand).getItem().equals(TCInit.RS_LINKER)
                 || player.getStackInHand(hand).getItem().equals(TCInit.RS_MULTILINKER))
-            return ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         final BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof TileRedstoneMultiEmitter) {
             final TileRedstoneMultiEmitter emitter = (TileRedstoneMultiEmitter) entity;
@@ -53,14 +54,14 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
                             blockpos.getX(), blockpos.getY(), blockpos.getZ()));
                 }
             }
-            return ItemActionResult.SUCCESS;
+            return ActionResult.SUCCESS;
         }
-        return ItemActionResult.FAIL;
+        return ActionResult.FAIL;
     }
 
     @Override
     public void neighborUpdate(final BlockState state, final World world, final BlockPos pos,
-            final Block blockIn, final BlockPos fromPos, final boolean isMoving) {
+            final Block blockIn, final WireOrientation orientation, final boolean isMoving) {
         if (world.isClient())
             return;
         final BlockEntity entity = world.getBlockEntity(pos);

@@ -11,6 +11,7 @@ import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
@@ -49,14 +50,14 @@ public class TCInit {
 
     public static final BlockEntityType<TileRedstoneEmitter> EMITER_TILE = Registry.register(
             Registries.BLOCK_ENTITY_TYPE, Identifier.of(TCRedstoneMain.MODID, "emitter"),
-            BlockEntityType.Builder
+            FabricBlockEntityTypeBuilder
                     .<TileRedstoneEmitter>create(TileRedstoneEmitter::new, RS_EMITTER)
                     .build());
 
     public static final BlockEntityType<TileRedstoneMultiEmitter> MULTI_EMITER_TILE =
             Registry.register(Registries.BLOCK_ENTITY_TYPE,
                     Identifier.of(TCRedstoneMain.MODID, "multiemitter"),
-                    BlockEntityType.Builder.<TileRedstoneMultiEmitter>create(
+                    FabricBlockEntityTypeBuilder.<TileRedstoneMultiEmitter>create(
                             TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER).build());
 
     public static boolean acceptAcceptor(final World level, final BlockPos pos) {
