@@ -14,13 +14,13 @@ description="Works in unloaded Chunks TM."
 [[dependencies.gircredstone]]
     modId="neoforge"
     type="required"
-    versionRange="[21.10,)"
+    versionRange="[21.11,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.gircredstone]]
     modId="minecraft"
     type="required"
-    versionRange="[1.21.10,)"
+    versionRange="[1.21.11,)"
     ordering="NONE"
     side="BOTH"

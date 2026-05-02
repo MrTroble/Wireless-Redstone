@@ -16,7 +16,7 @@ import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -99,7 +99,7 @@ public class GIRCInit {
     public static void registerDataComponents(final RegisterEvent event) {
         event.register(BuiltInRegistries.DATA_COMPONENT_TYPE.key(), registry -> {
             registry.register(
-                    ResourceLocation.fromNamespaceAndPath(GIRCRedstoneMain.MODID, "compound_data"),
+                    Identifier.fromNamespaceAndPath(GIRCRedstoneMain.MODID, "compound_data"),
                     GIRCRedstoneMain.COMPOUND_DATA);
         });
     }
