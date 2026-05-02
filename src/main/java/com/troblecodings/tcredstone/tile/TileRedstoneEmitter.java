@@ -6,12 +6,12 @@ import com.troblecodings.linkableapi.ILinkableTile;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.init.TCInit;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
 
@@ -26,11 +26,11 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
     private static final String ID_Z = "zLinkedPos";
 
     @Override
-    protected void readData(final ReadView view) {
-        super.readData(view);
-        final Optional<Integer> x = view.getOptionalInt(ID_X);
-        final Optional<Integer> y = view.getOptionalInt(ID_Y);
-        final Optional<Integer> z = view.getOptionalInt(ID_Z);
+    protected void loadAdditional(final ValueInput input) {
+        super.loadAdditional(input);
+        final Optional<Integer> x = input.getInt(ID_X);
+        final Optional<Integer> y = input.getInt(ID_Y);
+        final Optional<Integer> z = input.getInt(ID_Z);
         if (x.isPresent() && y.isPresent() && z.isPresent()) {
             this.linkedpos = new BlockPos(x.get(), y.get(), z.get());
         } else {
@@ -39,12 +39,12 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
     }
 
     @Override
-    protected void writeData(final WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(final ValueOutput output) {
+        super.saveAdditional(output);
         if (linkedpos != null) {
-            view.putInt(ID_X, linkedpos.getX());
-            view.putInt(ID_Y, linkedpos.getY());
-            view.putInt(ID_Z, linkedpos.getZ());
+            output.putInt(ID_X, linkedpos.getX());
+            output.putInt(ID_Y, linkedpos.getY());
+            output.putInt(ID_Z, linkedpos.getZ());
         }
     }
 
@@ -69,26 +69,26 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
     }
 
     public void redstoneUpdate(final boolean enabled) {
-        redstoneUpdate(enabled, linkedpos, world);
+        redstoneUpdate(enabled, linkedpos, level);
     }
 
     public static boolean redstoneUpdate(final boolean enabled, final BlockPos linkedpos,
-            final World level) {
+            final Level level) {
         if (linkedpos != null) {
             final BlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                level.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, enabled), 3);
+                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, enabled), 3);
             }
         }
         return enabled;
     }
 
-    public static boolean redstoneUpdate(final BlockPos linkedpos, final World level) {
+    public static boolean redstoneUpdate(final BlockPos linkedpos, final Level level) {
         if (linkedpos != null) {
             final BlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                final boolean newState = !state.get(BlockRedstoneAcceptor.POWER);
-                level.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, newState),
+                final boolean newState = !state.getValue(BlockRedstoneAcceptor.POWER);
+                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, newState),
                         3);
                 return newState;
             }

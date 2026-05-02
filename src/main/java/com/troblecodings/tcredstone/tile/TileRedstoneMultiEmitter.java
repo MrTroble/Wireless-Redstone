@@ -4,25 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.mojang.serialization.Codec;
-
 import com.troblecodings.linkableapi.ILinkableTile;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.init.TCInit;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTile {
 
     private List<BlockPos> listOfPositions = new ArrayList<>();
 
     private static final String LINKED_POS_LIST = "linkedPos";
-    private static final Codec<List<BlockPos>> LINKED_POS_CODEC = BlockPos.CODEC.listOf();
 
     public TileRedstoneMultiEmitter(final BlockPos pos, final BlockState state) {
         super(TCInit.MULTI_EMITER_TILE, pos, state);
@@ -55,41 +52,41 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     }
 
     @Override
-    protected void readData(final ReadView view) {
-        super.readData(view);
-        this.listOfPositions =
-                new ArrayList<>(view.read(LINKED_POS_LIST, LINKED_POS_CODEC).orElse(List.of()));
+    protected void loadAdditional(final ValueInput input) {
+        super.loadAdditional(input);
+        this.listOfPositions = new ArrayList<>(
+                input.read(LINKED_POS_LIST, BlockPos.CODEC.listOf()).orElse(List.of()));
     }
 
     @Override
-    protected void writeData(final WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(final ValueOutput output) {
+        super.saveAdditional(output);
         if (!listOfPositions.isEmpty()) {
-            view.put(LINKED_POS_LIST, LINKED_POS_CODEC, listOfPositions);
+            output.store(LINKED_POS_LIST, BlockPos.CODEC.listOf(), listOfPositions);
         }
     }
 
     public void redstoneUpdate(final boolean enabled) {
-        listOfPositions.forEach(blockpos -> redstoneUpdate(enabled, blockpos, world));
+        listOfPositions.forEach(blockpos -> redstoneUpdate(enabled, blockpos, level));
     }
 
     public static boolean redstoneUpdate(final boolean enabled, final BlockPos linkedpos,
-            final World level) {
+            final Level level) {
         if (linkedpos != null) {
             final BlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                level.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, enabled), 3);
+                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, enabled), 3);
             }
         }
         return enabled;
     }
 
-    public static boolean redstoneUpdate(final BlockPos linkedpos, final World level) {
+    public static boolean redstoneUpdate(final BlockPos linkedpos, final Level level) {
         if (linkedpos != null) {
             final BlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                final boolean newState = !state.get(BlockRedstoneAcceptor.POWER);
-                level.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, newState),
+                final boolean newState = !state.getValue(BlockRedstoneAcceptor.POWER);
+                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, newState),
                         3);
                 return newState;
             }

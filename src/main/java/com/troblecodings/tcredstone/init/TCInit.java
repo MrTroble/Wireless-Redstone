@@ -1,5 +1,6 @@
 package com.troblecodings.tcredstone.init;
 
+import java.util.Set;
 import java.util.function.Function;
 
 import com.troblecodings.linkableapi.Linkingtool;
@@ -13,95 +14,99 @@ import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Item.Settings;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class TCInit {
 
     public static final Item RS_LINKER = registerItem("linker",
             settings -> new Linkingtool(settings, null, TCInit::acceptAcceptor),
-            ItemGroups.REDSTONE);
+            CreativeModeTabs.REDSTONE_BLOCKS);
     public static final Item RS_MULTILINKER = registerItem("multilinker",
             settings -> new MultiLinkingTool(settings, null, TCInit::acceptAcceptor),
-            ItemGroups.REDSTONE);
+            CreativeModeTabs.REDSTONE_BLOCKS);
     public static final Item REMOTE_ACTIVATOR = registerItem("activator",
-            settings -> new RemoteActivator(settings, TCInit::acceptAcceptor), ItemGroups.REDSTONE);
+            settings -> new RemoteActivator(settings, null, TCInit::acceptAcceptor),
+            CreativeModeTabs.REDSTONE_BLOCKS);
 
     public static final Block RS_ACCEPTOR = registerBlock("acceptor",
-            settings -> new BlockRedstoneAcceptor(settings.strength(1.5f, 6.0f)),
-            ItemGroups.REDSTONE);
+            settings -> new BlockRedstoneAcceptor(
+                    settings.strength(1.5f, 6.0f).requiresCorrectToolForDrops()),
+            CreativeModeTabs.REDSTONE_BLOCKS);
 
     public static final Block RS_EMITTER = registerBlock("emitter",
-            settings -> new BlockRedstoneEmitter(settings.strength(1.5f, 6.0f)),
-            ItemGroups.REDSTONE);
+            settings -> new BlockRedstoneEmitter(
+                    settings.strength(1.5f, 6.0f).requiresCorrectToolForDrops()),
+            CreativeModeTabs.REDSTONE_BLOCKS);
 
     public static final Block RS_MULTI_EMITTER = registerBlock("multiemitter",
-            settings -> new BlockRedstoneMultiEmitter(settings.strength(1.5f, 6.0f)),
-            ItemGroups.REDSTONE);
+            settings -> new BlockRedstoneMultiEmitter(
+                    settings.strength(1.5f, 6.0f).requiresCorrectToolForDrops()),
+            CreativeModeTabs.REDSTONE_BLOCKS);
 
     public static final BlockEntityType<TileRedstoneEmitter> EMITER_TILE = Registry.register(
-            Registries.BLOCK_ENTITY_TYPE, Identifier.of(TCRedstoneMain.MODID, "emitter"),
-            FabricBlockEntityTypeBuilder
-                    .<TileRedstoneEmitter>create(TileRedstoneEmitter::new, RS_EMITTER)
-                    .build());
+            BuiltInRegistries.BLOCK_ENTITY_TYPE,
+            Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, "emitter"),
+            new BlockEntityType<>(TileRedstoneEmitter::new, Set.of(RS_EMITTER)));
 
     public static final BlockEntityType<TileRedstoneMultiEmitter> MULTI_EMITER_TILE =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                    Identifier.of(TCRedstoneMain.MODID, "multiemitter"),
-                    FabricBlockEntityTypeBuilder.<TileRedstoneMultiEmitter>create(
-                            TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER).build());
+            Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, "multiemitter"),
+                    new BlockEntityType<>(TileRedstoneMultiEmitter::new,
+                            Set.of(RS_MULTI_EMITTER)));
 
-    public static boolean acceptAcceptor(final World level, final BlockPos pos) {
+    public static boolean acceptAcceptor(final Level level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
     }
 
     private static Block registerBlock(final String name,
-            final Function<AbstractBlock.Settings, Block> factory,
-            final RegistryKey<ItemGroup> group) {
-        final Identifier id = Identifier.of(TCRedstoneMain.MODID, name);
-        final RegistryKey<Block> blockKey = RegistryKey.of(RegistryKeys.BLOCK, id);
-        final Block block = factory.apply(AbstractBlock.Settings.create().registryKey(blockKey));
+            final Function<BlockBehaviour.Properties, Block> factory,
+            final ResourceKey<CreativeModeTab> group) {
+        final Identifier id = Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, name);
+        final ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, id);
+        final Block block =
+                factory.apply(BlockBehaviour.Properties.of().setId(blockKey));
         registerBlockItem(name, block, group);
-        return Registry.register(Registries.BLOCK, blockKey, block);
+        return Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
     }
 
     private static Item registerBlockItem(final String name, final Block block,
-            final RegistryKey<ItemGroup> group) {
-        final RegistryKey<Item> itemKey =
-                RegistryKey.of(RegistryKeys.ITEM, Identifier.of(TCRedstoneMain.MODID, name));
-        final Item item =
-                Registry.register(Registries.ITEM, itemKey, new BlockItem(block, new Settings()
-                        .registryKey(itemKey).useBlockPrefixedTranslationKey()));
-        ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.add(item));
+            final ResourceKey<CreativeModeTab> group) {
+        final ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM,
+                Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, name));
+        final Item item = Registry.register(BuiltInRegistries.ITEM, itemKey,
+                new BlockItem(block, new Item.Properties().setId(itemKey)
+                        .useBlockDescriptionPrefix()));
+        ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.accept(item));
         return item;
     }
 
-    private static Item registerItem(final String name, final Function<Settings, Item> factory,
-            final RegistryKey<ItemGroup> group) {
-        final RegistryKey<Item> itemKey =
-                RegistryKey.of(RegistryKeys.ITEM, Identifier.of(TCRedstoneMain.MODID, name));
-        final Item item = factory.apply(new Settings().registryKey(itemKey));
-        ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.add(item));
-        return Registry.register(Registries.ITEM, itemKey, item);
+    private static Item registerItem(final String name,
+            final Function<Item.Properties, Item> factory,
+            final ResourceKey<CreativeModeTab> group) {
+        final ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM,
+                Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, name));
+        final Item item = factory.apply(new Item.Properties().setId(itemKey));
+        ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.accept(item));
+        return Registry.register(BuiltInRegistries.ITEM, itemKey, item);
     }
 
     public static void registerDataComponents() {
-        Registry.register(Registries.DATA_COMPONENT_TYPE,
-                Identifier.of(TCRedstoneMain.MODID, "compound_data"), TCRedstoneMain.COMPOUND_DATA);
+        Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE,
+                Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, "compound_data"),
+                TCRedstoneMain.COMPOUND_DATA);
     }
 
     public static void init() {

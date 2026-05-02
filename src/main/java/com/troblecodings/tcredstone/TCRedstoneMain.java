@@ -6,15 +6,15 @@ import org.apache.logging.log4j.Logger;
 import com.troblecodings.tcredstone.init.TCInit;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.component.ComponentType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.codec.ByteBufCodecs;
 
 public class TCRedstoneMain implements ModInitializer {
 
-    public static final ComponentType<NbtCompound> COMPOUND_DATA =
-            ComponentType.<NbtCompound>builder().codec(NbtCompound.CODEC)
-                    .packetCodec(PacketCodecs.NBT_COMPOUND).build();
+    public static final DataComponentType<CompoundTag> COMPOUND_DATA =
+            DataComponentType.<CompoundTag>builder().persistent(CompoundTag.CODEC)
+                    .networkSynchronized(ByteBufCodecs.COMPOUND_TAG).build();
 
     public static final String MODID = "tcredstone";
     public static final Logger LOGGER = LogManager.getLogger();
