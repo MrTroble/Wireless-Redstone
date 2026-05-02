@@ -6,7 +6,8 @@ import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -23,13 +24,13 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock, Message 
     }
 
     @Override
-    public ItemInteractionResult useItemOn(final ItemStack stack, final BlockState state,
+    public InteractionResult useItemOn(final ItemStack stack, final BlockState state,
             final Level world, final BlockPos pos, final Player player, final InteractionHand hand,
             final BlockHitResult hit) {
         if (world.isClientSide)
-            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
         if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER.get()))
-            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
         final BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof TileRedstoneEmitter) {
             final TileRedstoneEmitter emitter = (TileRedstoneEmitter) entity;
@@ -46,14 +47,14 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock, Message 
                             linkedpos.getZ());
                 }
             }
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
-        return ItemInteractionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
     @Override
     public void neighborChanged(final BlockState state, final Level world, final BlockPos pos,
-            final Block blockIn, final BlockPos fromPos, final boolean isMoving) {
+            final Block blockIn, final Orientation orientation, final boolean isMoving) {
         if (world.isClientSide)
             return;
         final BlockEntity entity = world.getBlockEntity(pos);

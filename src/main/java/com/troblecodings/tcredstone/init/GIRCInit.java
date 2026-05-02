@@ -1,5 +1,6 @@
 package com.troblecodings.tcredstone.init;
 
+import java.util.Set;
 import java.util.function.Supplier;
 
 import com.troblecodings.linkableapi.Linkingtool;
@@ -62,12 +63,12 @@ public class GIRCInit {
             "activator", () -> new RemoteActivator(null, GIRCInit::acceptAcceptor));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<?>> EMITER_TILE =
-            TILEENTITY_REGISTRY.register("emitter", () -> BlockEntityType.Builder
-                    .of(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
+            TILEENTITY_REGISTRY.register("emitter", () -> new BlockEntityType<>(
+                    TileRedstoneEmitter::new, Set.of(RS_EMITTER.get())));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<?>> MULTI_EMITER_TILE =
-            TILEENTITY_REGISTRY.register("multiemitter", () -> BlockEntityType.Builder
-                    .of(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
+            TILEENTITY_REGISTRY.register("multiemitter", () -> new BlockEntityType<>(
+                    TileRedstoneMultiEmitter::new, Set.of(RS_MULTI_EMITTER.get())));
 
     private static final DeferredHolder<Block, Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {

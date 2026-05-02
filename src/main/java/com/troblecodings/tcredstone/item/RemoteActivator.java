@@ -11,7 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -25,22 +25,22 @@ public class RemoteActivator extends Linkingtool {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(final Level level, final Player player,
+    public InteractionResult use(final Level level, final Player player,
             final InteractionHand hand) {
         final ItemStack itemstack = player.getItemInHand(hand);
-        final CompoundTag tag = itemstack.get(GIRCRedstoneMain.COMPOUND_DATA); // TODO
+        final CompoundTag tag = itemstack.get(GIRCRedstoneMain.COMPOUND_DATA);
         if (tag != null) {
             if (!hand.equals(InteractionHand.MAIN_HAND) || level.isClientSide)
-                return InteractionResultHolder.pass(itemstack);
+                return InteractionResult.PASS;
             final CompoundTag comp = getOrCreateForStack(itemstack);
             if (comp.contains(LINKINGTOOL_TAG)) {
                 final Optional<BlockPos> linkpos = NbtUtils.readBlockPos(comp, LINKINGTOOL_TAG);
                 final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos, level);
                 message(player, "ra.state", String.valueOf(state));
-                return InteractionResultHolder.success(itemstack);
+                return InteractionResult.SUCCESS;
             }
         }
-        return InteractionResultHolder.success(itemstack);
+        return InteractionResult.SUCCESS;
     }
 
 }
