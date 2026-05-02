@@ -7,11 +7,11 @@ import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.init.GIRCInit;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup.Provider;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
 
@@ -25,33 +25,27 @@ public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
     private static final String ID_Y = "yLinkedPos";
     private static final String ID_Z = "zLinkedPos";
 
-    public static CompoundTag writeBlockPosToNBT(final BlockPos pos, final CompoundTag compound) {
-        if (pos != null && compound != null) {
-            compound.putInt(ID_X, pos.getX());
-            compound.putInt(ID_Y, pos.getY());
-            compound.putInt(ID_Z, pos.getZ());
+    @Override
+    protected void loadAdditional(final ValueInput input) {
+        super.loadAdditional(input);
+        final Optional<Integer> x = input.getInt(ID_X);
+        final Optional<Integer> y = input.getInt(ID_Y);
+        final Optional<Integer> z = input.getInt(ID_Z);
+        if (x.isPresent() && y.isPresent() && z.isPresent()) {
+            this.linkedpos = new BlockPos(x.get(), y.get(), z.get());
+        } else {
+            this.linkedpos = null;
         }
-        return compound;
-    }
-
-    public static BlockPos readBlockPosFromNBT(final CompoundTag compound) {
-        if (compound != null && compound.contains(ID_X) && compound.contains(ID_Y)
-                && compound.contains(ID_Z))
-            return new BlockPos(compound.getInt(ID_X).orElse(0),
-                    compound.getInt(ID_Y).orElse(0), compound.getInt(ID_Z).orElse(0));
-        return null;
     }
 
     @Override
-    protected void loadAdditional(final CompoundTag compound, final Provider provider) {
-        super.loadAdditional(compound, provider);
-        this.linkedpos = readBlockPosFromNBT(compound);
-    }
-
-    @Override
-    protected void saveAdditional(final CompoundTag compound, final Provider provider) {
-        super.saveAdditional(compound, provider);
-        writeBlockPosToNBT(linkedpos, compound);
+    protected void saveAdditional(final ValueOutput output) {
+        super.saveAdditional(output);
+        if (linkedpos != null) {
+            output.putInt(ID_X, linkedpos.getX());
+            output.putInt(ID_Y, linkedpos.getY());
+            output.putInt(ID_Z, linkedpos.getZ());
+        }
     }
 
     @Override

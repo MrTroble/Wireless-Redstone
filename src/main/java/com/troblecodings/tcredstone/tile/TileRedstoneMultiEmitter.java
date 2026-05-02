@@ -5,19 +5,15 @@ import java.util.List;
 import java.util.Optional;
 
 import com.troblecodings.linkableapi.ILinkableTile;
-import com.troblecodings.linkableapi.MultiLinkingTool;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.init.GIRCInit;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup.Provider;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntArrayTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTile {
 
@@ -27,32 +23,6 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
 
     public TileRedstoneMultiEmitter(final BlockPos pos, final BlockState state) {
         super(GIRCInit.MULTI_EMITER_TILE.get(), pos, state);
-    }
-
-    public CompoundTag writeBlockPosToNBT(final List<BlockPos> pos, final CompoundTag compound) {
-        if (pos != null && compound != null) {
-
-            final ListTag list = new ListTag();
-            listOfPositions.forEach(blockpos -> {
-                final Tag item = MultiLinkingTool.writeBlockPos(blockpos);
-                list.add(item);
-            });
-            compound.put(LINKED_POS_LIST, list);
-        }
-        return compound;
-    }
-
-    public List<BlockPos> readBlockPosFromNBT(final CompoundTag compound) {
-        final ListTag list = (ListTag) compound.get(LINKED_POS_LIST);
-        if (list != null) {
-            listOfPositions.clear();
-            list.forEach(pos -> {
-                listOfPositions.add(
-                        MultiLinkingTool.readBlockPos((IntArrayTag) pos, LINKED_POS_LIST).get());
-            });
-            return listOfPositions;
-        }
-        return null;
     }
 
     @Override
@@ -82,15 +52,18 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     }
 
     @Override
-    public void loadAdditional(final CompoundTag compound, final Provider provider) {
-        super.loadAdditional(compound, provider);
-        this.listOfPositions = readBlockPosFromNBT(compound);
+    protected void loadAdditional(final ValueInput input) {
+        super.loadAdditional(input);
+        this.listOfPositions = new ArrayList<>(
+                input.read(LINKED_POS_LIST, BlockPos.CODEC.listOf()).orElse(List.of()));
     }
 
     @Override
-    protected void saveAdditional(final CompoundTag compound, final Provider provider) {
-        super.saveAdditional(compound, provider);
-        writeBlockPosToNBT(listOfPositions, compound);
+    protected void saveAdditional(final ValueOutput output) {
+        super.saveAdditional(output);
+        if (!listOfPositions.isEmpty()) {
+            output.store(LINKED_POS_LIST, BlockPos.CODEC.listOf(), listOfPositions);
+        }
     }
 
     public void redstoneUpdate(final boolean enabled) {
