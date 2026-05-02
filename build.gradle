@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'eclipse'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.171'
+    id 'net.neoforged.gradle.userdev' version '7.1.26'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
 
