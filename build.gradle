@@ -34,9 +34,9 @@ if(ver == null)
 	ver = "0.0"
 version = ver
 group = 'com.troblecodings'
-base.archivesName = 'TC-Redstone-1.21.11'
+base.archivesName = 'TC-Redstone-26.1.2'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(26)
 
 runs {
     configureEach {

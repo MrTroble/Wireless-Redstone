@@ -2,6 +2,7 @@ package com.troblecodings.tcredstone.init;
 
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import com.troblecodings.linkableapi.Linkingtool;
 import com.troblecodings.linkableapi.MultiLinkingTool;
@@ -41,29 +42,27 @@ public class GIRCInit {
     public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, GIRCRedstoneMain.MODID);
 
+    private static final UnaryOperator<BlockBehaviour.Properties> REDSTONE_BLOCK_PROPS =
+            p -> p.strength(1.5f, 6.0f).requiresCorrectToolForDrops();
+
     public static final DeferredBlock<BlockRedstoneAcceptor> RS_ACCEPTOR = internalRegisterBlock(
-            "acceptor", BlockRedstoneAcceptor::new,
-            BlockBehaviour.Properties.of().strength(1.5f, 6.0f).requiresCorrectToolForDrops());
+            "acceptor", BlockRedstoneAcceptor::new, REDSTONE_BLOCK_PROPS);
     public static final DeferredBlock<BlockRedstoneEmitter> RS_EMITTER = internalRegisterBlock(
-            "emitter", BlockRedstoneEmitter::new,
-            BlockBehaviour.Properties.of().strength(1.5f, 6.0f).requiresCorrectToolForDrops());
+            "emitter", BlockRedstoneEmitter::new, REDSTONE_BLOCK_PROPS);
     public static final DeferredBlock<BlockRedstoneMultiEmitter> RS_MULTI_EMITTER =
             internalRegisterBlock("multiemitter", BlockRedstoneMultiEmitter::new,
-                    BlockBehaviour.Properties.of().strength(1.5f, 6.0f)
-                            .requiresCorrectToolForDrops());
+                    REDSTONE_BLOCK_PROPS);
 
     public static boolean acceptAcceptor(final Level level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
     }
 
     public static final DeferredItem<Linkingtool> RS_LINKER = ITEM_REGISTRY.registerItem("linker",
-            props -> new Linkingtool(props, null, GIRCInit::acceptAcceptor), new Item.Properties());
+            props -> new Linkingtool(props, null, GIRCInit::acceptAcceptor));
     public static final DeferredItem<MultiLinkingTool> RS_MULTILINKER = ITEM_REGISTRY.registerItem(
-            "multilinker", props -> new MultiLinkingTool(props, null, GIRCInit::acceptAcceptor),
-            new Item.Properties());
+            "multilinker", props -> new MultiLinkingTool(props, null, GIRCInit::acceptAcceptor));
     public static final DeferredItem<RemoteActivator> REMOTE_ACTIVATOR = ITEM_REGISTRY.registerItem(
-            "activator", props -> new RemoteActivator(props, null, GIRCInit::acceptAcceptor),
-            new Item.Properties());
+            "activator", props -> new RemoteActivator(props, null, GIRCInit::acceptAcceptor));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<?>> EMITER_TILE =
             TILEENTITY_REGISTRY.register("emitter", () -> new BlockEntityType<>(
@@ -75,8 +74,8 @@ public class GIRCInit {
 
     private static <T extends Block> DeferredBlock<T> internalRegisterBlock(final String name,
             final Function<BlockBehaviour.Properties, T> factory,
-            final BlockBehaviour.Properties props) {
-        final DeferredBlock<T> block = BLOCK_REGISTRY.registerBlock(name, factory, props);
+            final UnaryOperator<BlockBehaviour.Properties> propModifier) {
+        final DeferredBlock<T> block = BLOCK_REGISTRY.registerBlock(name, factory, propModifier);
         ITEM_REGISTRY.registerSimpleBlockItem(block);
         return block;
     }
