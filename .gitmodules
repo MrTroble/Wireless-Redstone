@@ -1,4 +1,4 @@
 [submodule "linkableapi"]
 	path = linkableapi
-	url = https://github.com/vanlueckn/linkableapi
+	url = https://github.com/MrTroble/linkableapi
 	branch = 1.21.5-fabric
