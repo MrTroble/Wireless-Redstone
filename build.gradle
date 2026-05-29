@@ -37,7 +37,7 @@ sourceSets{
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.14.4'
+    mappings channel: 'official', version: project.minecraft_version
 
     runs {
         client {
