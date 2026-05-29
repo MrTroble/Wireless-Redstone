@@ -1,26 +1,27 @@
 modLoader="javafml"
-loaderVersion="[36,)"
+loaderVersion="["${forgeversion}",)"
 issueTrackerURL="https://github.com/MrTroble/Wireless-Redstone/issues"
 license="Apache License Version 2.0"
 
 [[mods]]
-modId="gircredstone"
-version="${file.jarVersion}"
-displayName="TC Redstone"
+modId="${modid}"
+version="${version}"
+displayName="${modname}"
 displayURL="https://troblecodings.com/"
-authors="MrTroble, Jeronimo"
+authors="${author}"
+credits="German Immersive Railroading Community"
 description="Wireless Redstone Mod - Works in unloaded Chunks TM."
 
-[[dependencies.gircredstone]]
+[[dependencies.${modid}]]
     modId="forge" 
     mandatory=true 
-    versionRange="[32,)" 
+    versionRange="[${forgeversion},)" 
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.gircredstone]]
+[[dependencies.${modid}]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.5]"
+    versionRange="[${mcversion}]"
     ordering="NONE"
     side="BOTH"
