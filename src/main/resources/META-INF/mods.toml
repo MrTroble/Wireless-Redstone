@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="["${forgeversion}",)"
-issueTrackerURL="https://github.com/MrTroble/TCUtility/issues"
+issueTrackerURL="https://github.com/MrTroble/Wireless-Redstone/issues"
 license="Apache License Version 2.0"
 
 [[mods]]
