@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.15.2 - 3.2.4]
+
+* ref: update buildpipeline
+
 ## [1.15.2 - 3.2.3]
 
 * feat: add item damage
