@@ -1,23 +1,14 @@
 # TC Wireless Redstone
 
-[
-![Curseforge](https://cf.way2muchnoise.eu/title/503143.svg?badge_style=for_the_badge)
-![Curseforge Downloads](https://cf.way2muchnoise.eu/short_503143.svg?badge_style=for_the_badge)
-![Curseforge Versions](http://cf.way2muchnoise.eu/versions/503143.svg?badge_style=for_the_badge)
-](https://www.curseforge.com/minecraft/mc-mods/tc-wireless-redstone)
-[
-![Discord](https://img.shields.io/discord/166953995951276032?logo=discord&style=for-the-badge)
-](https://discord.gg/Um97SHnrYp)
-[
-![Build](https://img.shields.io/appveyor/build/MrTroble/girc-redstone/master?logo=appveyor&style=for-the-badge)
-](https://ci.appveyor.com/project/MrTroble/girc-redstone)
-[
-![Sponsor](https://img.shields.io/github/sponsors/MrTroble?logo=github&style=for-the-badge)
-](https://github.com/sponsors/MrTroble)
+[![Versions](https://badges.moddingx.org/modrinth/versions/rMlghquR) ![Downloads](https://badges.moddingx.org/modrinth/downloads/rMlghquR)](https://modrinth.com/mod/tc-wireless-redstone)
+
+[![Versions](https://badges.moddingx.org/curseforge/versions/503143) ![Downloads](https://badges.moddingx.org/curseforge/downloads/503143)](https://www.curseforge.com/minecraft/mc-mods/tc-wireless-redstone)
+
+[![Discord](https://img.shields.io/discord/166953995951276032?logo=discord&style=for-the-badge)](https://discord.gg/E7qhYeR)
 
 ## This mod adds performant wireless redstone
 
-- Download on [curseforge](https://www.curseforge.com/minecraft/mc-mods/tc-wireless-redstone).  
+- Download on [Curseforge](https://www.curseforge.com/minecraft/mc-mods/tc-wireless-redstone) and [Modrinth](https://modrinth.com/mod/tc-wireless-redstone).  
 - Updates can be found in the [changelog](changelog.md).
 
 ## How to build this mod
