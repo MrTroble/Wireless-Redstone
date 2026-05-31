@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.1 - 3.2.4]
+
+* ref: update buildpipeline
+
 ## [1.20.1 - 3.2.2]
 
 * rem: debug output
