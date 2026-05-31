@@ -69,8 +69,6 @@ jar {
     }
 }
 
-jar.finalizedBy('reobfJar')
-
 def key = System.getenv("CURSETOKEN")
 if (key == null)
     key = 'dev'
