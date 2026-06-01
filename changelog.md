@@ -2,6 +2,7 @@
 
 ## [1.16.5 Fabric - 3.2.4]
 
+* fix: multi-linking tool
 * ref: update buildpipeline
 
 ## [1.16.5 Fabric - 3.2.3]
