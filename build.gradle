@@ -21,7 +21,7 @@ group = project.mod_group
 version = project.mod_version
 
 base {
-    archivesName = "${project.mod_name}-${project.minecraft_version}"
+    archivesName = "${project.mod_name}-${project.minecraft_version}-${project.loader}"
 }
 
 java {
@@ -98,7 +98,7 @@ modrinth {
     uploadFile = jar
 
     gameVersions = [project.minecraft_version]
-    loaders = [project.loader]
+    loaders = [project.loader.toLowerCase()]
 
     changelog = file("changelog.md").text
 }
