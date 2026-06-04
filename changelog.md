@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.18.2 Fabric - 3.2.4]
+
+* ref: update buildpipeline
+
 ## [1.18.2 Fabric - 3.2.3]
 
 * port to fabric
