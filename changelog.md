@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.21 Fabric - 3.2.4]
+
+* ref: update buildpipeline
+
 ## [1.21 Fabric - 3.2.3]
 
 * port to 1.21
@@ -7,6 +11,7 @@
 ## [1.20.4 Fabric - 3.2.3]
 
 * port to fabric
+* port to 1.20.6
 
 ## [1.20.1-3.2.1]
 

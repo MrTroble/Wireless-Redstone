@@ -2,31 +2,25 @@
 	"schemaVersion": 1,
 	"id": "tcredstone",
 	"version": "${version}",
-	"name": "TC Redstone",
-	"description": "Best Wireless Redstone Mod. :tm:",
-	"authors": [
-		"MrTroble",
-		"Jeronimo"
-	],
+	"name": "TC-Redstone",
+	"description": "Wireless Redstone Mod - Works in unloaded Chunks TM.",
+	"authors": ["MrTroble", "Jeronimo"],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://troblecodings.com/",
+		"issues": "https://github.com/MrTroble/Wireless-Redstone/issues",
+		"sources": "https://github.com/MrTroble/Wireless-Redstone/",
+		"discord": "https://discord.gg/E7qhYeR"
 	},
+	"credits": "German Immersive Railroading Community",
 	"license": "Apache License Version 2.0",
 	"icon": "assets/tcredstone/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"com.troblecodings.tcredstone.TCRedstoneMain"
-		]
+		"main": ["com.troblecodings.tcredstone.TCRedstoneMain"]
 	},
 	"depends": {
 		"fabricloader": ">=0.16.14",
-		"minecraft": "~1.21",
-		"java": ">=21",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
+		"minecraft": "1.21",
+		"java": ">=21"
 	}
 }
