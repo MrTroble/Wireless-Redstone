@@ -2,6 +2,7 @@
 
 ## [1.19.4 Fabric - 3.2.4]
 
+* fix: correct redstone update
 * ref: update buildpipeline
 
 ## [1.19.4 Fabric - 3.2.3]
