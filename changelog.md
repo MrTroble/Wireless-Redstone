@@ -3,6 +3,7 @@
 ## [1.16.5 Fabric - 3.2.4]
 
 * fix: multi-linking tool
+* fix: correct redstone update
 * ref: update buildpipeline
 
 ## [1.16.5 Fabric - 3.2.3]
