@@ -25,12 +25,6 @@ public class BlockRedstoneAcceptor extends Block {
     @Override
     public int getSignal(final BlockState blockState, final IBlockReader blockAccess,
             final BlockPos pos, final Direction side) {
-        return this.getDirectSignal(blockState, blockAccess, pos, side);
-    }
-
-    @Override
-    public int getDirectSignal(final BlockState blockState, final IBlockReader blockAccess,
-            final BlockPos pos, final Direction side) {
         return blockState.getValue(POWER) ? 15 : 0;
     }
 
