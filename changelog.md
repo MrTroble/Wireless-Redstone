@@ -2,6 +2,7 @@
 
 ## [1.17.1 - 3.2.4]
 
+* fix: correct redstone update
 * ref: update buildpipeline
 
 ## [1.17.1 - 3.2.3]
