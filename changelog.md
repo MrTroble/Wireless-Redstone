@@ -3,6 +3,7 @@
 ## [1.19.4 - 3.2.4]
 
 * fix: correct redstone update
+* fix: multilinking tooltag
 * ref: update buildpipeline
 
 ## [1.19.4 - 3.2.3]
