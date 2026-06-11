@@ -4,6 +4,7 @@
 
 * feat: add item damage
 * fix: correct redstone update
+* fix: multilinking tooltag
 * ref: update linkable api
 * ref: update buildpipeline
 
