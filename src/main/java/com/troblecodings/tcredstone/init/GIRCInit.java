@@ -78,7 +78,6 @@ public class GIRCInit {
     }
 
     public static void init() {
-        @SuppressWarnings("removal")
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.register(GIRCInit.class);
         ITEM_REGISTRY.register(bus);
