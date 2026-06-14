@@ -25,12 +25,6 @@ public class BlockRedstoneAcceptor extends Block {
     @Override
     public int getWeakPower(final IBlockState blockState, final IBlockReader blockAccess,
             final BlockPos pos, final EnumFacing side) {
-        return this.getStrongPower(blockState, blockAccess, pos, side);
-    }
-
-    @Override
-    public int getStrongPower(final IBlockState blockState, final IBlockReader blockAccess,
-            final BlockPos pos, final EnumFacing side) {
         return blockState.get(POWER) ? 15 : 0;
     }
 
