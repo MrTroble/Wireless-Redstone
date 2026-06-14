@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.15.2 Fabric - 3.2.4]
+
+* fix: multilinking tool
+* fix: correct redstone update
+* ref: update buildpipeline
+
 ## [1.15.2 Fabric - 3.2.3]
 
 * port to fabric
