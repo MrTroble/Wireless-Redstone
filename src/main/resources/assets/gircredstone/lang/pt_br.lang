@@ -14,4 +14,4 @@ lt.notset=§cA ferramenta não está vinculado.§r
 lt.unlink=§cEmissor não está mais vinculado!§r
 em.notlinked=§cEmissor não está vinculado!§r
 em.unlink=§cDesvinculado.§r
-ra.state=Ativado: %s"
+ra.state=Ativado: %s
