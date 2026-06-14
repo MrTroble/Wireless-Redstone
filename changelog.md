@@ -1,11 +1,14 @@
 # Changelog
 
+## [1.20.6 - 3.2.4]
+
+* fix: correct redstone update
+* fix: multilinking tooltag
+* ref: update buildpipeline
+
 ## [1.20.6 - 3.2.3]
 
 * port 1.20.6
-
-## [1.20.4 - 3.2.3]
-
 * feat: add item damage
 * ref: update linkable api
 
