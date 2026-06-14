@@ -23,12 +23,6 @@ public class BlockRedstoneAcceptor extends Block {
 	}
 
 	@Override
-	public int getStrongRedstonePower(final BlockState blockState, final BlockView world, final BlockPos pos,
-			final Direction direction) {
-		return this.getWeakRedstonePower(blockState, world, pos, direction);
-	}
-
-	@Override
 	public int getWeakRedstonePower(final BlockState blockState, final BlockView world, final BlockPos pos,
 			final Direction direction) {
 		return blockState.get(POWER) ? 15 : 0;
