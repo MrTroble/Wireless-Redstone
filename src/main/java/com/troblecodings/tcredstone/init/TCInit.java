@@ -30,7 +30,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class TCInit {
+public final class TCInit {
 
     public static final Item RS_LINKER = registerItem("linker",
             settings -> new Linkingtool(settings, null, TCInit::acceptAcceptor),
@@ -53,17 +53,20 @@ public class TCInit {
             settings -> new BlockRedstoneMultiEmitter(settings.strength(1.5f, 6.0f)),
             ItemGroups.REDSTONE);
 
-    public static final BlockEntityType<TileRedstoneEmitter> EMITER_TILE = Registry.register(
-            Registries.BLOCK_ENTITY_TYPE, Identifier.of(TCRedstoneMain.MODID, "emitter"),
-            FabricBlockEntityTypeBuilder
-                    .<TileRedstoneEmitter>create(TileRedstoneEmitter::new, RS_EMITTER)
-                    .build());
+    public static final BlockEntityType<TileRedstoneEmitter> EMITER_TILE = Registry
+            .register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(TCRedstoneMain.MODID, "emitter"),
+                    FabricBlockEntityTypeBuilder
+                            .<TileRedstoneEmitter>create(TileRedstoneEmitter::new, RS_EMITTER)
+                            .build());
 
     public static final BlockEntityType<TileRedstoneMultiEmitter> MULTI_EMITER_TILE =
             Registry.register(Registries.BLOCK_ENTITY_TYPE,
                     Identifier.of(TCRedstoneMain.MODID, "multiemitter"),
                     FabricBlockEntityTypeBuilder.<TileRedstoneMultiEmitter>create(
                             TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER).build());
+
+    private TCInit() {
+    }
 
     public static boolean acceptAcceptor(final World level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
@@ -83,9 +86,8 @@ public class TCInit {
             final RegistryKey<ItemGroup> group) {
         final RegistryKey<Item> itemKey =
                 RegistryKey.of(RegistryKeys.ITEM, Identifier.of(TCRedstoneMain.MODID, name));
-        final Item item =
-                Registry.register(Registries.ITEM, itemKey, new BlockItem(block, new Settings()
-                        .registryKey(itemKey).useBlockPrefixedTranslationKey()));
+        final Item item = Registry.register(Registries.ITEM, itemKey, new BlockItem(block,
+                new Settings().registryKey(itemKey).useBlockPrefixedTranslationKey()));
         ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.add(item));
         return item;
     }

@@ -34,7 +34,6 @@ public class RemoteActivator extends Linkingtool {
                 final Optional<BlockPos> linkpos = NbtHelper.toBlockPos(comp, LINKINGTOOL_TAG);
                 final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos.get(), level);
                 message(player, "ra.state", String.valueOf(state));
-                return ActionResult.SUCCESS;
             }
         }
         return ActionResult.SUCCESS;

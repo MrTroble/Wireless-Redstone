@@ -27,9 +27,7 @@ public class BlockRedstoneEmitter extends Block implements BlockEntityProvider, 
     protected ActionResult onUseWithItem(final ItemStack stack, final BlockState state,
             final World world, final BlockPos pos, final PlayerEntity player, final Hand hand,
             final BlockHitResult hit) {
-        if (world.isClient())
-            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
-        if (player.getStackInHand(hand).getItem().equals(TCInit.RS_LINKER)
+        if (world.isClient() || player.getStackInHand(hand).getItem().equals(TCInit.RS_LINKER)
                 || player.getStackInHand(hand).getItem().equals(TCInit.RS_MULTILINKER))
             return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         final BlockEntity entity = world.getBlockEntity(pos);
@@ -38,15 +36,12 @@ public class BlockRedstoneEmitter extends Block implements BlockEntityProvider, 
             final BlockPos linkedpos = emitter.getLinkedPos();
             if (linkedpos == null) {
                 message(player, "em.notlinked");
+            } else if (player.isSneaking()) {
+                emitter.unlink();
+                message(player, "em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ());
             } else {
-                if (player.isSneaking()) {
-                    emitter.unlink();
-                    message(player, "em.unlink", linkedpos.getX(), linkedpos.getY(),
-                            linkedpos.getZ());
-                } else {
-                    message(player, "lt.linkedpos", linkedpos.getX(), linkedpos.getY(),
-                            linkedpos.getZ());
-                }
+                message(player, "lt.linkedpos", linkedpos.getX(), linkedpos.getY(),
+                        linkedpos.getZ());
             }
             return ActionResult.SUCCESS;
         }
