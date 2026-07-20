@@ -23,10 +23,6 @@ public class BlockRedstoneAcceptor extends Block {
     }
 
     @Override
-    public int getDirectSignal(final BlockState blockState, final BlockGetter world,
-            final BlockPos pos, final Direction direction) {
-        return this.getSignal(blockState, world, pos, direction);
-    }
 
     @Override
     public int getSignal(final BlockState blockState, final BlockGetter world, final BlockPos pos,
