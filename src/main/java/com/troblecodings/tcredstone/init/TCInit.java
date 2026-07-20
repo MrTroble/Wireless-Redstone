@@ -26,7 +26,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class TCInit {
+public final class TCInit {
 
     public static final Item RS_LINKER = registerItem("linker",
             new Linkingtool(null, TCInit::acceptAcceptor), ItemGroups.REDSTONE);
@@ -47,17 +47,20 @@ public class TCInit {
             new BlockRedstoneMultiEmitter(AbstractBlock.Settings.create().strength(1.5f, 6.0f)),
             ItemGroups.REDSTONE);
 
-    public static final BlockEntityType<TileRedstoneEmitter> EMITER_TILE = Registry.register(
-            Registries.BLOCK_ENTITY_TYPE, Identifier.of(TCRedstoneMain.MODID, "emitter"),
-            BlockEntityType.Builder
-                    .<TileRedstoneEmitter>create(TileRedstoneEmitter::new, RS_EMITTER)
-                    .build());
+    public static final BlockEntityType<TileRedstoneEmitter> EMITER_TILE = Registry
+            .register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(TCRedstoneMain.MODID, "emitter"),
+                    BlockEntityType.Builder
+                            .<TileRedstoneEmitter>create(TileRedstoneEmitter::new, RS_EMITTER)
+                            .build());
 
     public static final BlockEntityType<TileRedstoneMultiEmitter> MULTI_EMITER_TILE =
             Registry.register(Registries.BLOCK_ENTITY_TYPE,
                     Identifier.of(TCRedstoneMain.MODID, "multiemitter"),
                     BlockEntityType.Builder.<TileRedstoneMultiEmitter>create(
                             TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER).build());
+
+    private TCInit() {
+    }
 
     public static boolean acceptAcceptor(final World level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;

@@ -32,9 +32,7 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
     protected ItemActionResult onUseWithItem(final ItemStack stack, final BlockState state,
             final World world, final BlockPos pos, final PlayerEntity player, final Hand hand,
             final BlockHitResult hit) {
-        if (world.isClient())
-            return ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
-        if (player.getStackInHand(hand).getItem().equals(TCInit.RS_LINKER)
+        if (world.isClient() || player.getStackInHand(hand).getItem().equals(TCInit.RS_LINKER)
                 || player.getStackInHand(hand).getItem().equals(TCInit.RS_MULTILINKER))
             return ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         final BlockEntity entity = world.getBlockEntity(pos);
@@ -43,15 +41,13 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
             final List<BlockPos> listOfPositions = emitter.getLinkedPos();
             if (listOfPositions == null) {
                 message(player, "em.notlinked");
+            } else if (player.isSneaking()) {
+                emitter.unlink();
+                listOfPositions.forEach(blockpos -> message(player, "em.unlink", blockpos.getX(),
+                        blockpos.getY(), blockpos.getZ()));
             } else {
-                if (player.isSneaking()) {
-                    emitter.unlink();
-                    listOfPositions.forEach(blockpos -> message(player, "em.unlink",
-                            blockpos.getX(), blockpos.getY(), blockpos.getZ()));
-                } else {
-                    listOfPositions.forEach(blockpos -> message(player, "lt.linkedpos",
-                            blockpos.getX(), blockpos.getY(), blockpos.getZ()));
-                }
+                listOfPositions.forEach(blockpos -> message(player, "lt.linkedpos", blockpos.getX(),
+                        blockpos.getY(), blockpos.getZ()));
             }
             return ItemActionResult.SUCCESS;
         }
