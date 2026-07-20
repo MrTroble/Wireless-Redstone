@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
-public class TCInit {
+public final class TCInit {
 
     public static final Item RS_LINKER = registerItem("linker",
             settings -> new Linkingtool(settings, null, TCInit::acceptAcceptor),
@@ -67,6 +67,9 @@ public class TCInit {
                     Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, "multiemitter"),
                     FabricBlockEntityTypeBuilder.<TileRedstoneMultiEmitter>create(
                             TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER).build());
+
+    private TCInit() {
+    }
 
     public static boolean acceptAcceptor(final Level level, final BlockPos pos) {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;

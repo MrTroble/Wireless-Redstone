@@ -38,6 +38,9 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock, Message 
             final BlockPos linkedpos = emitter.getLinkedPos();
             if (linkedpos == null) {
                 message(player, "em.notlinked");
+            } else if (player.isSneaking()) {
+                emitter.unlink();
+                message(player, "em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ());
             } else {
                 if (player.isCrouching()) {
                     emitter.unlink();

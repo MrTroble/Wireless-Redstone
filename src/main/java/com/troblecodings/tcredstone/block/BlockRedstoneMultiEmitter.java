@@ -44,6 +44,10 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
             final List<BlockPos> listOfPositions = emitter.getLinkedPos();
             if (listOfPositions == null) {
                 message(player, "em.notlinked");
+            } else if (player.isSneaking()) {
+                emitter.unlink();
+                listOfPositions.forEach(blockpos -> message(player, "em.unlink", blockpos.getX(),
+                        blockpos.getY(), blockpos.getZ()));
             } else {
                 if (player.isCrouching()) {
                     emitter.unlink();
