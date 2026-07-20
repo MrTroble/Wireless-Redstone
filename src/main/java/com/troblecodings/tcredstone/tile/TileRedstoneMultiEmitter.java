@@ -83,17 +83,4 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
         }
         return enabled;
     }
-
-    public static boolean redstoneUpdate(final BlockPos linkedpos, final World level) {
-        if (linkedpos != null) {
-            final BlockState state = level.getBlockState(linkedpos);
-            if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                final boolean newState = !state.get(BlockRedstoneAcceptor.POWER);
-                level.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, newState),
-                        3);
-                return newState;
-            }
-        }
-        return false;
-    }
 }
