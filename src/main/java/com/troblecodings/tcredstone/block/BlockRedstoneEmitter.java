@@ -27,9 +27,7 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock, Message 
     protected InteractionResult useItemOn(final ItemStack stack, final BlockState state,
             final Level world, final BlockPos pos, final Player player, final InteractionHand hand,
             final BlockHitResult hit) {
-        if (world.isClientSide())
-            return InteractionResult.TRY_WITH_EMPTY_HAND;
-        if (player.getItemInHand(hand).getItem().equals(TCInit.RS_LINKER)
+        if (world.isClientSide() || player.getItemInHand(hand).getItem().equals(TCInit.RS_LINKER)
                 || player.getItemInHand(hand).getItem().equals(TCInit.RS_MULTILINKER))
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         final BlockEntity entity = world.getBlockEntity(pos);
@@ -38,18 +36,12 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock, Message 
             final BlockPos linkedpos = emitter.getLinkedPos();
             if (linkedpos == null) {
                 message(player, "em.notlinked");
-            } else if (player.isSneaking()) {
+            } else if (player.isCrouching()) {
                 emitter.unlink();
                 message(player, "em.unlink", linkedpos.getX(), linkedpos.getY(), linkedpos.getZ());
             } else {
-                if (player.isCrouching()) {
-                    emitter.unlink();
-                    message(player, "em.unlink", linkedpos.getX(), linkedpos.getY(),
-                            linkedpos.getZ());
-                } else {
-                    message(player, "lt.linkedpos", linkedpos.getX(), linkedpos.getY(),
-                            linkedpos.getZ());
-                }
+                message(player, "lt.linkedpos", linkedpos.getX(), linkedpos.getY(),
+                        linkedpos.getZ());
             }
             return InteractionResult.SUCCESS;
         }

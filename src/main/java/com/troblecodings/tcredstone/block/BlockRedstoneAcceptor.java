@@ -23,8 +23,6 @@ public class BlockRedstoneAcceptor extends Block {
     }
 
     @Override
-
-    @Override
     public int getSignal(final BlockState blockState, final BlockGetter world, final BlockPos pos,
             final Direction direction) {
         return blockState.getValue(POWER) ? 15 : 0;

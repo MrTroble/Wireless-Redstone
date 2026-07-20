@@ -33,9 +33,7 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
     protected InteractionResult useItemOn(final ItemStack stack, final BlockState state,
             final Level world, final BlockPos pos, final Player player, final InteractionHand hand,
             final BlockHitResult hit) {
-        if (world.isClientSide())
-            return InteractionResult.TRY_WITH_EMPTY_HAND;
-        if (player.getItemInHand(hand).getItem().equals(TCInit.RS_LINKER)
+        if (world.isClientSide() || player.getItemInHand(hand).getItem().equals(TCInit.RS_LINKER)
                 || player.getItemInHand(hand).getItem().equals(TCInit.RS_MULTILINKER))
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         final BlockEntity entity = world.getBlockEntity(pos);
@@ -44,19 +42,13 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
             final List<BlockPos> listOfPositions = emitter.getLinkedPos();
             if (listOfPositions == null) {
                 message(player, "em.notlinked");
-            } else if (player.isSneaking()) {
+            } else if (player.isCrouching()) {
                 emitter.unlink();
                 listOfPositions.forEach(blockpos -> message(player, "em.unlink", blockpos.getX(),
                         blockpos.getY(), blockpos.getZ()));
             } else {
-                if (player.isCrouching()) {
-                    emitter.unlink();
-                    listOfPositions.forEach(blockpos -> message(player, "em.unlink",
-                            blockpos.getX(), blockpos.getY(), blockpos.getZ()));
-                } else {
-                    listOfPositions.forEach(blockpos -> message(player, "lt.linkedpos",
-                            blockpos.getX(), blockpos.getY(), blockpos.getZ()));
-                }
+                listOfPositions.forEach(blockpos -> message(player, "lt.linkedpos", blockpos.getX(),
+                        blockpos.getY(), blockpos.getZ()));
             }
             return InteractionResult.SUCCESS;
         }
