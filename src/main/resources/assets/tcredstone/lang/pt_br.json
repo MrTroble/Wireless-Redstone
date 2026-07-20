@@ -5,7 +5,7 @@
     "block.tcredstone.emitter": "WLR Emissor",
     "block.tcredstone.multiemitter": "WLR Multi-Emissor",
     "block.tcredstone.acceptor": "WLR Receptor",
-    "lt.linkedpos": "§2Ligado a: {%d, %d, %d§2}§r",
+    "lt.linkedpos": "§2Ligado a: {%s, %s, %s§2}§r",
     "lt.setpos": "§2Definido como: {%d, %d, %d§2}§r",
     "lt.setpos.msg": "§l§9Por favor, clique em um emissor para definir o link.§r",
     "lt.notlinked": "§cNão ligado!§r",

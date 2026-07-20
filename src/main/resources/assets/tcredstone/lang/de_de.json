@@ -5,7 +5,7 @@
     "block.tcredstone.emitter": "WLR Signal-Sender",
     "block.tcredstone.multiemitter": "WLR Multi-Signal-Sender",
     "block.tcredstone.acceptor": "WLR Signal-Akzeptor",
-    "lt.linkedpos": "§2Verlinkt mit: {%d, %d, %d§2}§r",
+    "lt.linkedpos": "§2Verlinkt mit: {%s, %s, %s§2}§r",
     "lt.setpos": "§2Gesetzt auf: {%d, %d, %d§2}§r",
     "lt.setpos.msg": "§l§9Bitte klicke auf einen Signal-Sender um die Verknüpfung herzustellen.§r",
     "lt.notlinked": "§cNicht verlinkt!§r",
