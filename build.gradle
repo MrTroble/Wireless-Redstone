@@ -3,6 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'net.neoforged.gradle.userdev' version '7.1.+'
+    id 'com.gradleup.shadow' version '9.2.0+'
     id 'net.darkhax.curseforgegradle' version '1.3.+'
     id 'com.modrinth.minotaur' version '2.+'
 }
@@ -46,6 +47,15 @@ dependencies {
 }
 
 jar {
+    dependsOn shadowJar
+    enabled = false
+}
+
+shadowJar {
+    archiveClassifier.set('')
+    configurations = []
+    relocate 'com.troblecodings.linkableapi', "${project.group}.tcredstone.shadow.linkableapi"
+
     manifest {
         attributes([
             "Specification-Title": project.mod_name,
@@ -67,7 +77,7 @@ tasks.register("publishCurseforge", net.darkhax.curseforgegradle.TaskPublishCurs
     if (key == null)
         key = 'dev'
     apiToken = key
-    def mainFile = upload(project.curseforge_project_id, jar)
+    def mainFile = upload(project.curseforge_project_id, shadowJar)
     mainFile.changelog = file("changelog.md").text
     mainFile.changelogType = 'markdown'
     mainFile.releaseType = 'release'
@@ -84,7 +94,7 @@ modrinth {
     versionNumber = project.version
     versionName = "${project.mod_name} ${project.version}"
 
-    uploadFile = jar
+    uploadFile = shadowJar
 
     gameVersions = [project.minecraft_version]
     loaders = [project.loader.toLowerCase()]
