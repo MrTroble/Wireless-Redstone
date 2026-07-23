@@ -7,7 +7,7 @@ import java.util.Optional;
 import com.troblecodings.linkableapi.ILinkableTile;
 import com.troblecodings.linkableapi.MultiLinkingTool;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
-import com.troblecodings.tcredstone.init.GIRCInit;
+import com.troblecodings.tcredstone.init.TCInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup.Provider;
@@ -27,7 +27,7 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     private static final String LINKED_POS_LIST = "linkedPos";
 
     public TileRedstoneMultiEmitter(final BlockPos pos, final BlockState state) {
-        super(GIRCInit.MULTI_EMITER_TILE.get(), pos, state);
+        super(TCInit.MULTI_EMITER_TILE.get(), pos, state);
     }
 
     public CompoundTag writeBlockPosToNBT(final List<BlockPos> pos, final CompoundTag compound) {
@@ -107,17 +107,5 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
             }
         }
         return enabled;
-    }
-
-    public static boolean redstoneUpdate(final BlockPos linkedpos, final Level level) {
-        if (linkedpos != null) {
-            final BlockState state = level.getBlockState(linkedpos);
-            if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                final boolean newState = !state.getValue(BlockRedstoneAcceptor.POWER);
-                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, newState), 3);
-                return newState;
-            }
-        }
-        return false;
     }
 }
