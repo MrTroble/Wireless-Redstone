@@ -9,13 +9,13 @@ import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements Message {
@@ -33,9 +33,7 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
     public InteractionResult useItemOn(final ItemStack stack, final BlockState state,
             final Level world, final BlockPos pos, final Player player, final InteractionHand hand,
             final BlockHitResult hit) {
-        if (world.isClientSide)
-            return InteractionResult.TRY_WITH_EMPTY_HAND;
-        if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER.get()))
+        if (world.isClientSide || player.getItemInHand(hand).getItem().equals(TCInit.RS_LINKER.get()))
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         final BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof TileRedstoneMultiEmitter) {
@@ -43,15 +41,13 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
             final List<BlockPos> listOfPositions = emitter.getLinkedPos();
             if (listOfPositions == null) {
                 message(player, "em.notlinked");
+            } else if (player.isCrouching()) {
+                emitter.unlink();
+                listOfPositions.forEach(blockpos -> message(player, "em.unlink", blockpos.getX(),
+                        blockpos.getY(), blockpos.getZ()));
             } else {
-                if (player.isCrouching()) {
-                    emitter.unlink();
-                    listOfPositions.forEach(blockpos -> message(player, "em.unlink",
-                            blockpos.getX(), blockpos.getY(), blockpos.getZ()));
-                } else {
-                    listOfPositions.forEach(blockpos -> message(player, "lt.linkedpos",
-                            blockpos.getX(), blockpos.getY(), blockpos.getZ()));
-                }
+                listOfPositions.forEach(blockpos -> message(player, "lt.linkedpos", blockpos.getX(),
+                        blockpos.getY(), blockpos.getZ()));
             }
             return InteractionResult.SUCCESS;
         }
