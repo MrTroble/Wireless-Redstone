@@ -30,9 +30,11 @@ import net.minecraft.world.World;
 public class TCInit {
 
     public static final Item RS_LINKER = registerItem("linker",
-            new Linkingtool(null, TCInit::acceptAcceptor), ItemGroups.REDSTONE);
+            new Linkingtool(null, TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA),
+            ItemGroups.REDSTONE);
     public static final Item RS_MULTILINKER = registerItem("multilinker",
-            new MultiLinkingTool(null, TCInit::acceptAcceptor), ItemGroups.REDSTONE);
+            new MultiLinkingTool(null, TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA),
+            ItemGroups.REDSTONE);
     public static final Item REMOTE_ACTIVATOR = registerItem("activator",
             new RemoteActivator(TCInit::acceptAcceptor), ItemGroups.REDSTONE);
 
