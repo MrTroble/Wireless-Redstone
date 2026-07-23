@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.function.BiPredicate;
 
 import com.troblecodings.linkableapi.Linkingtool;
-import com.troblecodings.tcredstone.GIRCRedstoneMain;
+import com.troblecodings.tcredstone.TCRedstoneMain;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import net.minecraft.core.BlockPos;
@@ -21,14 +21,14 @@ public class RemoteActivator extends Linkingtool {
 
     public RemoteActivator(final CreativeModeTab tab,
             final BiPredicate<Level, BlockPos> predicate) {
-        super(tab, predicate, _u -> false, GIRCRedstoneMain.COMPOUND_DATA);
+        super(tab, predicate, _u -> false, TCRedstoneMain.COMPOUND_DATA);
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(final Level level, final Player player,
             final InteractionHand hand) {
         final ItemStack itemstack = player.getItemInHand(hand);
-        final CompoundTag tag = itemstack.get(GIRCRedstoneMain.COMPOUND_DATA);
+        final CompoundTag tag = itemstack.get(TCRedstoneMain.COMPOUND_DATA);
         if (tag != null) {
             if (!hand.equals(InteractionHand.MAIN_HAND) || level.isClientSide)
                 return InteractionResultHolder.pass(itemstack);
