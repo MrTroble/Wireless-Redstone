@@ -55,10 +55,11 @@ public class GIRCInit {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
     }
 
-    public static final RegistryObject<Item> RS_LINKER =
-            ITEM_REGISTRY.register("linker", () -> new Linkingtool(null, GIRCInit::acceptAcceptor));
-    public static final RegistryObject<Item> RS_MULTILINKER = ITEM_REGISTRY.register("multilinker",
-            () -> new MultiLinkingTool(null, GIRCInit::acceptAcceptor));
+    public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
+            () -> new Linkingtool(null, GIRCInit::acceptAcceptor, GIRCRedstoneMain.COMPOUND_DATA));
+    public static final RegistryObject<Item> RS_MULTILINKER =
+            ITEM_REGISTRY.register("multilinker", () -> new MultiLinkingTool(null,
+                    GIRCInit::acceptAcceptor, GIRCRedstoneMain.COMPOUND_DATA));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
             () -> new RemoteActivator(null, GIRCInit::acceptAcceptor));
 
