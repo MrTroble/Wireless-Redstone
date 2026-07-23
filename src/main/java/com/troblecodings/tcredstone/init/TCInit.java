@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 import com.troblecodings.linkableapi.Linkingtool;
 import com.troblecodings.linkableapi.MultiLinkingTool;
-import com.troblecodings.tcredstone.GIRCRedstoneMain;
+import com.troblecodings.tcredstone.TCRedstoneMain;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.block.BlockRedstoneEmitter;
 import com.troblecodings.tcredstone.block.BlockRedstoneMultiEmitter;
@@ -32,14 +32,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
-public class GIRCInit {
+public class TCInit {
 
     public static final DeferredRegister<Item> ITEM_REGISTRY =
-            DeferredRegister.create(ForgeRegistries.ITEMS, GIRCRedstoneMain.MODID);
+            DeferredRegister.create(ForgeRegistries.ITEMS, TCRedstoneMain.MODID);
     public static final DeferredRegister<Block> BLOCK_REGISTRY =
-            DeferredRegister.create(ForgeRegistries.BLOCKS, GIRCRedstoneMain.MODID);
+            DeferredRegister.create(ForgeRegistries.BLOCKS, TCRedstoneMain.MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, GIRCRedstoneMain.MODID);
+            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, TCRedstoneMain.MODID);
 
     public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
             () -> new BlockRedstoneAcceptor(BlockBehaviour.Properties.of() // TODO Material.METAL
@@ -56,12 +56,12 @@ public class GIRCInit {
     }
 
     public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
-            () -> new Linkingtool(null, GIRCInit::acceptAcceptor, GIRCRedstoneMain.COMPOUND_DATA));
+            () -> new Linkingtool(null, TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
     public static final RegistryObject<Item> RS_MULTILINKER =
             ITEM_REGISTRY.register("multilinker", () -> new MultiLinkingTool(null,
-                    GIRCInit::acceptAcceptor, GIRCRedstoneMain.COMPOUND_DATA));
+                    TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
-            () -> new RemoteActivator(null, GIRCInit::acceptAcceptor));
+            () -> new RemoteActivator(null, TCInit::acceptAcceptor));
 
     public static final RegistryObject<BlockEntityType<?>> EMITER_TILE =
             TILEENTITY_REGISTRY.register("emitter", () -> BlockEntityType.Builder
@@ -80,7 +80,7 @@ public class GIRCInit {
 
     public static void init() {
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        bus.register(GIRCInit.class);
+        bus.register(TCInit.class);
         ITEM_REGISTRY.register(bus);
         BLOCK_REGISTRY.register(bus);
         TILEENTITY_REGISTRY.register(bus);
@@ -97,8 +97,8 @@ public class GIRCInit {
     public static void registerDataComponents(final RegisterEvent event) {
         event.register(BuiltInRegistries.DATA_COMPONENT_TYPE.key(), registry -> {
             registry.register(
-                    ResourceLocation.fromNamespaceAndPath(GIRCRedstoneMain.MODID, "compound_data"),
-                    GIRCRedstoneMain.COMPOUND_DATA);
+                    ResourceLocation.fromNamespaceAndPath(TCRedstoneMain.MODID, "compound_data"),
+                    TCRedstoneMain.COMPOUND_DATA);
         });
     }
 
