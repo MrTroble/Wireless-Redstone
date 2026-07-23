@@ -31,7 +31,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
-public class TCInit {
+public final class TCInit {
 
     public static final DeferredRegister<Item> ITEM_REGISTRY =
             DeferredRegister.create(Registries.ITEM, TCRedstoneMain.MODID);
@@ -69,6 +69,9 @@ public class TCInit {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<?>> MULTI_EMITER_TILE =
             TILEENTITY_REGISTRY.register("multiemitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
+
+    private TCInit() {
+    }
 
     private static final DeferredHolder<Block, Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
