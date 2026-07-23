@@ -19,7 +19,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -45,10 +44,10 @@ public final class TCInit {
     private static final UnaryOperator<BlockBehaviour.Properties> REDSTONE_BLOCK_PROPS =
             p -> p.strength(1.5f, 6.0f).requiresCorrectToolForDrops();
 
-    public static final DeferredBlock<BlockRedstoneAcceptor> RS_ACCEPTOR = internalRegisterBlock(
-            "acceptor", BlockRedstoneAcceptor::new, REDSTONE_BLOCK_PROPS);
-    public static final DeferredBlock<BlockRedstoneEmitter> RS_EMITTER = internalRegisterBlock(
-            "emitter", BlockRedstoneEmitter::new, REDSTONE_BLOCK_PROPS);
+    public static final DeferredBlock<BlockRedstoneAcceptor> RS_ACCEPTOR =
+            internalRegisterBlock("acceptor", BlockRedstoneAcceptor::new, REDSTONE_BLOCK_PROPS);
+    public static final DeferredBlock<BlockRedstoneEmitter> RS_EMITTER =
+            internalRegisterBlock("emitter", BlockRedstoneEmitter::new, REDSTONE_BLOCK_PROPS);
     public static final DeferredBlock<BlockRedstoneMultiEmitter> RS_MULTI_EMITTER =
             internalRegisterBlock("multiemitter", BlockRedstoneMultiEmitter::new,
                     REDSTONE_BLOCK_PROPS);
@@ -57,10 +56,12 @@ public final class TCInit {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
     }
 
-    public static final DeferredItem<Linkingtool> RS_LINKER = ITEM_REGISTRY.registerItem("linker",
-            props -> new Linkingtool(props, null, TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
-    public static final DeferredItem<MultiLinkingTool> RS_MULTILINKER = ITEM_REGISTRY.registerItem(
-            "multilinker", props -> new MultiLinkingTool(props, null, TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
+    public static final DeferredItem<Linkingtool> RS_LINKER =
+            ITEM_REGISTRY.registerItem("linker", props -> new Linkingtool(props, null,
+                    TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
+    public static final DeferredItem<MultiLinkingTool> RS_MULTILINKER =
+            ITEM_REGISTRY.registerItem("multilinker", props -> new MultiLinkingTool(props, null,
+                    TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
     public static final DeferredItem<RemoteActivator> REMOTE_ACTIVATOR = ITEM_REGISTRY.registerItem(
             "activator", props -> new RemoteActivator(props, null, TCInit::acceptAcceptor));
 
