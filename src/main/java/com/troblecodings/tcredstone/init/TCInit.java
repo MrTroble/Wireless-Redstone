@@ -32,11 +32,14 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 public final class TCInit {
 
     public static final Item RS_LINKER = registerItem("linker",
-            settings -> new Linkingtool(settings, null, TCInit::acceptAcceptor),
+            settings -> new Linkingtool(settings, null, TCInit::acceptAcceptor,
+                    TCRedstoneMain.COMPOUND_DATA),
             CreativeModeTabs.REDSTONE_BLOCKS);
-    public static final Item RS_MULTILINKER = registerItem("multilinker",
-            settings -> new MultiLinkingTool(settings, null, TCInit::acceptAcceptor),
-            CreativeModeTabs.REDSTONE_BLOCKS);
+    public static final Item RS_MULTILINKER =
+            registerItem(
+                    "multilinker", settings -> new MultiLinkingTool(settings, null,
+                            TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA),
+                    CreativeModeTabs.REDSTONE_BLOCKS);
     public static final Item REMOTE_ACTIVATOR = registerItem("activator",
             settings -> new RemoteActivator(settings, null, TCInit::acceptAcceptor),
             CreativeModeTabs.REDSTONE_BLOCKS);
@@ -56,14 +59,15 @@ public final class TCInit {
                     settings.strength(1.5f, 6.0f).requiresCorrectToolForDrops()),
             CreativeModeTabs.REDSTONE_BLOCKS);
 
-    public static final BlockEntityType<TileRedstoneEmitter> EMITER_TILE = Registry.register(
-            BuiltInRegistries.BLOCK_ENTITY_TYPE,
-            Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, "emitter"),
-            FabricBlockEntityTypeBuilder
-                    .<TileRedstoneEmitter>create(TileRedstoneEmitter::new, RS_EMITTER).build());
+    public static final BlockEntityType<TileRedstoneEmitter> EMITER_TILE =
+            Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, "emitter"),
+                    FabricBlockEntityTypeBuilder
+                            .<TileRedstoneEmitter>create(TileRedstoneEmitter::new, RS_EMITTER)
+                            .build());
 
-    public static final BlockEntityType<TileRedstoneMultiEmitter> MULTI_EMITER_TILE = Registry
-            .register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+    public static final BlockEntityType<TileRedstoneMultiEmitter> MULTI_EMITER_TILE =
+            Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                     Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, "multiemitter"),
                     FabricBlockEntityTypeBuilder.<TileRedstoneMultiEmitter>create(
                             TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER).build());
@@ -80,8 +84,7 @@ public final class TCInit {
             final ResourceKey<CreativeModeTab> group) {
         final Identifier id = Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, name);
         final ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, id);
-        final Block block =
-                factory.apply(BlockBehaviour.Properties.of().setId(blockKey));
+        final Block block = factory.apply(BlockBehaviour.Properties.of().setId(blockKey));
         registerBlockItem(name, block, group);
         return Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
     }
@@ -90,9 +93,8 @@ public final class TCInit {
             final ResourceKey<CreativeModeTab> group) {
         final ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM,
                 Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, name));
-        final Item item = Registry.register(BuiltInRegistries.ITEM, itemKey,
-                new BlockItem(block, new Item.Properties().setId(itemKey)
-                        .useBlockDescriptionPrefix()));
+        final Item item = Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(block,
+                new Item.Properties().setId(itemKey).useBlockDescriptionPrefix()));
         CreativeModeTabEvents.modifyOutputEvent(group).register(output -> output.accept(item));
         return item;
     }

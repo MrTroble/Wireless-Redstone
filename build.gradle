@@ -40,6 +40,25 @@ processResources {
 	}
 }
 
+jar {
+    dependsOn shadowJar
+
+    manifest {
+        attributes([
+            "Specification-Title": project.mod_name,
+            "Specification-Vendor": "troblecodings",
+            "Specification-Version": project.version,
+            "Implementation-Title": project.mod_name,
+            "Implementation-Version": project.version,
+            "Implementation-Vendor": "troblecodings",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+
+    from("changelog.md")
+    from("LICENSE")
+}
+
 shadowJar {
     archiveClassifier.set('dev-shadow')
     configurations = []
@@ -61,18 +80,12 @@ shadowJar {
     from("LICENSE")
 }
 
-remapJar {
-    dependsOn shadowJar
-    inputFile.set(shadowJar.archiveFile)
-    archiveClassifier.set('')
-}
-
 tasks.register("publishCurseforge", net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     def key = System.getenv("CURSETOKEN")
     if (key == null)
         key = 'dev'
     apiToken = key
-    def mainFile = upload(project.curseforge_project_id, remapJar)
+    def mainFile = upload(project.curseforge_project_id, jar)
     mainFile.changelog = file("changelog.md").text
     mainFile.changelogType = 'markdown'
     mainFile.releaseType = 'release'
@@ -89,7 +102,7 @@ modrinth {
     versionNumber = project.version
     versionName = "${project.mod_name} ${project.version}"
 
-    uploadFile = remapJar
+    uploadFile = jar
 
     gameVersions = [project.minecraft_version]
     loaders = [project.loader.toLowerCase()]
