@@ -32,7 +32,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
-public class TCInit {
+public final class TCInit {
 
     public static final DeferredRegister.Items ITEM_REGISTRY =
             DeferredRegister.createItems(TCRedstoneMain.MODID);
@@ -77,6 +77,9 @@ public class TCInit {
             TILEENTITY_REGISTRY.register("multiemitter",
                     () -> new BlockEntityType<>(TileRedstoneMultiEmitter::new,
                             Set.of(RS_MULTI_EMITTER.get())));
+
+    private TCInit() {
+    }
 
     private static <T extends Block> DeferredBlock<T> internalRegisterBlock(final String name,
             final Function<BlockBehaviour.Properties, T> factory,
