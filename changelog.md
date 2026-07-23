@@ -1,6 +1,17 @@
 # Changelog
 
+## [1.20.1 - 3.2.5]
+
+* chore: update buildscript
+* chore: relocate linkableapi
+
 ## [1.20.1 - 3.2.4]
+
+* fix: correct redstone update
+* fix: multilinking tooltag 
+* ref: update buildpipeline
+
+## [1.20.1 - 3.2.3]
 
 * feat: add item damage
 * fix: correct redstone update
