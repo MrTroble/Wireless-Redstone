@@ -32,12 +32,14 @@ import net.minecraft.world.World;
 
 public final class TCInit {
 
-    public static final Item RS_LINKER = registerItem("linker",
-            settings -> new Linkingtool(settings, null, TCInit::acceptAcceptor),
-            ItemGroups.REDSTONE);
-    public static final Item RS_MULTILINKER = registerItem("multilinker",
-            settings -> new MultiLinkingTool(settings, null, TCInit::acceptAcceptor),
-            ItemGroups.REDSTONE);
+    public static final Item RS_LINKER =
+            registerItem("linker", settings -> new Linkingtool(settings, null,
+                    TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA), ItemGroups.REDSTONE);
+    public static final Item RS_MULTILINKER =
+            registerItem(
+                    "multilinker", settings -> new MultiLinkingTool(settings, null,
+                            TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA),
+                    ItemGroups.REDSTONE);
     public static final Item REMOTE_ACTIVATOR = registerItem("activator",
             settings -> new RemoteActivator(settings, TCInit::acceptAcceptor), ItemGroups.REDSTONE);
 
