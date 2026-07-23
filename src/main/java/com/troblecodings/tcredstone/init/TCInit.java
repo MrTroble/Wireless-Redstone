@@ -54,12 +54,13 @@ public class TCInit {
         return level.getBlockState(pos).getBlock() instanceof BlockRedstoneAcceptor;
     }
 
-    public static final DeferredHolder<Item, Item> RS_LINKER =
-            ITEM_REGISTRY.register("linker", () -> new Linkingtool(null, TCInit::acceptAcceptor));
+    public static final DeferredHolder<Item, Item> RS_LINKER = ITEM_REGISTRY.register("linker",
+            () -> new Linkingtool(null, TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
     public static final DeferredHolder<Item, Item> RS_MULTILINKER = ITEM_REGISTRY.register(
-            "multilinker", () -> new MultiLinkingTool(null, TCInit::acceptAcceptor));
-    public static final DeferredHolder<Item, Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register(
-            "activator", () -> new RemoteActivator(null, TCInit::acceptAcceptor));
+            "multilinker",
+            () -> new MultiLinkingTool(null, TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
+    public static final DeferredHolder<Item, Item> REMOTE_ACTIVATOR = ITEM_REGISTRY
+            .register("activator", () -> new RemoteActivator(null, TCInit::acceptAcceptor));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<?>> EMITER_TILE =
             TILEENTITY_REGISTRY.register("emitter", () -> BlockEntityType.Builder
