@@ -48,7 +48,7 @@
     <module name="MissingOverride"/>
     <module name="BooleanExpressionComplexity"/>
     <module name="FinalClass"/>
-    <module name="HideUtilityClassConstructor"/>
+    <module name="HideUtilityClassConstructor">
       <property name="checks" value="HideUtilityClassConstructor"/>
       <property name="files" value="TCRedstoneMain.java"/>
     </module>
