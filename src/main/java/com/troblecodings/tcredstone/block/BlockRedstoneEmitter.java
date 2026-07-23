@@ -1,7 +1,7 @@
 package com.troblecodings.tcredstone.block;
 
 import com.troblecodings.linkableapi.Message;
-import com.troblecodings.tcredstone.init.GIRCInit;
+import com.troblecodings.tcredstone.init.TCInit;
 import com.troblecodings.tcredstone.tile.TileRedstoneEmitter;
 
 import net.minecraft.core.BlockPos;
@@ -28,7 +28,7 @@ public class BlockRedstoneEmitter extends Block implements EntityBlock, Message 
             final BlockHitResult hit) {
         if (world.isClientSide)
             return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
-        if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER.get()))
+        if (player.getItemInHand(hand).getItem().equals(TCInit.RS_LINKER.get()))
             return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         final BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof TileRedstoneEmitter) {
