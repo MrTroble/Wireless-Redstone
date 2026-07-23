@@ -6,7 +6,7 @@ import java.util.function.UnaryOperator;
 
 import com.troblecodings.linkableapi.Linkingtool;
 import com.troblecodings.linkableapi.MultiLinkingTool;
-import com.troblecodings.tcredstone.GIRCRedstoneMain;
+import com.troblecodings.tcredstone.TCRedstoneMain;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
 import com.troblecodings.tcredstone.block.BlockRedstoneEmitter;
 import com.troblecodings.tcredstone.block.BlockRedstoneMultiEmitter;
@@ -33,14 +33,14 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
-public class GIRCInit {
+public class TCInit {
 
     public static final DeferredRegister.Items ITEM_REGISTRY =
-            DeferredRegister.createItems(GIRCRedstoneMain.MODID);
+            DeferredRegister.createItems(TCRedstoneMain.MODID);
     public static final DeferredRegister.Blocks BLOCK_REGISTRY =
-            DeferredRegister.createBlocks(GIRCRedstoneMain.MODID);
+            DeferredRegister.createBlocks(TCRedstoneMain.MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY =
-            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, GIRCRedstoneMain.MODID);
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, TCRedstoneMain.MODID);
 
     private static final UnaryOperator<BlockBehaviour.Properties> REDSTONE_BLOCK_PROPS =
             p -> p.strength(1.5f, 6.0f).requiresCorrectToolForDrops();
@@ -58,11 +58,11 @@ public class GIRCInit {
     }
 
     public static final DeferredItem<Linkingtool> RS_LINKER = ITEM_REGISTRY.registerItem("linker",
-            props -> new Linkingtool(props, null, GIRCInit::acceptAcceptor));
+            props -> new Linkingtool(props, null, TCInit::acceptAcceptor));
     public static final DeferredItem<MultiLinkingTool> RS_MULTILINKER = ITEM_REGISTRY.registerItem(
-            "multilinker", props -> new MultiLinkingTool(props, null, GIRCInit::acceptAcceptor));
+            "multilinker", props -> new MultiLinkingTool(props, null, TCInit::acceptAcceptor));
     public static final DeferredItem<RemoteActivator> REMOTE_ACTIVATOR = ITEM_REGISTRY.registerItem(
-            "activator", props -> new RemoteActivator(props, null, GIRCInit::acceptAcceptor));
+            "activator", props -> new RemoteActivator(props, null, TCInit::acceptAcceptor));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<?>> EMITER_TILE =
             TILEENTITY_REGISTRY.register("emitter", () -> new BlockEntityType<>(
@@ -81,7 +81,7 @@ public class GIRCInit {
     }
 
     public static void init(final IEventBus bus) {
-        bus.register(GIRCInit.class);
+        bus.register(TCInit.class);
         ITEM_REGISTRY.register(bus);
         BLOCK_REGISTRY.register(bus);
         TILEENTITY_REGISTRY.register(bus);
@@ -98,8 +98,8 @@ public class GIRCInit {
     public static void registerDataComponents(final RegisterEvent event) {
         event.register(BuiltInRegistries.DATA_COMPONENT_TYPE.key(), registry -> {
             registry.register(
-                    Identifier.fromNamespaceAndPath(GIRCRedstoneMain.MODID, "compound_data"),
-                    GIRCRedstoneMain.COMPOUND_DATA);
+                    Identifier.fromNamespaceAndPath(TCRedstoneMain.MODID, "compound_data"),
+                    TCRedstoneMain.COMPOUND_DATA);
         });
     }
 
