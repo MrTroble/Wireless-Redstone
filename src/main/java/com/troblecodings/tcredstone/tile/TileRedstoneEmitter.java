@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.troblecodings.linkableapi.ILinkableTile;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
-import com.troblecodings.tcredstone.init.GIRCInit;
+import com.troblecodings.tcredstone.init.TCInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup.Provider;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class TileRedstoneEmitter extends BlockEntity implements ILinkableTile {
 
     public TileRedstoneEmitter(final BlockPos pos, final BlockState state) {
-        super(GIRCInit.EMITER_TILE.get(), pos, state);
+        super(TCInit.EMITER_TILE.get(), pos, state);
     }
 
     private BlockPos linkedpos = null;
