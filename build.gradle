@@ -57,10 +57,12 @@ jar {
 
     from("changelog.md")
     from("LICENSE")
+
+    enabled = false
 }
 
 shadowJar {
-    archiveClassifier.set('dev-shadow')
+    archiveClassifier.set('')
     configurations = []
     relocate 'com.troblecodings.linkableapi', "${project.group}.tcredstone.shadow.linkableapi"
 
@@ -85,7 +87,7 @@ tasks.register("publishCurseforge", net.darkhax.curseforgegradle.TaskPublishCurs
     if (key == null)
         key = 'dev'
     apiToken = key
-    def mainFile = upload(project.curseforge_project_id, jar)
+    def mainFile = upload(project.curseforge_project_id, shadowJar)
     mainFile.changelog = file("changelog.md").text
     mainFile.changelogType = 'markdown'
     mainFile.releaseType = 'release'
@@ -102,7 +104,7 @@ modrinth {
     versionNumber = project.version
     versionName = "${project.mod_name} ${project.version}"
 
-    uploadFile = jar
+    uploadFile = shadowJar
 
     gameVersions = [project.minecraft_version]
     loaders = [project.loader.toLowerCase()]
