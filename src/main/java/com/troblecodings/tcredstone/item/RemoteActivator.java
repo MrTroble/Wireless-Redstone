@@ -20,7 +20,7 @@ public class RemoteActivator extends Linkingtool {
 
     public RemoteActivator(final Properties properties, final CreativeModeTab tab,
             final BiPredicate<Level, BlockPos> predicate) {
-        super(properties, tab, predicate, _u -> false);
+        super(properties, tab, predicate, _u -> false, TCRedstoneMain.COMPOUND_DATA);
     }
 
     @Override
@@ -36,7 +36,6 @@ public class RemoteActivator extends Linkingtool {
                 final Optional<BlockPos> linkpos = readBlockPos(comp, LINKINGTOOL_TAG);
                 final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos, level);
                 message(player, "ra.state", String.valueOf(state));
-                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.SUCCESS;

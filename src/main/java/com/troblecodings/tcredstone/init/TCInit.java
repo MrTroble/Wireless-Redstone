@@ -58,19 +58,21 @@ public class TCInit {
     }
 
     public static final DeferredItem<Linkingtool> RS_LINKER = ITEM_REGISTRY.registerItem("linker",
-            props -> new Linkingtool(props, null, TCInit::acceptAcceptor));
+            props -> new Linkingtool(props, null, TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
     public static final DeferredItem<MultiLinkingTool> RS_MULTILINKER = ITEM_REGISTRY.registerItem(
-            "multilinker", props -> new MultiLinkingTool(props, null, TCInit::acceptAcceptor));
+            "multilinker", props -> new MultiLinkingTool(props, null, TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
     public static final DeferredItem<RemoteActivator> REMOTE_ACTIVATOR = ITEM_REGISTRY.registerItem(
             "activator", props -> new RemoteActivator(props, null, TCInit::acceptAcceptor));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<?>> EMITER_TILE =
-            TILEENTITY_REGISTRY.register("emitter", () -> new BlockEntityType<>(
-                    TileRedstoneEmitter::new, Set.of(RS_EMITTER.get())));
+            TILEENTITY_REGISTRY.register("emitter",
+                    () -> new BlockEntityType<>(TileRedstoneEmitter::new,
+                            Set.of(RS_EMITTER.get())));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<?>> MULTI_EMITER_TILE =
-            TILEENTITY_REGISTRY.register("multiemitter", () -> new BlockEntityType<>(
-                    TileRedstoneMultiEmitter::new, Set.of(RS_MULTI_EMITTER.get())));
+            TILEENTITY_REGISTRY.register("multiemitter",
+                    () -> new BlockEntityType<>(TileRedstoneMultiEmitter::new,
+                            Set.of(RS_MULTI_EMITTER.get())));
 
     private static <T extends Block> DeferredBlock<T> internalRegisterBlock(final String name,
             final Function<BlockBehaviour.Properties, T> factory,
