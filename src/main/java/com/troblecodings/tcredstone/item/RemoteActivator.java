@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 public class RemoteActivator extends Linkingtool {
 
     public RemoteActivator(final Settings settings, final BiPredicate<World, BlockPos> predicate) {
-        super(settings, null, predicate, _u1 -> false);
+        super(settings, null, predicate, _u1 -> false, TCRedstoneMain.COMPOUND_DATA);
     }
 
     @Override
