@@ -32,7 +32,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
-public class TCInit {
+public final class TCInit {
 
     public static final DeferredRegister<Item> ITEM_REGISTRY =
             DeferredRegister.create(ForgeRegistries.ITEMS, TCRedstoneMain.MODID);
@@ -57,9 +57,8 @@ public class TCInit {
 
     public static final RegistryObject<Item> RS_LINKER = ITEM_REGISTRY.register("linker",
             () -> new Linkingtool(null, TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
-    public static final RegistryObject<Item> RS_MULTILINKER =
-            ITEM_REGISTRY.register("multilinker", () -> new MultiLinkingTool(null,
-                    TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
+    public static final RegistryObject<Item> RS_MULTILINKER = ITEM_REGISTRY.register("multilinker",
+            () -> new MultiLinkingTool(null, TCInit::acceptAcceptor, TCRedstoneMain.COMPOUND_DATA));
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
             () -> new RemoteActivator(null, TCInit::acceptAcceptor));
 
@@ -70,6 +69,9 @@ public class TCInit {
     public static final RegistryObject<BlockEntityType<?>> MULTI_EMITER_TILE =
             TILEENTITY_REGISTRY.register("multiemitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
+
+    private TCInit() {
+    }
 
     private static final RegistryObject<Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
