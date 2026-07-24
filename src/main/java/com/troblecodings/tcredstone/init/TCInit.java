@@ -28,14 +28,14 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class TCInit {
+public final class TCInit {
 
-    public static final DeferredRegister<Item> ITEM_REGISTRY = DeferredRegister
-            .create(ForgeRegistries.ITEMS, TCRedstoneMain.MODID);
-    public static final DeferredRegister<Block> BLOCK_REGISTRY = DeferredRegister
-            .create(ForgeRegistries.BLOCKS, TCRedstoneMain.MODID);
-    public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY = DeferredRegister
-            .create(ForgeRegistries.BLOCK_ENTITIES, TCRedstoneMain.MODID);
+    public static final DeferredRegister<Item> ITEM_REGISTRY =
+            DeferredRegister.create(ForgeRegistries.ITEMS, TCRedstoneMain.MODID);
+    public static final DeferredRegister<Block> BLOCK_REGISTRY =
+            DeferredRegister.create(ForgeRegistries.BLOCKS, TCRedstoneMain.MODID);
+    public static final DeferredRegister<BlockEntityType<?>> TILEENTITY_REGISTRY =
+            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, TCRedstoneMain.MODID);
 
     public static final RegistryObject<Block> RS_ACCEPTOR = internalRegisterBlock("acceptor",
             () -> new BlockRedstoneAcceptor(BlockBehaviour.Properties.of(Material.METAL)
@@ -58,13 +58,16 @@ public class TCInit {
     public static final RegistryObject<Item> REMOTE_ACTIVATOR = ITEM_REGISTRY.register("activator",
             () -> new RemoteActivator(CreativeModeTab.TAB_REDSTONE, TCInit::acceptAcceptor));
 
-    public static final RegistryObject<BlockEntityType<?>> EMITER_TILE = TILEENTITY_REGISTRY
-            .register("emitter", () -> BlockEntityType.Builder
+    public static final RegistryObject<BlockEntityType<?>> EMITER_TILE =
+            TILEENTITY_REGISTRY.register("emitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneEmitter::new, RS_EMITTER.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<?>> MULTI_EMITER_TILE = TILEENTITY_REGISTRY
-            .register("multiemitter", () -> BlockEntityType.Builder
+    public static final RegistryObject<BlockEntityType<?>> MULTI_EMITER_TILE =
+            TILEENTITY_REGISTRY.register("multiemitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
+
+    private TCInit() {
+    }
 
     private static final RegistryObject<Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
