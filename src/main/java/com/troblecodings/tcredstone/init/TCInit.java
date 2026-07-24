@@ -30,7 +30,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class TCInit {
+public final class TCInit {
 
     public static final DeferredRegister<Item> ITEM_REGISTRY =
             DeferredRegister.create(ForgeRegistries.ITEMS, TCRedstoneMain.MODID);
@@ -67,6 +67,9 @@ public class TCInit {
     public static final RegistryObject<BlockEntityType<?>> MULTI_EMITER_TILE =
             TILEENTITY_REGISTRY.register("multiemitter", () -> BlockEntityType.Builder
                     .of(TileRedstoneMultiEmitter::new, RS_MULTI_EMITTER.get()).build(null));
+
+    private TCInit() {
+    }
 
     private static final RegistryObject<Block> internalRegisterBlock(final String name,
             final Supplier<Block> sup) {
