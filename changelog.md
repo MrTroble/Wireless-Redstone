@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.21.3 Neoforge - 3.2.4]
+## [1.21.3 Neoforge - 3.2.5]
 
 * feat: add item damage
 * fix: correct redstone update
