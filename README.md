@@ -25,8 +25,7 @@
 
 ### Build
 
-- ``./gradlew build`` or
-- ``./gradlew reobfShadowJar``
+- ``./gradlew build``
 
 ### License
 
