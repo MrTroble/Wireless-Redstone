@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.1 - 3.2.5.1]
+
+* chore: fix cf and md upload
+
 ## [1.20.1 - 3.2.5]
 
 * chore: update buildscript
