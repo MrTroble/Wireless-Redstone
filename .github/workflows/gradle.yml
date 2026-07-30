@@ -42,7 +42,7 @@ jobs:
       uses: gradle/actions/setup-gradle@v6
 
     - name: Build
-      run: ./gradlew reobfShadowJar
+      run: ./gradlew build
 
     - name: Publishing Curseforge
       if: github.event_name == 'push' && github.ref_protected && github.ref_type == 'branch'
