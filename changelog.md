@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.16.5 Fabric - 3.2.5]
+
+* chore: update buildscript
+* chore: relocate linkableapi
+
 ## [1.16.5 Fabric - 3.2.4]
 
 * fix: multi-linking tool
