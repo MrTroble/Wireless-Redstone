@@ -1,20 +1,21 @@
-buildscript {
-    repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url "https://plugins.gradle.org/m2/" }
-        jcenter()
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
-        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
-    }
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+    id 'com.gradleup.shadow' version '9.2.0+'
+	id 'eclipse'
+	id 'net.darkhax.curseforgegradle' version '1.3.+'
+	id "com.modrinth.minotaur" version "2.+"
 }
-        
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-apply plugin: "com.matthewprenger.cursegradle"
+
+group = project.mod_group
+version = project.mod_version
+
+base {
+	archivesName = "${project.mod_name}-${project.minecraft_version}-${project.loader}"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(project.java_version.toInteger())
+}
 
 sourceSets{
     main {
@@ -24,92 +25,93 @@ sourceSets{
     }
 }
 
-def key = System.getenv("CURSETOKEN")
-if(key == null)
-	key = 'dev'
-curseforge {
-  apiKey = key
-  project {
-    id = '503143'
-    changelog = file('changelog.md')
-    changelogType = 'markdown'
-    releaseType = 'release'
-    addGameVersion 'Java 17'
-  }
-}
-
-
-def ver = System.getenv("APPVEYOR_BUILD_VERSION")
-if(ver == null)
-	ver = "dev"
-version = ver
-group = 'com.troblecodings'
-archivesBaseName = 'TC-Redstone-1.20.1'
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-minecraft {
-    mappings channel: 'official', version: '1.20.1'
-
-    runs {
-        client {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            
-            mods {
-                gircredstone {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            
-            mods {
-                gircredstone {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
-}
-
-repositories {
-
-}
-
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
 }
 
 jar {
+    dependsOn shadowJar
+
     manifest {
         attributes([
-            "Specification-Title": "TC-Redstone",
+            "Specification-Title": project.mod_name,
             "Specification-Vendor": "troblecodings",
-            "Specification-Version": ver,
-            "Implementation-Title": project.name,
-            "Implementation-Version": ver,
-            "Implementation-Vendor" :"troblecodings",
+            "Specification-Version": project.version,
+            "Implementation-Title": project.mod_name,
+            "Implementation-Version": project.version,
+            "Implementation-Vendor": "troblecodings",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+
+    from("changelog.md")
+    from("LICENSE")
+
+    enabled = false
 }
 
-jar.finalizedBy('reobfJar') 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
+shadowJar {
+    archiveClassifier.set('')
+    configurations = []
+    relocate 'com.troblecodings.linkableapi', "${project.group}.tcredstone.shadow.linkableapi"
+
+    manifest {
+        attributes([
+            "Specification-Title": project.mod_name,
+            "Specification-Vendor": "troblecodings",
+            "Specification-Version": project.version,
+            "Implementation-Title": project.mod_name,
+            "Implementation-Version": project.version,
+            "Implementation-Vendor": "troblecodings",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
     }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
-    }
+
+    from("changelog.md")
+    from("LICENSE")
+}
+
+tasks.register("publishCurseforge", net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    def key = System.getenv("CURSETOKEN")
+    if (key == null)
+        key = 'dev'
+    apiToken = key
+    def mainFile = upload(project.curseforge_project_id, shadowJar)
+    mainFile.changelog = file("changelog.md").text
+    mainFile.changelogType = 'markdown'
+    mainFile.releaseType = 'release'
+    mainFile.addModLoader("${project.loader}")
+    mainFile.addEnvironment("Client", "Server")
+    mainFile.addGameVersion("${project.minecraft_version}")
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+
+    projectId = project.modrinth_project_id
+
+    versionNumber = project.version
+    versionName = "${project.mod_name} ${project.version}"
+
+    uploadFile = shadowJar
+
+    gameVersions = [project.minecraft_version]
+    loaders = [project.loader.toLowerCase()]
+
+    changelog = file("changelog.md").text
+}
+
+tasks.register("publishModrinth") {
+    dependsOn("modrinth")
 }
