@@ -1,7 +1,25 @@
 # Changelog
 
-## [1.20.1 - 3.2.2]
+## [1.21.4 Neoforge - 3.2.5]
 
+* feat: add item damage
+* fix: correct redstone update
+* fix: multilinking tooltag
+* ref: update linkable api
+* ref: update buildpipeline
+
+## [1.21 - 3.2.3]
+
+* port 1.21
+
+## [1.20.4 - 3.2.3]
+
+* feat: add item damage
+* ref: update linkable api
+
+## [1.20.4 - 3.2.2]
+
+* port 1.20.4
 * rem: debug output
 
 ## [1.20.1-3.2.1]
