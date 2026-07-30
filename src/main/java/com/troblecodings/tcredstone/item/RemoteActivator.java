@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 public class RemoteActivator extends Linkingtool {
 
     public RemoteActivator(final BiPredicate<World, BlockPos> predicate) {
-        super(null, predicate, _u1 -> false);
+        super(null, predicate, _u1 -> false, TCRedstoneMain.COMPOUND_DATA);
     }
 
     @Override
@@ -35,7 +35,6 @@ public class RemoteActivator extends Linkingtool {
                 final Optional<BlockPos> linkpos = NbtHelper.toBlockPos(comp, LINKINGTOOL_TAG);
                 final boolean state = TileRedstoneEmitter.redstoneUpdate(linkpos.get(), level);
                 message(player, "ra.state", String.valueOf(state));
-                return TypedActionResult.success(itemstack);
             }
         }
         return TypedActionResult.success(itemstack);
