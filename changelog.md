@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.6 - 3.2.5.1]
+
+* chore: fix modrinth upload
+
 ## [1.20.6 - 3.2.5]
 
 * chore: update buildscript
