@@ -3,7 +3,7 @@ package com.troblecodings.tcredstone.block;
 import java.util.List;
 
 import com.troblecodings.linkableapi.Message;
-import com.troblecodings.tcredstone.init.GIRCInit;
+import com.troblecodings.tcredstone.init.TCInit;
 import com.troblecodings.tcredstone.tile.TileRedstoneMultiEmitter;
 
 import net.minecraft.core.BlockPos;
@@ -32,7 +32,7 @@ public class BlockRedstoneMultiEmitter extends BlockRedstoneEmitter implements M
             final Player player, final InteractionHand hand, final BlockHitResult hit) {
         if (world.isClientSide)
             return InteractionResult.PASS;
-        if (player.getItemInHand(hand).getItem().equals(GIRCInit.RS_LINKER.get()))
+        if (player.getItemInHand(hand).getItem().equals(TCInit.RS_LINKER.get()))
             return InteractionResult.PASS;
         final BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof TileRedstoneMultiEmitter) {
