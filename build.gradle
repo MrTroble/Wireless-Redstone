@@ -94,7 +94,7 @@ modrinth {
     uploadFile = shadowJar
 
     gameVersions = [project.minecraft_version]
-    loaders = [project.loader]
+    loaders = [project.loader.toLowerCase()]
 
     changelog = file("changelog.md").text
 }
