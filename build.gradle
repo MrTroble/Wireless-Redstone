@@ -45,7 +45,7 @@ dependencies {
 }
 
 jar {
-    enabled = false
+    archiveClassifier.set("old")
 }
 
 shadowJar {
@@ -102,7 +102,7 @@ modrinth {
     uploadFile = reobfShadowJar
 
     gameVersions = [project.minecraft_version]
-    loaders = [project.loader]
+    loaders = [project.loader.toLowerCase()]
 
     changelog = file("changelog.md").text
 }
