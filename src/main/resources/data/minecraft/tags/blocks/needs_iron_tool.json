@@ -1,8 +1,0 @@
-{
-	"replace": false,
-	"values": [
-		"gircredstone:acceptor",
-		"gircredstone:emitter",
-		"gircredstone:multiemitter"
-	]
-}
