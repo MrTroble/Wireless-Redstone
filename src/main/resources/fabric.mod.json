@@ -1,0 +1,26 @@
+{
+	"schemaVersion": 1,
+	"id": "tcredstone",
+	"version": "${version}",
+	"name": "TC Redstone",
+	"description": "Wireless Redstone Mod - Works in unloaded Chunks TM.",
+	"authors": ["MrTroble", "Jeronimo", "Luex"],
+	"contact": {
+		"homepage": "https://troblecodings.com/",
+		"issues": "https://github.com/MrTroble/Wireless-Redstone/issues",
+		"sources": "https://github.com/MrTroble/Wireless-Redstone/",
+		"discord": "https://discord.gg/E7qhYeR"
+	},
+	"credits": "German Immersive Railroading Community",
+	"license": "Apache License Version 2.0",
+	"icon": "assets/tcredstone/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["com.troblecodings.tcredstone.TCRedstoneMain"]
+	},
+	"depends": {
+		"fabricloader": ">=0.17.3",
+		"minecraft": "1.21.10",
+		"java": ">=21"
+	}
+}
