@@ -1,26 +1,26 @@
 modLoader="javafml"
-loaderVersion="[46,)"
-issueTrackerURL="https://github.com/German-Immersive-Railroading-Community/GIRC-Redstone/issues"
-license="Apache License Version 2.0"
+loaderVersion="[5,)"
+issueTrackerURL="https://github.com/MrTroble/Wireless-Redstone/issues"
+license="Apache-2.0"
 
 [[mods]]
 modId="gircredstone"
 version="${file.jarVersion}"
 displayName="TC Redstone"
 displayURL="https://troblecodings.com/"
-authors="MrTroble, Jeronimo"
+authors="MrTroble, Jeronimo, Luex"
 description="Works in unloaded Chunks TM."
 
 [[dependencies.gircredstone]]
-    modId="forge" 
-    mandatory=true 
-    versionRange="[46,)" 
+    modId="neoforge"
+    type="required"
+    versionRange="[21.5,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.gircredstone]]
     modId="minecraft"
-    mandatory=true
-    versionRange="[1.20,)"
+    type="required"
+    versionRange="[1.21.5]"
     ordering="NONE"
     side="BOTH"
