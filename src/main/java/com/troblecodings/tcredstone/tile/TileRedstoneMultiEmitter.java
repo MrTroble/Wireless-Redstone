@@ -2,18 +2,23 @@ package com.troblecodings.tcredstone.tile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.troblecodings.linkableapi.ILinkableTile;
+import com.troblecodings.linkableapi.MultiLinkingTool;
 import com.troblecodings.tcredstone.block.BlockRedstoneAcceptor;
-import com.troblecodings.tcredstone.init.GIRCInit;
+import com.troblecodings.tcredstone.init.TCInit;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtHelper;
+import net.minecraft.nbt.NbtIntArray;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.RegistryWrapper.WrapperLookup;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTile {
 
@@ -22,15 +27,15 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     private static final String LINKED_POS_LIST = "linkedPos";
 
     public TileRedstoneMultiEmitter(final BlockPos pos, final BlockState state) {
-        super(GIRCInit.MULTI_EMITER_TILE.get(), pos, state);
+        super(TCInit.MULTI_EMITER_TILE, pos, state);
     }
 
-    public CompoundTag writeBlockPosToNBT(final List<BlockPos> pos, final CompoundTag compound) {
+    public NbtCompound writeBlockPosToNBT(final List<BlockPos> pos, final NbtCompound compound) {
         if (pos != null && compound != null) {
 
-            final ListTag list = new ListTag();
+            final NbtList list = new NbtList();
             listOfPositions.forEach(blockpos -> {
-                final CompoundTag item = NbtUtils.writeBlockPos(blockpos);
+                final NbtElement item = NbtHelper.fromBlockPos(blockpos);
                 list.add(item);
             });
             compound.put(LINKED_POS_LIST, list);
@@ -38,13 +43,13 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
         return compound;
     }
 
-    public List<BlockPos> readBlockPosFromNBT(final CompoundTag compound) {
-        final ListTag list = (ListTag) compound.get(LINKED_POS_LIST);
+    public List<BlockPos> readBlockPosFromNBT(final NbtCompound compound) {
+        final NbtList list = (NbtList) compound.get(LINKED_POS_LIST);
         if (list != null) {
             listOfPositions.clear();
             list.forEach(pos -> {
-                final CompoundTag item = (CompoundTag) pos;
-                listOfPositions.add(NbtUtils.readBlockPos(item));
+                listOfPositions
+                        .add(MultiLinkingTool.toBlockPos((NbtIntArray) pos, LINKED_POS_LIST).get());
             });
             return listOfPositions;
         }
@@ -57,9 +62,9 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     }
 
     @Override
-    public boolean link(final BlockPos pos) {
-        if (pos != null && !listOfPositions.contains(pos)) {
-            listOfPositions.add(pos);
+    public boolean link(final Optional<BlockPos> pos) {
+        if (pos != null && !listOfPositions.contains(pos.get())) {
+            listOfPositions.add(pos.get());
             return true;
         }
         return false;
@@ -78,41 +83,29 @@ public class TileRedstoneMultiEmitter extends BlockEntity implements ILinkableTi
     }
 
     @Override
-    public void load(final CompoundTag compound) {
-        super.load(compound);
+    protected void readNbt(final NbtCompound compound, final WrapperLookup wrapperLookup) {
+        super.readNbt(compound, wrapperLookup);
         this.listOfPositions = readBlockPosFromNBT(compound);
     }
 
     @Override
-    protected void saveAdditional(final CompoundTag compound) {
-        super.saveAdditional(compound);
+    protected void writeNbt(final NbtCompound compound, final WrapperLookup wrapperLookup) {
+        super.writeNbt(compound, wrapperLookup);
         writeBlockPosToNBT(listOfPositions, compound);
     }
 
     public void redstoneUpdate(final boolean enabled) {
-        listOfPositions.forEach(blockpos -> redstoneUpdate(enabled, blockpos, level));
+        listOfPositions.forEach(blockpos -> redstoneUpdate(enabled, blockpos, world));
     }
 
     public static boolean redstoneUpdate(final boolean enabled, final BlockPos linkedpos,
-            final Level level) {
+            final World level) {
         if (linkedpos != null) {
             final BlockState state = level.getBlockState(linkedpos);
             if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, enabled), 3);
+                level.setBlockState(linkedpos, state.with(BlockRedstoneAcceptor.POWER, enabled), 3);
             }
         }
         return enabled;
-    }
-
-    public static boolean redstoneUpdate(final BlockPos linkedpos, final Level level) {
-        if (linkedpos != null) {
-            final BlockState state = level.getBlockState(linkedpos);
-            if (state.getBlock() instanceof BlockRedstoneAcceptor) {
-                final boolean newState = !state.getValue(BlockRedstoneAcceptor.POWER);
-                level.setBlock(linkedpos, state.setValue(BlockRedstoneAcceptor.POWER, newState), 3);
-                return newState;
-            }
-        }
-        return false;
     }
 }
