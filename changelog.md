@@ -1,8 +1,20 @@
 # Changelog
 
-## [1.20.1 - 3.2.2]
+## [1.21.5 Fabric - 3.2.5]
 
-* rem: debug output
+* feat: add item damage
+* fix: correct redstone update
+* fix: multilinking tooltag
+* ref: update linkable api
+* ref: update buildpipeline
+
+## [1.21 Fabric - 3.2.3]
+
+* port to 1.21
+
+## [1.20.4 Fabric - 3.2.3]
+
+* port to fabric
 
 ## [1.20.1-3.2.1]
 
