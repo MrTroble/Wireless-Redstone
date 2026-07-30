@@ -45,7 +45,7 @@ dependencies {
 }
 
 jar {
-    enabled = false
+    archiveClassifier.set("old")
 }
 
 shadowJar {
@@ -82,7 +82,7 @@ tasks.register("publishCurseforge", net.darkhax.curseforgegradle.TaskPublishCurs
     if (key == null)
         key = 'dev'
     apiToken = key
-    def mainFile = upload(project.curseforge_project_id, reobfShadowJar)
+    def mainFile = upload(project.curseforge_project_id, shadowJar)
     mainFile.changelog = file("changelog.md").text
     mainFile.changelogType = 'markdown'
     mainFile.releaseType = 'release'
@@ -99,10 +99,10 @@ modrinth {
     versionNumber = project.version
     versionName = "${project.mod_name} ${project.version}"
 
-    uploadFile = reobfShadowJar
+    uploadFile = shadowJar
 
     gameVersions = [project.minecraft_version]
-    loaders = [project.loader]
+    loaders = [project.loader.toLowerCase()]
 
     changelog = file("changelog.md").text
 }
