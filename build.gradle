@@ -73,16 +73,17 @@ reobf {
     shadowJar {}
 }
 
-tasks.named("build") {
-    dependsOn("reobfShadowJar")
-}
+def releaseJar = file("$buildDir/libs/${project.mod_name}-${project.minecraft_version}-${project.mod_version}.jar")
 
 tasks.register("publishCurseforge", net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    dependsOn("reobfShadowJar")
+
     def key = System.getenv("CURSETOKEN")
     if (key == null)
         key = 'dev'
     apiToken = key
-    def mainFile = upload(project.curseforge_project_id, shadowJar)
+
+    def mainFile = upload(project.curseforge_project_id, releaseJar)
     mainFile.changelog = file("changelog.md").text
     mainFile.changelogType = 'markdown'
     mainFile.releaseType = 'release'
@@ -99,7 +100,7 @@ modrinth {
     versionNumber = project.version
     versionName = "${project.mod_name} ${project.version}"
 
-    uploadFile = shadowJar
+    uploadFile = releaseJar
 
     gameVersions = [project.minecraft_version]
     loaders = [project.loader.toLowerCase()]
@@ -108,5 +109,6 @@ modrinth {
 }
 
 tasks.register("publishModrinth") {
+    dependsOn("reobfShadowJar")
     dependsOn("modrinth")
 }
