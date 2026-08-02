@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.14.4 - 3.2.5.2]
+
+* chore: fix cf and md upload file
+
 ## [1.14.4 - 3.2.5.1]
 
 * chore: fix cf and md upload
