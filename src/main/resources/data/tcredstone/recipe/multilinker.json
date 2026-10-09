@@ -7,15 +7,9 @@
         " x "
     ],
     "key": {
-        "I": {
-            "item": "minecraft:quartz"
-        },
-        "i": {
-            "item": "minecraft:redstone_torch"
-        },
-        "x": {
-            "item": "minecraft:diamond"
-        }
+        "I": "minecraft:quartz",
+        "i": "minecraft:redstone_torch",
+        "x": "minecraft:diamond"
     },
     "result": {
         "id": "tcredstone:multilinker"
