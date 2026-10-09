@@ -7,21 +7,11 @@
         "IZI"
     ],
     "key": {
-        "I": {
-            "item": "minecraft:redstone_block"
-        },
-        "i": {
-            "item": "minecraft:redstone_torch"
-        },
-        "X": {
-            "item": "minecraft:white_concrete"
-        },
-        "Y": {
-            "item": "minecraft:obsidian"
-        },
-        "Z": {
-            "item": "minecraft:diamond"
-        }
+        "I": "minecraft:redstone_block",
+        "i": "minecraft:redstone_torch",
+        "X": "minecraft:white_concrete",
+        "Y": "minecraft:obsidian",
+        "Z": "minecraft:diamond"
     },
     "result": {
         "id": "tcredstone:acceptor"
