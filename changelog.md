@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.21 - 3.2.6]
+
+* fix: crafting recipes
+
+## [1.21 - 3.2.5.1]
+
+* chore: fix modrinth upload
+
 ## [1.21 - 3.2.5]
 
 * chore: update buildscript

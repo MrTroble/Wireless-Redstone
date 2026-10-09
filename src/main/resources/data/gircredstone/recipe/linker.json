@@ -1,9 +1,8 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        " I ",
-        " i ",
-        " x "
+        "I",
+        "i"
     ],
     "key": {
         "I": {
@@ -11,12 +10,9 @@
         },
         "i": {
             "item": "minecraft:redstone_torch"
-        },
-        "x": {
-            "item": "minecraft:diamond"
         }
     },
     "result": {
-        "item": "gircredstone:multilinker"
+        "id": "gircredstone:linker"
     }
 }
