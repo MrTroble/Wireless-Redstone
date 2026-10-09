@@ -1,16 +1,13 @@
 {
     "type": "minecraft:crafting_shaped",
+    "category": "redstone",
     "pattern": [
         "I",
         "i"
     ],
     "key": {
-        "I": {
-            "item": "minecraft:redstone"
-        },
-        "i": {
-            "item": "minecraft:lever"
-        }
+        "I": "minecraft:redstone",
+        "i": "minecraft:lever"
     },
     "result": {
         "id": "gircredstone:activator"
