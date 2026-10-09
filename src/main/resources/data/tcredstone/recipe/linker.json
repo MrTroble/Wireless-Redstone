@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "I",
+        "i"
+    ],
+    "key": {
+        "I": {
+            "item": "minecraft:quartz"
+        },
+        "i": {
+            "item": "minecraft:redstone_torch"
+        }
+    },
+    "result": {
+        "id": "tcredstone:linker"
+    }
+}
