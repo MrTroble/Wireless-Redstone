@@ -1,9 +1,8 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "   ",
-        " I ",
-        " i "
+        "I",
+        "i"
     ],
     "key": {
         "I": {
@@ -14,6 +13,6 @@
         }
     },
     "result": {
-        "item": "gircredstone:activator"
+        "id": "gircredstone:activator"
     }
 }
