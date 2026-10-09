@@ -1,9 +1,9 @@
 {
     "type": "crafting_shaped",
     "pattern": [
-        "IZI",
+        "IiI",
         "XYX",
-        "IiI"
+        "IZI"
     ],
     "key": {
         "I": {
@@ -23,6 +23,6 @@
         }
     },
     "result": {
-        "item": "gircredstone:multiemitter"
+        "id": "gircredstone:emitter"
     }
 }

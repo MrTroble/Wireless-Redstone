@@ -1,16 +1,16 @@
 {
     "type": "crafting_shaped",
     "pattern": [
-        "IiI",
+        "IZI",
         "XYX",
-        "IZI"
+        "IiI"
     ],
     "key": {
         "I": {
             "item": "minecraft:redstone_block"
         },
         "i": {
-            "item": "minecraft:redstone_torch"
+            "item": "minecraft:redstone"
         },
         "X": {
             "item": "minecraft:white_concrete"
@@ -23,6 +23,6 @@
         }
     },
     "result": {
-        "item": "gircredstone:acceptor"
+        "id": "gircredstone:multiemitter"
     }
 }
