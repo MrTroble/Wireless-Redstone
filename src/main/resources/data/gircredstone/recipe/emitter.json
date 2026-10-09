@@ -1,26 +1,17 @@
 {
     "type": "crafting_shaped",
+    "category": "redstone",
     "pattern": [
         "IiI",
         "XYX",
         "IZI"
     ],
     "key": {
-        "I": {
-            "item": "minecraft:redstone_block"
-        },
-        "i": {
-            "item": "minecraft:redstone"
-        },
-        "X": {
-            "item": "minecraft:white_concrete"
-        },
-        "Y": {
-            "item": "minecraft:obsidian"
-        },
-        "Z": {
-            "item": "minecraft:diamond"
-        }
+        "I": "minecraft:redstone_block",
+        "i": "minecraft:redstone",
+        "X": "minecraft:white_concrete",
+        "Y": "minecraft:obsidian",
+        "Z": "minecraft:diamond"
     },
     "result": {
         "id": "gircredstone:emitter"

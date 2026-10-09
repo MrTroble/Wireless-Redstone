@@ -1,16 +1,13 @@
 {
     "type": "minecraft:crafting_shaped",
+    "category": "redstone",
     "pattern": [
         "I",
         "i"
     ],
     "key": {
-        "I": {
-            "item": "minecraft:quartz"
-        },
-        "i": {
-            "item": "minecraft:redstone_torch"
-        }
+        "I": "minecraft:quartz",
+        "i": "minecraft:redstone_torch"
     },
     "result": {
         "id": "gircredstone:linker"
