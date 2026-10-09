@@ -6,12 +6,8 @@
         "i"
     ],
     "key": {
-        "I": {
-            "item": "minecraft:redstone"
-        },
-        "i": {
-            "item": "minecraft:lever"
-        }
+        "I": "minecraft:redstone",
+        "i": "minecraft:lever"
     },
     "result": {
         "id": "tcredstone:activator"
