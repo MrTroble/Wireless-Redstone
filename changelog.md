@@ -1,6 +1,15 @@
 # Changelog
 
+## [1.21.4 Fabric - 3.2.6]
+
+* fix: crafting recipes
+
 ## [1.21.4 Fabric - 3.2.5]
+
+* chore: update buildscript
+* chore: relocate linkableapi
+
+## [1.21.1 Fabric - 3.2.4]
 
 * feat: add item damage
 * fix: correct redstone update
