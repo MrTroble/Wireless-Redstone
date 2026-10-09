@@ -1,7 +1,8 @@
 # Changelog
 
-## [26.2 Fabric - 3.2.6]
+## [26.3 Fabric - 3.2.6]
 
+* port: 26.3 Fabric
 * fix: crafting recipes
 
 ## [26.2 Fabric - 3.2.5]
