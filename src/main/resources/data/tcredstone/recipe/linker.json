@@ -6,12 +6,8 @@
         "i"
     ],
     "key": {
-        "I": {
-            "item": "minecraft:quartz"
-        },
-        "i": {
-            "item": "minecraft:redstone_torch"
-        }
+        "I": "minecraft:quartz",
+        "i": "minecraft:redstone_torch"
     },
     "result": {
         "id": "tcredstone:linker"
