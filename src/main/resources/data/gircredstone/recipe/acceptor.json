@@ -10,7 +10,7 @@
             "item": "minecraft:redstone_block"
         },
         "i": {
-            "item": "minecraft:redstone"
+            "item": "minecraft:redstone_torch"
         },
         "X": {
             "item": "minecraft:white_concrete"
@@ -23,6 +23,6 @@
         }
     },
     "result": {
-        "item": "gircredstone:emitter"
+        "id": "gircredstone:acceptor"
     }
 }
