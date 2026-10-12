@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "redstone",
+    "pattern": [
+        " I ",
+        " i ",
+        " x "
+    ],
+    "key": {
+        "I": "minecraft:quartz",
+        "i": "minecraft:redstone_torch",
+        "x": "minecraft:diamond"
+    },
+    "result": {
+        "id": "tcredstone:multilinker"
+    }
+}
