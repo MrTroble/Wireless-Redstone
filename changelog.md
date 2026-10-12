@@ -1,5 +1,10 @@
 # Changelog
 
+## [26.3 Neoforge - 3.2.6]
+
+* port: 26.3 Neoforge
+* fix: crafting recipes
+
 ## [26.2 Neoforge - 3.2.5]
 
 * feat: add item damage
