@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.21.11 Neoforge - 3.2.6]
+
+* fix: crafting recipes
+
 ## [1.21.11 Neoforge - 3.2.5]
 
 * feat: add item damage
