@@ -1,0 +1,19 @@
+{
+    "type": "crafting_shaped",
+    "category": "redstone",
+    "pattern": [
+        "IiI",
+        "XYX",
+        "IZI"
+    ],
+    "key": {
+        "I": "minecraft:redstone_block",
+        "i": "minecraft:redstone_torch",
+        "X": "minecraft:white_concrete",
+        "Y": "minecraft:obsidian",
+        "Z": "minecraft:diamond"
+    },
+    "result": {
+        "id": "tcredstone:acceptor"
+    }
+}
